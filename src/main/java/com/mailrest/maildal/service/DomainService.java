@@ -1,5 +1,5 @@
 package com.mailrest.maildal.service;
 
-public interface DomainService {
+public interface DomainService extends AbstractService {
 
 }
