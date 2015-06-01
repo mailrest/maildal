@@ -4,12 +4,9 @@
  */
 package com.mailrest.maildal.util;
 
-import java.security.SecureRandom;
 
 public final class AccountId {
 
-	private final static SecureRandom r = new SecureRandom();
-	
 	private AccountId() {
 	}
 
@@ -18,7 +15,7 @@ public final class AccountId {
 	}
 	
 	private static int nextInt() {
-		return Math.abs(r.nextInt() % 100000);
+		return Math.abs(RandomInstance.INSTANCE.random().nextInt() % 100000);
 	}
 	
 }
