@@ -5,7 +5,7 @@
 package com.mailrest.maildal.dsl;
 
 
-public enum LinkType {
+public enum CallbackAction {
 
 	CONFIRM_EMAIL,
 	

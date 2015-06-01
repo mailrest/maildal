@@ -13,7 +13,7 @@ import com.noorq.casser.mapping.annotation.Table;
 import com.noorq.casser.mapping.annotation.Types;
 
 @Table
-public interface ActionEvent {
+public interface SenderEvent {
 
 	@PartitionKey
 	String accountId();
@@ -24,6 +24,6 @@ public interface ActionEvent {
 	
 	String messageId();
 	
-	EventType eventType();
+	ActionType actionType();
 	
 }

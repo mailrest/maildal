@@ -21,7 +21,7 @@ public interface UserLink {
 	@PartitionKey
 	String linkId();
 	
-	LinkType action();
+	CallbackAction action();
 	
 	String email();
 	

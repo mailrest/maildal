@@ -5,7 +5,7 @@
 package com.mailrest.maildal.dsl;
 
 
-public enum EventType {
+public enum ActionType {
 
 	// message has been placed in queue
 	ACCEPTED, 
