@@ -1,3 +1,7 @@
+/*
+ *      Copyright (C) 2015 Noorq, Inc.
+ *      All rights reserved.
+ */
 package com.mailrest.maildal.dsl;
 
 import com.noorq.casser.mapping.annotation.PartitionKey;
