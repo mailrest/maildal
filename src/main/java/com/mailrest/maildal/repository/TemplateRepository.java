@@ -2,10 +2,10 @@
  *      Copyright (C) 2015 Noorq, Inc.
  *      All rights reserved.
  */
-package com.mailrest.maildal.service;
+package com.mailrest.maildal.repository;
 
 
-public interface TemplateService extends AbstractService {
+public interface TemplateRepository extends AbstractRepository {
 	
 	default int createTemplate() {
 		return 0;
