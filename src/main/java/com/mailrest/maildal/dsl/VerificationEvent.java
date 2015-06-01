@@ -22,7 +22,7 @@ public interface VerificationEvent {
 	@ClusteringColumn(ordering=OrderingDirection.DESC)
 	UUID eventAt();
 	
-	VerificationType status();
+	VerificationStatus status();
 	
 	String message();
 	

@@ -5,7 +5,7 @@
 package com.mailrest.maildal.dsl;
 
 
-public enum TemplateType {
+public enum TemplateEngine {
 
 	VELOCITY,
 	

@@ -16,7 +16,7 @@ public interface Template {
 	@PartitionKey(ordinal=1)
 	String name();
 	
-	TemplateType engine();
+	TemplateEngine engine();
 	
 	String from();
 	

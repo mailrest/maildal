@@ -23,16 +23,10 @@ public interface Account {
 	Date createdAt();
 	
 	/*
-	 * Normalized to lowercase email
+	 * lower-case email
 	 */
 	
 	String email();
-	
-	/*
-	 * Randomly generated ApiKey like this EYgbQpG0Q9uM9ND5ViJArw
-	 */
-	
-	String apiKey();
 	
 	String firstName();
 

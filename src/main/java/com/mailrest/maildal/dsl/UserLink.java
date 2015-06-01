@@ -12,10 +12,10 @@ import com.noorq.casser.mapping.annotation.Table;
  */
 
 @Table
-public interface ClickLink {
+public interface UserLink {
 
 	/*
-	 * Randomly generated linkId (can be UUID)
+	 * Randomly generated linkId 
 	 */
 	
 	@PartitionKey

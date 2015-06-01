@@ -14,7 +14,7 @@ import com.noorq.casser.mapping.annotation.Table;
 public interface Domain {
 
 	/*
-	 * Domain name lt.su, for example
+	 * Lower-case domain name, for example lt.su
 	 */
 	
 	@PartitionKey

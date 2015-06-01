@@ -24,6 +24,6 @@ public interface ActionEvent {
 	
 	String messageId();
 	
-	EventType status();
+	EventType eventType();
 	
 }

@@ -2,7 +2,9 @@
  *      Copyright (C) 2015 Noorq, Inc.
  *      All rights reserved.
  */
-package com.mailrest.maildal.util;
+package com.mailrest.maildal.idgen;
+
+import com.mailrest.maildal.util.RandomInstance;
 
 
 public final class AccountId {
