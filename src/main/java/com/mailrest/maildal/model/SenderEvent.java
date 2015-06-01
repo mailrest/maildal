@@ -2,26 +2,28 @@
  *      Copyright (C) 2015 Noorq, Inc.
  *      All rights reserved.
  */
-package com.mailrest.maildal.dsl;
+package com.mailrest.maildal.model;
 
-import java.util.Date;
+import java.util.UUID;
 
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
+import com.noorq.casser.mapping.annotation.Types;
 
 @Table
-public interface LoginEvent {
+public interface SenderEvent {
 
 	@PartitionKey
 	String accountId();
-
-	@ClusteringColumn(ordering=OrderingDirection.DESC)
-	Date loginAt();
 	
-	String ip();
-
-	String userAgent();
-
+	@Types.Timeuuid
+	@ClusteringColumn(ordering=OrderingDirection.DESC)
+	UUID eventAt();
+	
+	String messageId();
+	
+	ActionType actionType();
+	
 }
