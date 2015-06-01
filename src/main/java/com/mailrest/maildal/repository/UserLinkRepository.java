@@ -21,6 +21,8 @@ public interface UserLinkRepository extends AbstractRepository  {
 
 	static final UserLink userLink = Casser.dsl(UserLink.class);
 
+	static final int ONE_DAY = 3600 * 24;
+	
 	default ListenableFuture<Stream<Fun.Tuple2<String, CallbackAction>>> lookup(String linkId) {
 		
 		return session()
@@ -40,6 +42,7 @@ public interface UserLinkRepository extends AbstractRepository  {
 		.value(userLink::linkId, linkId)
 		.value(userLink::email, email)
 		.value(userLink::action, action)
+		.usingTtl(ONE_DAY)
 		.async();
 		
 		return Futures.transform(rsFuture, new Function<ResultSet, String>() {
