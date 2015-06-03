@@ -2,14 +2,14 @@
  *      Copyright (C) 2015 Noorq, Inc.
  *      All rights reserved.
  */
-package com.mailrest.maildal.idgen;
+package com.mailrest.maildal.gen;
 
 
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.mailrest.maildal.idgen.AccountId;
+import com.mailrest.maildal.gen.AccountId;
 
 public class AccountIdTest {
 

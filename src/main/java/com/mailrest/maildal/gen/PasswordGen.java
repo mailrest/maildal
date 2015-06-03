@@ -2,20 +2,20 @@
  *      Copyright (C) 2015 Noorq, Inc.
  *      All rights reserved.
  */
-package com.mailrest.maildal.idgen;
+package com.mailrest.maildal.gen;
 
-import com.mailrest.maildal.util.Base62;
+import com.mailrest.maildal.util.Base58;
 import com.mailrest.maildal.util.RandomInstance;
 
-public final class LinkId {
+public final class PasswordGen {
 
-	private final static int KEY_LENGTH = 128 / 8;
+	private final static int KEY_LENGTH = 80 / 8;
 	
-	private LinkId() {
+	private PasswordGen() {
 	}
-
+	
 	public static String next() {
-		return Base62.INSTANCE.encode(rnd(KEY_LENGTH));
+		return Base58.INSTANCE.encode(rnd(KEY_LENGTH));
 	}
 	
 	private static byte[] rnd(int length) {
@@ -23,5 +23,4 @@ public final class LinkId {
 		RandomInstance.INSTANCE.random().nextBytes(bytes);
 		return bytes;
 	}
-	
 }

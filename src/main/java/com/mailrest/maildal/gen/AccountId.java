@@ -2,7 +2,7 @@
  *      Copyright (C) 2015 Noorq, Inc.
  *      All rights reserved.
  */
-package com.mailrest.maildal.idgen;
+package com.mailrest.maildal.gen;
 
 import com.mailrest.maildal.util.RandomInstance;
 

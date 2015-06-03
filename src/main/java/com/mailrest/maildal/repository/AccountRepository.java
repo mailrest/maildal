@@ -8,7 +8,7 @@ import com.datastax.driver.core.ResultSet;
 import com.google.common.base.Function;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.mailrest.maildal.idgen.AccountId;
+import com.mailrest.maildal.gen.AccountId;
 import com.mailrest.maildal.model.Account;
 import com.noorq.casser.core.Casser;
 

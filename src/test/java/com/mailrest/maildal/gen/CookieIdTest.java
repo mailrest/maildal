@@ -2,11 +2,11 @@
  *      Copyright (C) 2015 Noorq, Inc.
  *      All rights reserved.
  */
-package com.mailrest.maildal.idgen;
+package com.mailrest.maildal.gen;
 
 import org.junit.Test;
 
-import com.mailrest.maildal.idgen.CookieId;
+import com.mailrest.maildal.gen.CookieId;
 
 public class CookieIdTest {
 
