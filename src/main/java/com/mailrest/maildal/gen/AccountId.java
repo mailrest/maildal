@@ -9,6 +9,8 @@ import com.mailrest.maildal.util.RandomInstance;
 
 public final class AccountId {
 
+	public static final int ACCOUNT_MOD = 100000;
+	
 	private AccountId() {
 	}
 
@@ -17,7 +19,7 @@ public final class AccountId {
 	}
 	
 	private static int nextInt() {
-		return Math.abs(RandomInstance.INSTANCE.random().nextInt() % 100000);
+		return Math.abs(RandomInstance.INSTANCE.random().nextInt() % ACCOUNT_MOD);
 	}
 	
 }
