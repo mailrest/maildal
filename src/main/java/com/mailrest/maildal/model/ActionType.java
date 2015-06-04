@@ -7,6 +7,9 @@ package com.mailrest.maildal.model;
 
 public enum ActionType {
 
+	// incoming message was received by mailrest
+	RECEIVED,
+	
 	// message has been placed in queue
 	ACCEPTED, 
 	

@@ -1,7 +1,6 @@
 package com.mailrest.maildal.model;
 
 import java.util.Date;
-import java.util.UUID;
 
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
@@ -9,13 +8,8 @@ import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 import com.noorq.casser.mapping.annotation.Types;
 
-
-/**
- *   Use TTL 60 Days
- */
-
 @Table
-public interface MessageLog {
+public interface MessageStatsDaily {
 
 	@PartitionKey(ordinal=0)
 	String accountId();
@@ -23,25 +17,43 @@ public interface MessageLog {
 	@PartitionKey(ordinal=1)
 	String domain();
 	
-	@PartitionKey(ordinal=2)
+	@ClusteringColumn(ordering=OrderingDirection.DESC)
 	Date daily();
+	
+	/*
+	 * Incoming
+	 */
+	
+	@Types.Counter
+	long received();
+	
+	/*
+	 * Outgoing
+	 */
+	
+	@Types.Counter
+	long delivered();
 
-	@Types.Timeuuid
-	@ClusteringColumn(ordering = OrderingDirection.DESC)
-	UUID eventAt();
+	@Types.Counter
+	long dropped();
 	
-	String messageId();
+	/*
 	
-	String clientUserId();
-	
-	ActionType actionType();
+	@Types.Counter
+	long opens();
 
-	MessageDelivery delivery();
+	@Types.Counter
+	long clicks();
 
-	MessageSender sender();
+	@Types.Counter
+	long bounces();
+
+	@Types.Counter
+	long spamReports();
 	
-	MessageRecipient recipient();
-	
-	MessageHeaders headers();
-	
+	*/
+
+	@Types.Counter
+	long unsubscribes();
+
 }

@@ -23,6 +23,8 @@ public interface Message {
 	@PartitionKey
 	String messageId();
 
+	MessageType messageType();
+	
 	String accountId();
 	
 	String domain();

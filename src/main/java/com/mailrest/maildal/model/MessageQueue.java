@@ -16,8 +16,22 @@ public interface MessageQueue {
 	@PartitionKey
 	int bucket();
 
+	/*
+	 * Aligned by 10 seconds
+	 */
+	
 	@ClusteringColumn(ordering = OrderingDirection.DESC)
 	Date deliveryAt();
+	
+	/*
+	 * Used for optimistic locking
+	 * 
+	 * 0 - unprocessed
+	 * 1 - in-processing
+	 * 2 - processed
+	 */
+	
+	int state();
 	
 	List<String> messages();
 	

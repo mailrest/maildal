@@ -4,14 +4,18 @@
  */
 package com.mailrest.maildal.model;
 
-import java.util.Date;
+import java.util.UUID;
 
 import com.noorq.casser.mapping.annotation.UDT;
 
 @UDT
 public interface MessageEvent {
 
-	Date eventAt();
+	/*
+	 * TimeUUID
+	 */
+	
+	UUID eventAt();
 	
 	ActionType actionType();
 	
