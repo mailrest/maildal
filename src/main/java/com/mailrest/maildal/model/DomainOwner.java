@@ -4,26 +4,28 @@
  */
 package com.mailrest.maildal.model;
 
-import java.util.UUID;
+import java.util.Date;
 
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
-import com.noorq.casser.mapping.annotation.Types;
 
 @Table
-public interface VerificationEvent {
+public interface DomainOwner {
 
+	/*
+	 * Lower-case domain name, for example lt.su
+	 */
+	
 	@PartitionKey
 	String domain();
 	
-	@Types.Timeuuid
 	@ClusteringColumn(ordering=OrderingDirection.DESC)
-	UUID eventAt();
-	
-	VerificationStatus status();
-	
-	String message();
+	Date verifiedAt();
+
+	String accountId();
+
+	String requestId();
 	
 }

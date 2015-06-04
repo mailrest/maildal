@@ -1,21 +1,10 @@
-/*
- *      Copyright (C) 2015 Noorq, Inc.
- *      All rights reserved.
- */
 package com.mailrest.maildal.model;
 
-import com.noorq.casser.mapping.annotation.PartitionKey;
-import com.noorq.casser.mapping.annotation.Table;
+import com.noorq.casser.mapping.annotation.UDT;
 
-@Table
+@UDT
 public interface Template {
 
-	@PartitionKey(ordinal=0)
-	String domain();
-
-	@PartitionKey(ordinal=1)
-	String name();
-	
 	TemplateEngine engine();
 	
 	String from();
@@ -25,5 +14,5 @@ public interface Template {
 	String textBody();
 
 	String htmlBody();
-
+	
 }

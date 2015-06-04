@@ -5,7 +5,7 @@
 package com.mailrest.maildal.model;
 
 
-public enum VerificationStatus {
+public enum DomainStatus {
 
 	// New domain added for verification
 	ACCEPTED,
@@ -14,6 +14,9 @@ public enum VerificationStatus {
 	VERIFIED, 
 	
 	// Fail to verify domain
-	FAILED;
+	FAILED,
+	
+	// Do not do periodic check
+	SUSPENDED;
 	
 }

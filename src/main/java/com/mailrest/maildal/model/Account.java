@@ -37,7 +37,13 @@ public interface Account {
 	String timezone();
 	
 	/*
-	 * lower-case domains
+	 * Add domain requests for verification
+	 */
+	
+	Set<String> domainRequests();
+	
+	/*
+	 * lower-case verified domains
 	 */
 	
 	Set<String> domains();

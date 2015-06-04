@@ -7,6 +7,8 @@ package com.mailrest.maildal.model;
 
 public enum TemplateEngine {
 
+	PLAIN,
+	
 	VELOCITY,
 	
 	MUSTACHE;

@@ -4,35 +4,31 @@
  */
 package com.mailrest.maildal.model;
 
-import java.util.Date;
-import java.util.Set;
-
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
 @Table
-public interface Domain {
+public interface TestingTemplate {
 
-	/*
-	 * Lower-case domain name, for example lt.su
-	 */
+	static final String DEFAULT_ENV = "test";
 	
-	@PartitionKey
+	@PartitionKey(ordinal=0)
 	String domain();
-	
-	@ClusteringColumn
+
+	@PartitionKey(ordinal=1)
 	String accountId();
-	
-	Date createdAt();
+
+	@ClusteringColumn(ordinal=0)
+	String name();
 	
 	/*
-	 * Example: key-5602aaa3eeb50233071dae4db2c3eb99
+	 * For now it will use only the 'test' env
 	 */
 	
-	String apiKey();
+	@ClusteringColumn(ordinal=1)
+	String environment();
 
-	Set<String> templates();
+	Template template();
 	
-	DomainSettings settings();
 }
