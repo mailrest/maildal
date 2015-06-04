@@ -10,12 +10,22 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface DeployedTemplate {
 
+	static final String DEFAULT_ENV = "prod";
+	
+	/*
+	 * lower-case domain name
+	 */
+	
 	@PartitionKey(ordinal=0)
 	String domain();
 
 	@PartitionKey(ordinal=1)
 	String accountId();
 
+	/*
+	 * lower-case template name
+	 */
+	
 	@ClusteringColumn(ordinal=0)
 	String name();
 
