@@ -5,7 +5,6 @@
 package com.mailrest.maildal.model;
 
 import java.util.Date;
-import java.util.Set;
 
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -14,17 +13,13 @@ import com.noorq.casser.mapping.annotation.Table;
 public interface Account {
 
 	/*
-	 * Randomly generated AccountId like this 1234567890
+	 * Randomly generated AccountId, like this 1234567890
 	 */
 	
 	@PartitionKey
 	String accountId();
 	
 	Date createdAt();
-	
-	/*
-	 * lower-case email
-	 */
 	
 	String email();
 	
@@ -35,17 +30,5 @@ public interface Account {
 	String organization();
 	
 	String timezone();
-	
-	/*
-	 * Add domain requests for verification
-	 */
-	
-	Set<String> domainRequests();
-	
-	/*
-	 * lower-case verified domains
-	 */
-	
-	Set<String> domains();
 	
 }

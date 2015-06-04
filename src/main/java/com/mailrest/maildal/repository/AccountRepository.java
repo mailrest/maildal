@@ -7,6 +7,7 @@ package com.mailrest.maildal.repository;
 import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
+import java.util.Optional;
 
 import scala.concurrent.Future;
 
@@ -21,6 +22,16 @@ public interface AccountRepository extends AbstractRepository {
 	static final Account account = Casser.dsl(Account.class);
 	
 	static final String DEFAULT_TIMEZONE = "America/Los_Angeles";
+	
+	default Future<Optional<Account>> findAccount(String accountId) {
+		
+		return session()
+				.select(Account.class)
+				.where(account::accountId, eq(accountId))
+				.single()
+				.future();
+		
+	}
 	
 	default Future<Fun.Tuple2<ResultSet, String>> createAccount(
 			String email, 
@@ -53,24 +64,5 @@ public interface AccountRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> addDomain(String accountId, String domain) {
-	
-		return session()
-				.update()
-				.add(account::domains, domain.toLowerCase())
-				.where(account::accountId, eq(accountId))
-				.future();
-		
-	}
 
-
-	default Future<ResultSet> removeDomain(String accountId, String domain) {
-	
-		return session()
-				.update()
-				.remove(account::domains, domain.toLowerCase())
-				.where(account::accountId, eq(accountId))
-				.future();
-		
-	}
 }

@@ -25,7 +25,5 @@ public interface DomainOwner {
 	Date verifiedAt();
 
 	String accountId();
-
-	String requestId();
 	
 }
