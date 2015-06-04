@@ -12,7 +12,7 @@ import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
 @Table
-public interface LoginEvent {
+public interface AccountLogin {
 
 	@PartitionKey
 	String accountId();
