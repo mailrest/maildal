@@ -7,7 +7,6 @@ package com.mailrest.maildal.repository;
 import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
-import java.util.Optional;
 
 import scala.concurrent.Future;
 
@@ -28,7 +27,7 @@ public interface AccountRepository extends AbstractRepository {
 			String firstName, 
 			String lastName, 
 			String organization,
-			Optional<String> timezone) {
+			String timezone) {
 		
 		String accountId = AccountId.next();
 		
@@ -40,7 +39,7 @@ public interface AccountRepository extends AbstractRepository {
 			.value(account::firstName, firstName)
 			.value(account::lastName, lastName)
 			.value(account::organization, organization)
-			.value(account::timezone, timezone.orElse(DEFAULT_TIMEZONE))
+			.value(account::timezone, timezone.isEmpty() ? DEFAULT_TIMEZONE : timezone)
 			.future(accountId);
 		
 	}

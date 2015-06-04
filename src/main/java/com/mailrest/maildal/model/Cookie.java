@@ -7,6 +7,10 @@ package com.mailrest.maildal.model;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
+/*
+ * Table with TTL 30 Days
+ */
+
 @Table
 public interface Cookie {
 
