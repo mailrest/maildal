@@ -24,7 +24,7 @@ public interface AccountDomain {
 	Date createdAt();
 
 	@Index
-	DomainStatus lastStatus();
+	DomainVerificationStatus lastStatus();
 	
 	List<DomainVerificationEvent> events();
 }

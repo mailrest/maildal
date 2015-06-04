@@ -5,7 +5,7 @@
 package com.mailrest.maildal.model;
 
 
-public enum DomainStatus {
+public enum DomainVerificationStatus {
 
 	// New domain added for verification
 	ACCEPTED,

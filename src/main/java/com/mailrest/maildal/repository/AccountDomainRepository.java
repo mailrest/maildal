@@ -15,7 +15,7 @@ import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
 import com.mailrest.maildal.model.AccountDomain;
-import com.mailrest.maildal.model.DomainStatus;
+import com.mailrest.maildal.model.DomainVerificationStatus;
 import com.mailrest.maildal.model.DomainVerificationEvent;
 import com.noorq.casser.core.Casser;
 import com.noorq.casser.support.Fun;
@@ -25,7 +25,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 	static final AccountDomain accountDomain = Casser.dsl(AccountDomain.class);
 	
 	
-	default Future<Stream<Fun.Tuple4<String, String, Date, DomainStatus>>> findDomains(String accountId) {
+	default Future<Stream<Fun.Tuple4<String, String, Date, DomainVerificationStatus>>> findDomains(String accountId) {
 		
 		return session()
 				.select(accountDomain::accountId, accountDomain::domain, accountDomain::createdAt, accountDomain::lastStatus)
@@ -65,7 +65,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 				.value(accountDomain::accountId, accountId)
 				.value(accountDomain::domain, domain.toLowerCase())
 				.value(accountDomain::createdAt, new Date())
-				.value(accountDomain::lastStatus, DomainStatus.ACCEPTED)
+				.value(accountDomain::lastStatus, DomainVerificationStatus.ACCEPTED)
 				.future();
 		
 	}

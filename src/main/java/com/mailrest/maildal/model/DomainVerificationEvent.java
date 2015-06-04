@@ -13,7 +13,7 @@ public interface DomainVerificationEvent {
 
 	Date eventAt();
 	
-	DomainStatus status();
+	DomainVerificationStatus status();
 	
 	String message();
 	
