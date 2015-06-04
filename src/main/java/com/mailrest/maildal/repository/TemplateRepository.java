@@ -4,11 +4,14 @@
  */
 package com.mailrest.maildal.repository;
 
+import com.mailrest.maildal.model.Template;
+import com.noorq.casser.core.Casser;
+
 
 public interface TemplateRepository extends AbstractRepository {
 	
-	default int createTemplate() {
-		return 0;
-	}
+	static final Template template = Casser.dsl(Template.class);
+	
+
 	
 }

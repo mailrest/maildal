@@ -5,7 +5,7 @@
 package com.mailrest.maildal.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -36,6 +36,6 @@ public interface Domain {
 	
 	String apiKey();
 	
-	List<String> templates();
+	Set<String> templates();
 	
 }

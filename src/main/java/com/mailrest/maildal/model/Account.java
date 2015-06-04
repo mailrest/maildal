@@ -5,7 +5,7 @@
 package com.mailrest.maildal.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -36,6 +36,10 @@ public interface Account {
 	
 	String timezone();
 	
-	List<String> domains();
+	/*
+	 * lower-case domains
+	 */
+	
+	Set<String> domains();
 	
 }

@@ -13,7 +13,7 @@ public interface User {
 	@PartitionKey
 	String email();
 
-	String password();
+	String passwordHash();
 
 	String accountId();
 

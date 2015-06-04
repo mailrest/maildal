@@ -27,10 +27,6 @@ public final class PasswordHash {
 	
 	public static String calculate(String password) {
 		
-		if (password == null) {
-			throw new IllegalArgumentException("password is empty");
-		}
-		
 		String salt = PasswordSalt.next();
 		
 		byte[] hash = hashIt(salt + password);
@@ -40,14 +36,6 @@ public final class PasswordHash {
 	}
 	
 	public static boolean isEquals(String passwordHash, String password) {
-		
-		if (passwordHash == null) {
-			throw new IllegalArgumentException("passwordHash is empty");
-		}
-		
-		if (password == null) {
-			throw new IllegalArgumentException("password is empty");
-		}
 		
 		int index = passwordHash.indexOf(DELIMITER);
 		
