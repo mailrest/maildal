@@ -4,7 +4,9 @@
  */
 package com.mailrest.maildal.model;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -23,6 +25,8 @@ public interface Message {
 	@PartitionKey
 	String messageId();
 
+	Date createdAt();
+	
 	MessageType messageType();
 	
 	String accountId();
@@ -39,6 +43,10 @@ public interface Message {
 
     String bcc();
 
+    String template();
+    
+    Map<String, String> userVariables();
+    
 	String subject();
 	
 	String body();
