@@ -12,16 +12,24 @@ import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
 @Table
-public interface AccountLogin {
+public interface AccountLog {
 
 	@PartitionKey
 	String accountId();
 
 	@ClusteringColumn(ordering=OrderingDirection.DESC)
-	Date loginAt();
+	Date eventAt();
+	
+	AccountAction action();
+	
+	String email();
 	
 	String ip();
 
 	String userAgent();
 
+	String template();
+	
+	String domain();
+	
 }

@@ -5,6 +5,7 @@
 package com.mailrest.maildal.model;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -21,14 +22,16 @@ public interface Account {
 	
 	Date createdAt();
 	
-	String email();
-	
-	String firstName();
-
-	String lastName();
-	
 	String organization();
 	
+	String team();
+	
 	String timezone();
+
+	/*
+	 * Key is the lower-case email
+	 */
+	
+	Map<String, AccountUser> users();
 	
 }

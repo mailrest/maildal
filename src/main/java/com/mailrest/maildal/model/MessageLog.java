@@ -34,7 +34,7 @@ public interface MessageLog {
 	
 	String clientUserId();
 	
-	ActionType actionType();
+	MessageAction action();
 
 	MessageDelivery delivery();
 

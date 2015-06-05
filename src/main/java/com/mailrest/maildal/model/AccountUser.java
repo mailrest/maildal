@@ -4,19 +4,19 @@
  */
 package com.mailrest.maildal.model;
 
-import java.util.UUID;
-
 import com.noorq.casser.mapping.annotation.UDT;
 
 @UDT
-public interface MessageEvent {
-
+public interface AccountUser {
+	
 	/*
-	 * TimeUUID
+	 * As it was entered by user, not a lower-case
 	 */
 	
-	UUID eventAt();
+	String email();
 	
-	MessageAction action();
+	String firstName();
+
+	String lastName();
 	
 }

@@ -12,8 +12,10 @@ import java.util.Optional;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
+import com.google.common.collect.ImmutableMap;
 import com.mailrest.maildal.gen.AccountId;
 import com.mailrest.maildal.model.Account;
+import com.mailrest.maildal.model.AccountUser;
 import com.noorq.casser.core.Casser;
 import com.noorq.casser.support.Fun;
 
@@ -34,24 +36,47 @@ public interface AccountRepository extends AbstractRepository {
 	}
 	
 	default Future<Fun.Tuple2<ResultSet, String>> createAccount(
-			String email, 
-			String firstName, 
-			String lastName, 
+			String email,
+			AccountUser user,
 			String organization,
+			String team,
 			String timezone) {
 		
 		String accountId = AccountId.next();
+
+		if (timezone == null || timezone.isEmpty()) {
+			timezone = DEFAULT_TIMEZONE;
+		}
 		
 		return session()
 			.insert()
 			.value(account::accountId, accountId)
 			.value(account::createdAt, new Date())
-			.value(account::email, email.toLowerCase())
-			.value(account::firstName, firstName)
-			.value(account::lastName, lastName)
 			.value(account::organization, organization)
-			.value(account::timezone, timezone.isEmpty() ? DEFAULT_TIMEZONE : timezone)
+			.value(account::team, team)
+			.value(account::timezone, timezone)
+			.value(account::users, ImmutableMap.of(email, user))
 			.future(accountId);
+		
+	}
+	
+	default Future<ResultSet> putAccountUser(String accountId, String email, AccountUser user) {
+		
+		return session()
+				.update()
+				.put(account::users, email.toLowerCase(), user)
+				.where(account::accountId, eq(accountId))
+				.future();
+		
+	}
+	
+	default Future<ResultSet> removeAccountUser(String accountId, String email) {
+		
+		return session()
+				.update()
+				.put(account::users, email.toLowerCase(), null)
+				.where(account::accountId, eq(accountId))
+				.future();
 		
 	}
 	

@@ -5,7 +5,7 @@
 package com.mailrest.maildal.model;
 
 
-public enum ActionType {
+public enum MessageAction {
 
 	// incoming message was received by mailrest
 	RECEIVED,

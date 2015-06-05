@@ -10,6 +10,10 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface User {
 
+	/*
+	 * lower-case email
+	 */
+	
 	@PartitionKey
 	String email();
 

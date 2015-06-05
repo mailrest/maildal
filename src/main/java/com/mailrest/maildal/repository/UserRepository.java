@@ -29,7 +29,7 @@ public interface UserRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> storeUser(
+	default Future<ResultSet> saveUser(
 			String email,
 			String password, 
 			String accountId) {
