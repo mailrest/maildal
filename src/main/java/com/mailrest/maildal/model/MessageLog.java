@@ -32,7 +32,7 @@ public interface MessageLog {
 	
 	String messageId();
 	
-	String clientUserId();
+	String publicId();
 	
 	MessageAction action();
 

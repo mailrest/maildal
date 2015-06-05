@@ -10,7 +10,7 @@ public enum MessageAction {
 	// incoming message was received by mailrest
 	RECEIVED,
 	
-	// message has been placed in queue
+	// message has been placed in queue, checks unsubscribed list before accept
 	ACCEPTED, 
 	
 	// request was rejected
