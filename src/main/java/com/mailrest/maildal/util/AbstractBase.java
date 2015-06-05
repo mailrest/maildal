@@ -133,9 +133,9 @@ public interface AbstractBase {
 	
 	/**
 	 * 
-	 * @param number
-	 * @param startAt
-	 * @param base
+	 * @param number is the 256 base number stored in byte array
+	 * @param startAt offset in byte array where number is starting
+	 * @param base is the mode of the calculation
 	 * @return number % base, modifies number by number / base
 	 */
 	
@@ -155,10 +155,10 @@ public interface AbstractBase {
 
 	/**
 	 * 
-	 * @param numberBase
-	 * @param startAt
-	 * @param base
-	 * @return number % 256, modifies number by number -> number / 256
+	 * @param numberBase is the number's byte array
+	 * @param startAt offset in byte array where number is starting
+	 * @param base is the mode of the calculation
+	 * @return number % 256, modifies number by number / 256
 	 */
 	
 	default byte divmod256(byte[] numberBase, int startAt, int base) {
