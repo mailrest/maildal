@@ -12,7 +12,6 @@ import java.util.Optional;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
-import com.google.common.collect.ImmutableMap;
 import com.mailrest.maildal.gen.AccountId;
 import com.mailrest.maildal.model.Account;
 import com.mailrest.maildal.model.AccountUser;
@@ -36,8 +35,6 @@ public interface AccountRepository extends AbstractRepository {
 	}
 	
 	default Future<Fun.Tuple2<ResultSet, String>> createAccount(
-			String email,
-			AccountUser user,
 			String organization,
 			String team,
 			String timezone) {
@@ -55,7 +52,6 @@ public interface AccountRepository extends AbstractRepository {
 			.value(account::organization, organization)
 			.value(account::team, team)
 			.value(account::timezone, timezone)
-			.value(account::users, ImmutableMap.of(email, user))
 			.future(accountId);
 		
 	}

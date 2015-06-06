@@ -19,4 +19,6 @@ public interface AccountUser {
 
 	String lastName();
 	
+	boolean confirmed();
+	
 }

@@ -12,6 +12,9 @@ public enum AccountAction {
 	
 	LOGIN,
 	CHANGE_ACCOUNT_SETTINGS,
+	ADD_USER,
+	REMOVE_USER,
+	CONFIRM_USER_EMAIL,
 	
 	/*
 	 * Store domain
