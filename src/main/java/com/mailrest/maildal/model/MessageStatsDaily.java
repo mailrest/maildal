@@ -18,7 +18,7 @@ public interface MessageStatsDaily {
 	String domain();
 	
 	@ClusteringColumn(ordering=OrderingDirection.DESC)
-	Date daily();
+	Date dayAt();
 	
 	/*
 	 * Incoming
@@ -54,6 +54,6 @@ public interface MessageStatsDaily {
 	*/
 
 	@Types.Counter
-	long unsubscribes();
+	long unsubscribed();
 
 }

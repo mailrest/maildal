@@ -1,12 +1,12 @@
 package com.mailrest.maildal.model;
 
-import java.util.Date;
-import java.util.List;
+import java.util.UUID;
 
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
+import com.noorq.casser.mapping.annotation.Types;
 
 @Table
 public interface MessageQueue {
@@ -15,24 +15,15 @@ public interface MessageQueue {
 	
 	@PartitionKey
 	int bucket();
-
-	/*
-	 * Aligned by 10 seconds
-	 */
 	
-	@ClusteringColumn(ordering = OrderingDirection.DESC)
-	Date deliveryAt();
+	@Types.Timeuuid
+	@ClusteringColumn(ordering = OrderingDirection.ASC)
+	UUID deliveryAt();
 	
-	/*
-	 * Used for optimistic locking
-	 * 
-	 * 0 - unprocessed
-	 * 1 - in-processing
-	 * 2 - processed
-	 */
+	boolean peeked();
 	
-	int state();
+	int attempt();
 	
-	List<String> messages();
+	String messageId();
 	
 }

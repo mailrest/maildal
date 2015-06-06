@@ -8,7 +8,5 @@ public interface MessageSender {
 	String sender();
 	
 	String sendingIp();
-	
-	String environment();
 
 }

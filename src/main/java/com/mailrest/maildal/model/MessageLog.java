@@ -20,11 +20,15 @@ public interface MessageLog {
 	@PartitionKey(ordinal=0)
 	String accountId();
 	
+	/*
+	 * Lower-case domain
+	 */
+	
 	@PartitionKey(ordinal=1)
 	String domain();
 	
 	@PartitionKey(ordinal=2)
-	Date daily();
+	Date dayAt();
 
 	@Types.Timeuuid
 	@ClusteringColumn(ordering = OrderingDirection.DESC)
