@@ -5,9 +5,9 @@ import com.noorq.casser.mapping.annotation.UDT;
 @UDT
 public interface MessageHeaders {
 
-	String from();
+	String fromRecipients();
 	
-	String to();
+	String toRecipients();
 	
 	String subject();
 	

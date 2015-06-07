@@ -7,8 +7,10 @@ public interface Template {
 
 	TemplateEngine engine();
 	
-	String from();
-	
+	String fromRecipients();
+
+	String bccRecipients();
+
 	String subject();
 	
 	String textBody();

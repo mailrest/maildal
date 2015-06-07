@@ -35,13 +35,13 @@ public interface Message {
 	
 	String publicId();
 	
-	String from();
+	String fromRecipients();
 	
-    String to();
+    String toRecipients();
 
-    String cc();
+    String ccRecipients();
 
-    String bcc();
+    String bccRecipients();
 
     String template();
     

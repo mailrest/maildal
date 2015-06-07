@@ -93,13 +93,13 @@ public interface MessageLogRepository extends AbstractRepository {
 		}
 		
 		@Override
-		public String from() {
-			return message.from();
+		public String fromRecipients() {
+			return message.fromRecipients();
 		}
 
 		@Override
-		public String to() {
-			return message.to();
+		public String toRecipients() {
+			return message.toRecipients();
 		}
 
 		@Override

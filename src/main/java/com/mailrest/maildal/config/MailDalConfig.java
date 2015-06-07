@@ -24,7 +24,6 @@ public final class MailDalConfig {
 		session = Casser.connect(cluster, keyspace)
 			.addPackage(Account.class.getPackage().getName())
 			.autoUpdate()
-			.showCql()
 			.get();
 	}
 	
