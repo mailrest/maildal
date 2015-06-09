@@ -23,61 +23,61 @@ public interface MessageStatsDailyRepository extends AbstractRepository {
 	
 	static final long ONE_DAY_MILLISECONDS = 24L * 3600L * 1000L;
 	
-	default Future<Stream<MessageStatsDaily>> getStatsRange(String accountId, String domain, Date startAt, Date endAt) {
+	default Future<Stream<MessageStatsDaily>> getStatsRange(String accountId, String domainId, Date startAt, Date endAt) {
 
 		return session()
 				.select(MessageStatsDaily.class)
 				.where(messageStatsDaily::accountId, eq(accountId))
-				.and(messageStatsDaily::domain, eq(domain.toLowerCase()))
+				.and(messageStatsDaily::domainId, eq(domainId))
 				.and(messageStatsDaily::dayAt, gte(startAt))
 				.and(messageStatsDaily::dayAt, lt(endAt))
 				.future();
 		
 	}
 	
-	default Future<ResultSet> incrementReceived(String accountId, String domain, Date eventAt) {
+	default Future<ResultSet> incrementReceived(String accountId, String domainId, Date eventAt) {
 		
 		return session()
 				.update()
 				.increment(messageStatsDaily::received)
 				.where(messageStatsDaily::accountId, eq(accountId))
-				.and(messageStatsDaily::domain, eq(domain.toLowerCase()))
+				.and(messageStatsDaily::domainId, eq(domainId))
 				.and(messageStatsDaily::dayAt, eq(daily(eventAt)))
 				.future();
 		
 	}
 	
-	default Future<ResultSet> incrementDelivered(String accountId, String domain, Date eventAt) {
+	default Future<ResultSet> incrementDelivered(String accountId, String domainId, Date eventAt) {
 		
 		return session()
 				.update()
 				.increment(messageStatsDaily::delivered)
 				.where(messageStatsDaily::accountId, eq(accountId))
-				.and(messageStatsDaily::domain, eq(domain.toLowerCase()))
+				.and(messageStatsDaily::domainId, eq(domainId))
 				.and(messageStatsDaily::dayAt, eq(daily(eventAt)))
 				.future();
 		
 	}
 	
-	default Future<ResultSet> incrementDropped(String accountId, String domain, Date eventAt) {
+	default Future<ResultSet> incrementDropped(String accountId, String domainId, Date eventAt) {
 		
 		return session()
 				.update()
 				.increment(messageStatsDaily::dropped)
 				.where(messageStatsDaily::accountId, eq(accountId))
-				.and(messageStatsDaily::domain, eq(domain.toLowerCase()))
+				.and(messageStatsDaily::domainId, eq(domainId))
 				.and(messageStatsDaily::dayAt, eq(daily(eventAt)))
 				.future();
 		
 	}
 	
-	default Future<ResultSet> incrementUnsubscribed(String accountId, String domain, Date eventAt) {
+	default Future<ResultSet> incrementUnsubscribed(String accountId, String domainId, Date eventAt) {
 		
 		return session()
 				.update()
 				.increment(messageStatsDaily::unsubscribed)
 				.where(messageStatsDaily::accountId, eq(accountId))
-				.and(messageStatsDaily::domain, eq(domain.toLowerCase()))
+				.and(messageStatsDaily::domainId, eq(domainId))
 				.and(messageStatsDaily::dayAt, eq(daily(eventAt)))
 				.future();
 		

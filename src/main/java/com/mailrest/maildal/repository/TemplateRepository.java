@@ -25,53 +25,53 @@ public interface TemplateRepository extends AbstractRepository {
 	
 	static final TestingTemplate testingTemplate = Casser.dsl(TestingTemplate.class);
 
-	default Future<ResultSet> deployTemplate(String domain, String accountId, String name, Template template) {
+	default Future<ResultSet> deployTemplate(String domainId, String accountId, String templateId, Template template) {
 		
 		return session()
 				.upsert()
-				.value(deployedTemplate::domain, domain.toLowerCase())
+				.value(deployedTemplate::domainId, domainId)
 				.value(deployedTemplate::accountId, accountId)
-				.value(deployedTemplate::name, name.toLowerCase())
+				.value(deployedTemplate::templateId, templateId)
 				.value(deployedTemplate::deployedAt, new Date())
 				.value(deployedTemplate::template, template)
 				.future();
 		
 	}
 	
-	default Future<ResultSet> rollbackTemplate(String domain, String accountId, String name, Date deployedAt) {
+	default Future<ResultSet> rollbackTemplate(String domainId, String accountId, String templateId, Date deployedAt) {
 		
 		return session()
 				.delete()
-				.where(deployedTemplate::domain, eq(domain.toLowerCase()))
+				.where(deployedTemplate::domainId, eq(domainId))
 				.and(deployedTemplate::accountId, eq(accountId))
-				.and(deployedTemplate::name, eq(name.toLowerCase()))
+				.and(deployedTemplate::templateId, eq(templateId))
 				.and(deployedTemplate::deployedAt, eq(deployedAt))
 				.future();
 	}
 	
 	
-	default Future<ResultSet> updateTestingTemplate(String domain, String accountId, String name, Template template) {
+	default Future<ResultSet> updateTestingTemplate(String domainId, String accountId, String templateId, Template template) {
 		
 		return session()
 				.upsert()
-				.value(testingTemplate::domain, domain.toLowerCase())
+				.value(testingTemplate::domainId, domainId)
 				.value(testingTemplate::accountId, accountId)
-				.value(testingTemplate::name, name.toLowerCase())
+				.value(testingTemplate::templateId, templateId)
 				.value(testingTemplate::environment, TestingTemplate.DEFAULT_ENV)
 				.value(testingTemplate::template, template)
 				.future();
 		
 	}
 	
-	default Future<Optional<Fun.Tuple1<Template>>> findTemplate(String domain, String accountId, String name, String env) {
+	default Future<Optional<Fun.Tuple1<Template>>> findTemplate(String domainId, String accountId, String templateId, String env) {
 		
 		if (DeployedTemplate.DEFAULT_ENV.equals(env)) {
 		
 			return session()
 					.select(deployedTemplate::template)
-					.where(deployedTemplate::domain, eq(domain.toLowerCase()))
+					.where(deployedTemplate::domainId, eq(domainId))
 					.and(deployedTemplate::accountId, eq(accountId))
-					.and(deployedTemplate::name, eq(name.toLowerCase()))
+					.and(deployedTemplate::templateId, eq(templateId))
 					.orderBy(desc(deployedTemplate::deployedAt))
 					.single()
 					.future();
@@ -81,9 +81,9 @@ public interface TemplateRepository extends AbstractRepository {
 			
 			return session()
 					.select(testingTemplate::template)
-					.where(testingTemplate::domain, eq(domain.toLowerCase()))
+					.where(testingTemplate::domainId, eq(domainId))
 					.and(testingTemplate::accountId, eq(accountId))
-					.and(testingTemplate::name, eq(name.toLowerCase()))
+					.and(testingTemplate::templateId, eq(templateId))
 					.and(testingTemplate::environment, eq(env))
 					.single()
 					.future();

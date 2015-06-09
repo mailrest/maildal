@@ -4,21 +4,25 @@
  */
 package com.mailrest.maildal.model;
 
+import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
 @Table
 public interface User {
 
-	/*
-	 * lower-case email
-	 */
-	
+	@Constraints.NotEmpty
+	@Constraints.LowerCase
 	@PartitionKey
-	String email();
+	String userId();
 
+	@Constraints.NotEmpty
 	String passwordHash();
 
+	@Constraints.NotEmpty
 	String accountId();
+	
+	@Constraints.NotNull
+	UserPermission permission();
 
 }

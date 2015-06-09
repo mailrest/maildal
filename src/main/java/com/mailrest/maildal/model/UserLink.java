@@ -4,6 +4,7 @@
  */
 package com.mailrest.maildal.model;
 
+import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
@@ -14,15 +15,18 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface UserLink {
 
-	/*
-	 * Randomly generated linkId 
-	 */
-	
+	@Constraints.NotEmpty
 	@PartitionKey
 	String linkId();
 	
+	@Constraints.NotNull
 	CallbackAction action();
 	
-	String email();
+	@Constraints.NotEmpty
+	String accountId();
+	
+	@Constraints.NotEmpty
+	@Constraints.LowerCase
+	String userId();
 	
 }

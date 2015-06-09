@@ -21,13 +21,13 @@ public interface DomainRepository extends AbstractRepository {
 
 	static final Domain domain = Casser.dsl(Domain.class);
 	
-	default Future<Fun.Tuple2<ResultSet, String>> addDomain(String domainName, String accountId) {
+	default Future<Fun.Tuple2<ResultSet, String>> addDomain(String domainId, String accountId) {
 		
 		String apiKey = ApiKey.next();
 		
 		return session()
 				.upsert()
-				.value(domain::domain, domainName.toLowerCase())
+				.value(domain::domainId, domainId)
 				.value(domain::createdAt, new Date())
 				.value(domain::accountId, accountId)
 				.value(domain::apiKey, apiKey)
@@ -35,24 +35,24 @@ public interface DomainRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<Fun.Tuple1<String>>> findApiKey(String domainName, String accountId) {
+	default Future<Optional<Fun.Tuple1<String>>> findApiKey(String domainId, String accountId) {
 		
 		return session()
 				.select(domain::apiKey)
-				.where(domain::domain, eq(domainName.toLowerCase()))
+				.where(domain::domainId, eq(domainId))
 				.and(domain::accountId, eq(accountId))
 				.single()
 				.future();
 	}
 	
-	default Future<Fun.Tuple2<ResultSet, String>> updateApiKey(String domainName, String accountId) {
+	default Future<Fun.Tuple2<ResultSet, String>> updateApiKey(String domainId, String accountId) {
 		
 		String apiKey = ApiKey.next();
 		
 		return session()
 				.update()
 				.set(domain::apiKey, apiKey)
-				.where(domain::domain, eq(domainName.toLowerCase()))
+				.where(domain::domainId, eq(domainId))
 				.and(domain::accountId, eq(accountId))
 				.future(apiKey);
 		

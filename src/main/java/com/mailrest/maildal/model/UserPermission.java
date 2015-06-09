@@ -4,8 +4,8 @@
  */
 package com.mailrest.maildal.model;
 
-public enum MessageType {
+public enum UserPermission {
 	
-	INCOMING, OUTGOING;
+	ADMIN, WRITE, READ_ONLY
 	
 }

@@ -8,22 +8,23 @@ import java.util.Date;
 
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
+import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
 @Table
 public interface DomainOwner {
 
-	/*
-	 * Lower-case domain name, for example lt.su
-	 */
-	
+	@Constraints.NotEmpty
+	@Constraints.LowerCase
 	@PartitionKey
-	String domain();
+	String domainId();
 	
+	@Constraints.NotNull
 	@ClusteringColumn(ordering=OrderingDirection.DESC)
 	Date verifiedAt();
 
+	@Constraints.NotEmpty
 	String accountId();
 	
 }

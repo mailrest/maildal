@@ -21,22 +21,22 @@ public interface DomainOwnerRepository extends AbstractRepository {
 
 	static final DomainOwner domainOwner = Casser.dsl(DomainOwner.class);
 	
-	default Future<Optional<Fun.Tuple1<String>>> findOwner(String domain) {
+	default Future<Optional<Fun.Tuple1<String>>> findOwner(String domainId) {
 		
 		return session()
 				.select(domainOwner::accountId)
-				.where(domainOwner::domain, eq(domain.toLowerCase()))
+				.where(domainOwner::domainId, eq(domainId))
 				.orderBy(desc(domainOwner::verifiedAt))
 				.single()
 				.future();
 		
 	}
 	
-	default Future<ResultSet> addVerifiedDomain(String accountId, String domain, Date verifiedAt) {
+	default Future<ResultSet> addVerifiedDomain(String accountId, String domainId, Date verifiedAt) {
 		
 		return session()
 				.upsert()
-				.value(domainOwner::domain, domain.toLowerCase())
+				.value(domainOwner::domainId, domainId)
 				.value(domainOwner::verifiedAt, verifiedAt)
 				.value(domainOwner::accountId, accountId)
 				.future();

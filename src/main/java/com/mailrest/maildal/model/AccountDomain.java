@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
+import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.Index;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -11,16 +12,16 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface AccountDomain {
 
+	@Constraints.NotEmpty
 	@PartitionKey
 	String accountId();
 
-	/*
-	 * lower-case domain
-	 */
-
+	@Constraints.NotEmpty
+	@Constraints.LowerCase
 	@ClusteringColumn
-	String domain();
+	String domainId();
 
+	@Constraints.NotNull
 	Date createdAt();
 
 	@Index

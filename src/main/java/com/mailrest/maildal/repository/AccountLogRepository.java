@@ -87,7 +87,7 @@ public interface AccountLogRepository extends AbstractRepository {
 				.value(accountLog::accountId, accountId)
 				.value(accountLog::eventAt, new Date())
 				.value(accountLog::action, action)
-				.value(accountLog::domain, domain)
+				.value(accountLog::domainId, domain)
 				.future();
 		
 	}

@@ -31,14 +31,14 @@ public interface MessageLogRepository extends AbstractRepository {
 
 	static final long ONE_DAY_MILLISECONDS = 24L * 3600L * 1000L;
 	
-	default Future<Stream<MessageLog>> getMessageLog(String accountId, String domain, Date endAt, int max) {
+	default Future<Stream<MessageLog>> getMessageLog(String accountId, String domainId, Date endAt, int max) {
 		
 		Date dayAt = daily(endAt);
 		
 		return session()
 				.select(MessageLog.class)
 				.where(messageLog::accountId, eq(accountId))
-				.and(messageLog::domain, eq(domain.toLowerCase()))
+				.and(messageLog::domainId, eq(domainId))
 				.and(messageLog::dayAt, eq(dayAt))
 				.and(messageLog::eventAt, lt(endAt))
 				.orderBy(desc(messageLog::eventAt))
@@ -60,7 +60,7 @@ public interface MessageLogRepository extends AbstractRepository {
 		return session()
 				.insert()
 				.value(messageLog::accountId, message.accountId())
-				.value(messageLog::domain, message.domain().toLowerCase())
+				.value(messageLog::domainId, message.domainId().toLowerCase())
 				.value(messageLog::dayAt, daily(eventAt))
 				.value(messageLog::eventAt, eventTime)
 				.value(messageLog::messageId, message.messageId())
@@ -100,6 +100,16 @@ public interface MessageLogRepository extends AbstractRepository {
 		@Override
 		public String toRecipients() {
 			return message.toRecipients();
+		}
+
+		@Override
+		public String ccRecipients() {
+			return message.ccRecipients();
+		}
+
+		@Override
+		public String bccRecipients() {
+			return message.bccRecipients();
 		}
 
 		@Override

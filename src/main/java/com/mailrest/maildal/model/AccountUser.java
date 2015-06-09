@@ -4,20 +4,26 @@
  */
 package com.mailrest.maildal.model;
 
+import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.UDT;
 
 @UDT
 public interface AccountUser {
 	
-	/*
-	 * As it was entered by user, not a lower-case
-	 */
-	
+	@Constraints.NotEmpty
+	@Constraints.LowerCase
+	String userId();
+
+	@Constraints.NotEmpty
+	@Constraints.Email
 	String email();
-	
+
 	String firstName();
 
 	String lastName();
+	
+	@Constraints.NotNull
+	UserPermission permission();
 	
 	boolean confirmed();
 	

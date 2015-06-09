@@ -23,17 +23,17 @@ public interface UserLinkRepository extends AbstractRepository  {
 
 	static final int ONE_DAY = 3600 * 24;
 	
-	default Future<Optional<Fun.Tuple2<String, CallbackAction>>> lookupLink(String linkId) {
+	default Future<Optional<Fun.Tuple3<String, String, CallbackAction>>> lookupLink(String linkId) {
 		
 		return session()
-				.select(userLink::email, userLink::action)
+				.select(userLink::accountId, userLink::userId, userLink::action)
 				.where(userLink::linkId, eq(linkId))
 				.single()
 				.future();
 	}
 	
-	default Future<Fun.Tuple2<ResultSet, String>> createLink(
-			String email, 
+	default Future<Fun.Tuple2<ResultSet, String>> createLink(String accountId,
+			String userId, 
 			CallbackAction action) {
 		
 		String linkId = LinkId.next();
@@ -41,7 +41,8 @@ public interface UserLinkRepository extends AbstractRepository  {
 		return session()
 			.insert()
 			.value(userLink::linkId, linkId)
-			.value(userLink::email, email)
+			.value(userLink::accountId, accountId)
+			.value(userLink::userId, userId)
 			.value(userLink::action, action)
 			.usingTtl(ONE_DAY)
 			.future(linkId);

@@ -28,7 +28,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 	default Future<Stream<Fun.Tuple4<String, String, Date, DomainVerificationStatus>>> findDomains(String accountId) {
 		
 		return session()
-				.select(accountDomain::accountId, accountDomain::domain, accountDomain::createdAt, accountDomain::lastStatus)
+				.select(accountDomain::accountId, accountDomain::domainId, accountDomain::createdAt, accountDomain::lastStatus)
 				.where(accountDomain::accountId, eq(accountId))
 				.future();
 		
@@ -39,7 +39,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 		return session()
 				.select(accountDomain::events)
 				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domain, eq(domain.toLowerCase()))
+				.and(accountDomain::domainId, eq(domain.toLowerCase()))
 				.single()
 				.map(t -> t._1)
 				.future();
@@ -53,7 +53,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 				.append(accountDomain::events, event)
 				.set(accountDomain::lastStatus, event.status())
 				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domain, eq(domain.toLowerCase()))
+				.and(accountDomain::domainId, eq(domain.toLowerCase()))
 				.future();
 		
 	}
@@ -63,7 +63,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 		return session()
 				.upsert()
 				.value(accountDomain::accountId, accountId)
-				.value(accountDomain::domain, domain.toLowerCase())
+				.value(accountDomain::domainId, domain.toLowerCase())
 				.value(accountDomain::createdAt, new Date())
 				.value(accountDomain::lastStatus, DomainVerificationStatus.ACCEPTED)
 				.future();
@@ -75,7 +75,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 		return session()
 				.delete()
 				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domain, eq(domain.toLowerCase()))
+				.and(accountDomain::domainId, eq(domain.toLowerCase()))
 				.future();
 		
 	}

@@ -5,6 +5,7 @@
 package com.mailrest.maildal.model;
 
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
+import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
@@ -13,30 +14,25 @@ public interface TestingTemplate {
 
 	static final String DEFAULT_ENV = "test";
 	
-	/*
-	 * lower-case domain name
-	 */
-	
+	@Constraints.NotEmpty
+	@Constraints.LowerCase
 	@PartitionKey(ordinal=0)
-	String domain();
+	String domainId();
 
+	@Constraints.NotEmpty
 	@PartitionKey(ordinal=1)
 	String accountId();
-
-	/*
-	 * lower-case template name
-	 */
 	
+	@Constraints.NotEmpty
+	@Constraints.LowerCase
 	@ClusteringColumn(ordinal=0)
-	String name();
-	
-	/*
-	 * For now it will use only the 'test' env
-	 */
-	
+	String templateId();
+
+	@Constraints.NotEmpty
 	@ClusteringColumn(ordinal=1)
 	String environment();
 
+	@Constraints.NotNull
 	Template template();
 	
 }

@@ -12,6 +12,7 @@ import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
 import com.mailrest.maildal.model.User;
+import com.mailrest.maildal.model.UserPermission;
 import com.mailrest.maildal.secur.PasswordHash;
 import com.noorq.casser.core.Casser;
 
@@ -19,38 +20,40 @@ public interface UserRepository extends AbstractRepository {
 	
 	static final User user = Casser.dsl(User.class);
 
-	default Future<Optional<User>> findUser(String email) {
+	default Future<Optional<User>> findUser(String userId) {
 
 		return session()
 			.select(User.class)
-			.where(user::email, eq(email.toLowerCase()))
+			.where(user::userId, eq(userId))
 			.single()
 			.future();
 		
 	}
 	
 	default Future<ResultSet> saveUser(
-			String email,
+			String userId,
 			String password, 
-			String accountId) {
+			String accountId,
+			UserPermission permission) {
 		
 		String passwordHash = PasswordHash.calculate(password);
 		
 		return session()
 			.upsert()
-			.value(user::email, email.toLowerCase())
+			.value(user::userId, userId)
 			.value(user::passwordHash, passwordHash)
 			.value(user::accountId, accountId)
+			.value(user::permission, permission)
 			.future();
 		
 	}
 	
 	default Future<ResultSet> dropUser(
-			String email) {
+			String userId) {
 		
 		return session()
 			.delete()
-			.where(user::email, eq(email.toLowerCase()))
+			.where(user::userId, eq(userId))
 			.future();
 		
 	}

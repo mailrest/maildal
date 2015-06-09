@@ -20,11 +20,11 @@ public interface UnsubscribedRecipientRepository extends AbstractRepository {
 
 	static final UnsubscribedRecipient unsubscribedRecipient = Casser.dsl(UnsubscribedRecipient.class);
 	
-	default Future<Optional<Fun.Tuple1<Date>>> isUnsubscribedRecipient(String domain, String accountId, String email) {
+	default Future<Optional<Fun.Tuple1<Date>>> isUnsubscribedRecipient(String domainId, String accountId, String email) {
 		
 		return session()
 				.select(unsubscribedRecipient::unsubscribedAt)
-				.where(unsubscribedRecipient::domain, eq(domain.toLowerCase()))
+				.where(unsubscribedRecipient::domainId, eq(domainId))
 				.and(unsubscribedRecipient::accountId, eq(accountId))
 				.and(unsubscribedRecipient::email, eq(email.toLowerCase()))
 				.single()
@@ -32,11 +32,11 @@ public interface UnsubscribedRecipientRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> unsubscribeRecipient(String domain, String accountId, String email) {
+	default Future<ResultSet> unsubscribeRecipient(String domainId, String accountId, String email) {
 		
 		return session()
 				.upsert()
-				.value(unsubscribedRecipient::domain, domain.toLowerCase())
+				.value(unsubscribedRecipient::domainId, domainId)
 				.value(unsubscribedRecipient::accountId, accountId)
 				.value(unsubscribedRecipient::email, email.toLowerCase())
 				.value(unsubscribedRecipient::unsubscribedAt, new Date())

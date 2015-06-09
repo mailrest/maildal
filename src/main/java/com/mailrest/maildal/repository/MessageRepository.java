@@ -40,7 +40,7 @@ public interface MessageRepository extends AbstractRepository {
 		
 		String accountId();
 		
-		String domain();
+		String domainId();
 		
 		String publicId();
 		
@@ -52,7 +52,7 @@ public interface MessageRepository extends AbstractRepository {
 
 	    String bcc();
 
-	    String template();
+	    String templateId();
 	    
 	    Map<String, String> userVariables();
 	    
@@ -64,7 +64,7 @@ public interface MessageRepository extends AbstractRepository {
 	
 	default Future<Fun.Tuple2<ResultSet, String>> createMessage(NewMessage newMessage) {
 		
-		String messageId = MessageId.next(newMessage.domain());
+		String messageId = MessageId.next(newMessage.domainId());
 
 		return session()
 			.insert()
@@ -72,16 +72,16 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::createdAt, new Date())
 			.value(message::messageType, newMessage.messageType())
 			.value(message::accountId, newMessage.accountId())
-			.value(message::domain, newMessage.domain())
+			.value(message::domainId, newMessage.domainId())
 			.value(message::publicId, newMessage.publicId())
 			.value(message::fromRecipients, newMessage.from())
 			.value(message::toRecipients, newMessage.to())
 			.value(message::ccRecipients, newMessage.cc())
 			.value(message::bccRecipients, newMessage.bcc())
-			.value(message::template, newMessage.template())
+			.value(message::templateId, newMessage.templateId())
 			.value(message::userVariables, newMessage.userVariables())
 			.value(message::subject, newMessage.subject())
-			.value(message::body, newMessage.body())
+			.value(message::textBody, newMessage.body())
 			.future(messageId);
 		
 	}

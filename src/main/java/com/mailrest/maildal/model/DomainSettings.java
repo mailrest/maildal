@@ -5,16 +5,20 @@ import com.noorq.casser.mapping.annotation.UDT;
 @UDT
 public interface DomainSettings {
 
-	String testRecipient();
-	
-	boolean addUnsubscribeLink();
+	String testToRecipients();
+
+	String testBccRecipients();
+
+	String prodBccRecipients();
+
+	UnsubscribeOptions unsubscribeLink();
 	
 	String unsubscribeText();
 	
 	String unsubscribeHtml();
 	
-	TrackingOptions trackingClicks();
+	TrackingOptions trackClicks();
 	
-	TrackingOptions trackingOpens();
+	TrackingOptions trackOpens();
 	
 }
