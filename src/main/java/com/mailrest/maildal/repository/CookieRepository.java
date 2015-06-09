@@ -7,7 +7,7 @@ import java.util.Optional;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
-import com.mailrest.maildal.gen.CookieId;
+import com.mailrest.maildal.gen.Generators;
 import com.mailrest.maildal.model.Cookie;
 import com.noorq.casser.core.Casser;
 import com.noorq.casser.support.Fun;
@@ -30,7 +30,7 @@ public interface CookieRepository extends AbstractRepository {
 	default Future<Fun.Tuple2<ResultSet, String>> createCookie(
 			String accountId) {
 		
-		String cookieId = CookieId.next();
+		String cookieId = Generators.COOKIE_ID.next();
 		
 		return session()
 			.insert()

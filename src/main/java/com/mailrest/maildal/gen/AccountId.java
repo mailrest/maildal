@@ -7,14 +7,15 @@ package com.mailrest.maildal.gen;
 import com.mailrest.maildal.util.RandomInstance;
 
 
-public final class AccountId {
+public final class AccountId implements SimpleGenerator {
 
 	public static final int ACCOUNT_MOD = 100000;
 	
-	private AccountId() {
+	AccountId() {
 	}
 
-	public static String next() {
+	@Override
+	public String next() {
 		return "1" + Integer.toString(nextInt()) + Integer.toString(nextInt());
 	}
 	

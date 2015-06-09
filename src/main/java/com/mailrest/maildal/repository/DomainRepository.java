@@ -12,7 +12,7 @@ import java.util.Optional;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
-import com.mailrest.maildal.gen.ApiKey;
+import com.mailrest.maildal.gen.Generators;
 import com.mailrest.maildal.model.Domain;
 import com.noorq.casser.core.Casser;
 import com.noorq.casser.support.Fun;
@@ -23,7 +23,7 @@ public interface DomainRepository extends AbstractRepository {
 	
 	default Future<Fun.Tuple2<ResultSet, String>> addDomain(String domainId, String accountId) {
 		
-		String apiKey = ApiKey.next();
+		String apiKey = Generators.API_KEY.next();
 		
 		return session()
 				.upsert()
@@ -47,7 +47,7 @@ public interface DomainRepository extends AbstractRepository {
 	
 	default Future<Fun.Tuple2<ResultSet, String>> updateApiKey(String domainId, String accountId) {
 		
-		String apiKey = ApiKey.next();
+		String apiKey = Generators.API_KEY.next();
 		
 		return session()
 				.update()

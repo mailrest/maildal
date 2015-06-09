@@ -7,14 +7,14 @@ package com.mailrest.maildal.gen;
 import com.mailrest.maildal.util.Base62;
 import com.mailrest.maildal.util.RandomInstance;
 
-public final class PasswordSalt {
+public final class PasswordSalt implements SimpleGenerator {
 
 	private final static int KEY_LENGTH = 64 / 8;
 	
-	private PasswordSalt() {
+	PasswordSalt() {
 	}
 	
-	public static String next() {
+	public String next() {
 		return Base62.INSTANCE.encode(rnd(KEY_LENGTH));
 	}
 	

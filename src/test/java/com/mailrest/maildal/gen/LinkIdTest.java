@@ -6,14 +6,12 @@ package com.mailrest.maildal.gen;
 
 import org.junit.Test;
 
-import com.mailrest.maildal.gen.LinkId;
-
 public class LinkIdTest {
 
 	@Test
 	public void test() {
 		
-		String lid = LinkId.next();
+		String lid = Generators.LINK_ID.next();
 		
 		System.out.println("lid = " + lid);
 		

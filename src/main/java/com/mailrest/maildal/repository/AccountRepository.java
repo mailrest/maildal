@@ -12,7 +12,7 @@ import java.util.Optional;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
-import com.mailrest.maildal.gen.AccountId;
+import com.mailrest.maildal.gen.Generators;
 import com.mailrest.maildal.model.Account;
 import com.mailrest.maildal.model.AccountUser;
 import com.noorq.casser.core.Casser;
@@ -39,7 +39,7 @@ public interface AccountRepository extends AbstractRepository {
 			String team,
 			String timezone) {
 		
-		String accountId = AccountId.next();
+		String accountId = Generators.ACCOUNT_ID.next();
 
 		if (timezone == null || timezone.isEmpty()) {
 			timezone = DEFAULT_TIMEZONE;

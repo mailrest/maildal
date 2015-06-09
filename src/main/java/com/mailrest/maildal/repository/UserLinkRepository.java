@@ -11,7 +11,7 @@ import java.util.Optional;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
-import com.mailrest.maildal.gen.LinkId;
+import com.mailrest.maildal.gen.Generators;
 import com.mailrest.maildal.model.CallbackAction;
 import com.mailrest.maildal.model.UserLink;
 import com.noorq.casser.core.Casser;
@@ -36,7 +36,7 @@ public interface UserLinkRepository extends AbstractRepository  {
 			String userId, 
 			CallbackAction action) {
 		
-		String linkId = LinkId.next();
+		String linkId = Generators.LINK_ID.next();
 		
 		return session()
 			.insert()

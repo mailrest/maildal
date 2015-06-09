@@ -11,7 +11,7 @@ public class MessageIdTest {
 	@Test
 	public void test() {
 		
-		String mid = MessageId.next("lt.su");
+		String mid = Generators.MESSAGE_ID.next("lt.su");
 		
 		System.out.println("mid = " + mid);
 		

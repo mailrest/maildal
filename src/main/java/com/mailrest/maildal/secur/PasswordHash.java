@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.mailrest.maildal.gen.PasswordSalt;
+import com.mailrest.maildal.gen.Generators;
 
 public final class PasswordHash {
 
@@ -27,7 +27,7 @@ public final class PasswordHash {
 	
 	public static String calculate(String password) {
 		
-		String salt = PasswordSalt.next();
+		String salt = Generators.PASSWORD_SALT.next();
 		
 		byte[] hash = hashIt(salt + password);
 		

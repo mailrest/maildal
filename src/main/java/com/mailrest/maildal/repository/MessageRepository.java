@@ -13,7 +13,7 @@ import java.util.Optional;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
-import com.mailrest.maildal.gen.MessageId;
+import com.mailrest.maildal.gen.Generators;
 import com.mailrest.maildal.model.Message;
 import com.mailrest.maildal.model.MessageEvent;
 import com.mailrest.maildal.model.MessageType;
@@ -64,7 +64,7 @@ public interface MessageRepository extends AbstractRepository {
 	
 	default Future<Fun.Tuple2<ResultSet, String>> createMessage(NewMessage newMessage) {
 		
-		String messageId = MessageId.next(newMessage.domainId());
+		String messageId = Generators.MESSAGE_ID.next(newMessage.domainId());
 
 		return session()
 			.insert()

@@ -9,19 +9,19 @@ import java.util.Date;
 
 import com.mailrest.maildal.util.RandomInstance;
 
-public final class MessageId {
+public final class MessageId implements ParameterGenerator {
 
 	private static final int DIGITS_MOD = 100000;
 	private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	
-	private MessageId() {
+	MessageId() {
 	}
 	
 	/*
 	 * Message id formated, example here: 20150516120002.16302.52977@lt.su
 	 */
 	
-	public static String next(String domain) {
+	public String next(String domain) {
 		
 		Date dt = new Date();
 		

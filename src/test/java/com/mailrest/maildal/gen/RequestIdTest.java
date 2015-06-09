@@ -11,7 +11,7 @@ public class RequestIdTest {
 	@Test
 	public void test() {
 		
-		String rid = RequestId.next();
+		String rid = Generators.REQUEST_ID.next();
 		
 		System.out.println("rid = " + rid);
 		

@@ -9,14 +9,12 @@ package com.mailrest.maildal.gen;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.mailrest.maildal.gen.AccountId;
-
 public class AccountIdTest {
 
 	@Test
 	public void testGenerator() {
 		
-		 String accountId = AccountId.next();
+		 String accountId = Generators.ACCOUNT_ID.next();
 		 
 		 System.out.println("accountId = " + accountId);
 		 

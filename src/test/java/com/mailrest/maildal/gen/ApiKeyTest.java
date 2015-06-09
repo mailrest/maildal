@@ -6,14 +6,12 @@ package com.mailrest.maildal.gen;
 
 import org.junit.Test;
 
-import com.mailrest.maildal.gen.ApiKey;
-
 public class ApiKeyTest {
 
 	@Test
 	public void test() {
 		
-		String apiKey = ApiKey.next();
+		String apiKey = Generators.API_KEY.next();
 		
 		System.out.println("apiKey = " + apiKey);
 		

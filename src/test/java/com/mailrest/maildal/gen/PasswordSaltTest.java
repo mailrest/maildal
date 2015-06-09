@@ -6,14 +6,12 @@ package com.mailrest.maildal.gen;
 
 import org.junit.Test;
 
-import com.mailrest.maildal.gen.PasswordSalt;
-
 public class PasswordSaltTest {
 
 	@Test
 	public void test() {
 		
-		String salt = PasswordSalt.next();
+		String salt = Generators.PASSWORD_SALT.next();
 		
 		System.out.println("salt = " + salt);
 		
