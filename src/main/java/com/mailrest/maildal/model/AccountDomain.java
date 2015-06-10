@@ -12,6 +12,7 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface AccountDomain {
 
+	@Constraints.Number
 	@Constraints.NotEmpty
 	@PartitionKey
 	String accountId();
@@ -24,6 +25,9 @@ public interface AccountDomain {
 	@Constraints.NotNull
 	Date createdAt();
 
+	@Constraints.NotEmpty
+	String domainIdn();
+	
 	@Index
 	DomainVerificationStatus lastStatus();
 	

@@ -22,6 +22,7 @@ import com.noorq.casser.mapping.annotation.Types;
 @Table
 public interface MessageLog {
 
+	@Constraints.Number
 	@Constraints.NotEmpty
 	@PartitionKey(ordinal=0)
 	String accountId();

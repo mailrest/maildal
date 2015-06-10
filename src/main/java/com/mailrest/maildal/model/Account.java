@@ -18,6 +18,7 @@ public interface Account {
 	 * Randomly generated AccountId, like this 1234567890
 	 */
 	
+	@Constraints.Number
 	@Constraints.NotEmpty
 	@PartitionKey
 	String accountId();

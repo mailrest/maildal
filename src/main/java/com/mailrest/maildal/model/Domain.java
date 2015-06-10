@@ -9,24 +9,26 @@ import java.util.Date;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
+import com.noorq.casser.mapping.annotation.StaticColumn;
 import com.noorq.casser.mapping.annotation.Table;
 
 @Table
 public interface Domain {
 
-	/*
-	 * Lower-case domain name, for example lt.su
-	 */
-	
 	@Constraints.NotEmpty
 	@Constraints.LowerCase
 	@PartitionKey
 	String domainId();
 	
+	@Constraints.Number
 	@Constraints.NotEmpty
 	@ClusteringColumn
 	String accountId();
-	
+
+	@StaticColumn
+	@Constraints.NotEmpty
+	String domainIdn();
+
 	@Constraints.NotNull
 	Date createdAt();
 	

@@ -22,6 +22,7 @@ public interface UserLink {
 	@Constraints.NotNull
 	CallbackAction action();
 	
+	@Constraints.Number
 	@Constraints.NotEmpty
 	String accountId();
 	

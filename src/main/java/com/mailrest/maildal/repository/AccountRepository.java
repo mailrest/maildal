@@ -56,21 +56,21 @@ public interface AccountRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> putAccountUser(String accountId, String email, AccountUser user) {
+	default Future<ResultSet> putAccountUser(String accountId, String userId, AccountUser user) {
 		
 		return session()
 				.update()
-				.put(account::users, email.toLowerCase(), user)
+				.put(account::users, userId, user)
 				.where(account::accountId, eq(accountId))
 				.future();
 		
 	}
 	
-	default Future<ResultSet> removeAccountUser(String accountId, String email) {
+	default Future<ResultSet> removeAccountUser(String accountId, String userId) {
 		
 		return session()
 				.update()
-				.put(account::users, email.toLowerCase(), null)
+				.put(account::users, userId, null)
 				.where(account::accountId, eq(accountId))
 				.future();
 		

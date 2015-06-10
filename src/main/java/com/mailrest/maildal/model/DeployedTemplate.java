@@ -26,6 +26,7 @@ public interface DeployedTemplate {
 	@PartitionKey(ordinal=0)
 	String domainId();
 
+	@Constraints.Number
 	@Constraints.NotEmpty
 	@PartitionKey(ordinal=1)
 	String accountId();

@@ -34,48 +34,48 @@ public interface AccountDomainRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<List<DomainVerificationEvent>>> getVerificationEvents(String accountId, String domain) {
+	default Future<Optional<List<DomainVerificationEvent>>> getVerificationEvents(String accountId, String domainId) {
 		
 		return session()
 				.select(accountDomain::events)
 				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domain.toLowerCase()))
+				.and(accountDomain::domainId, eq(domainId))
 				.single()
 				.map(t -> t._1)
 				.future();
 		
 	}
 	
-	default Future<ResultSet> addVerificationEvent(String accountId, String domain, DomainVerificationEvent event) {
+	default Future<ResultSet> addVerificationEvent(String accountId, String domainId, DomainVerificationEvent event) {
 		
 		return session()
 				.update()
 				.append(accountDomain::events, event)
 				.set(accountDomain::lastStatus, event.status())
 				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domain.toLowerCase()))
+				.and(accountDomain::domainId, eq(domainId))
 				.future();
 		
 	}
 	
-	default Future<ResultSet> addAccountDomain(String accountId, String domain) {
+	default Future<ResultSet> addAccountDomain(String accountId, String domainId) {
 		
 		return session()
 				.upsert()
 				.value(accountDomain::accountId, accountId)
-				.value(accountDomain::domainId, domain.toLowerCase())
+				.value(accountDomain::domainId, domainId)
 				.value(accountDomain::createdAt, new Date())
 				.value(accountDomain::lastStatus, DomainVerificationStatus.ACCEPTED)
 				.future();
 		
 	}
 	
-	default Future<ResultSet> dropAccountDomain(String accountId, String domain) {
+	default Future<ResultSet> dropAccountDomain(String accountId, String domainId) {
 		
 		return session()
 				.delete()
 				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domain.toLowerCase()))
+				.and(accountDomain::domainId, eq(domainId))
 				.future();
 		
 	}

@@ -19,6 +19,7 @@ public interface User {
 	@Constraints.NotEmpty
 	String passwordHash();
 
+	@Constraints.Number
 	@Constraints.NotEmpty
 	String accountId();
 	

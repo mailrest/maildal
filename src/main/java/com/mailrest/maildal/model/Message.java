@@ -33,6 +33,7 @@ public interface Message {
 	@Constraints.NotNull
 	MessageType messageType();
 	
+	@Constraints.Number
 	@Constraints.NotEmpty
 	String accountId();
 	
@@ -56,7 +57,6 @@ public interface Message {
     
     Map<String, String> userVariables();
     
-	@Constraints.NotEmpty
 	String subject();
 	
 	String textBody();

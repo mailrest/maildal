@@ -60,7 +60,7 @@ public interface MessageLogRepository extends AbstractRepository {
 		return session()
 				.insert()
 				.value(messageLog::accountId, message.accountId())
-				.value(messageLog::domainId, message.domainId().toLowerCase())
+				.value(messageLog::domainId, message.domainId())
 				.value(messageLog::dayAt, daily(eventAt))
 				.value(messageLog::eventAt, eventTime)
 				.value(messageLog::messageId, message.messageId())
