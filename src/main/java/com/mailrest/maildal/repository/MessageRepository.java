@@ -42,6 +42,8 @@ public interface MessageRepository extends AbstractRepository {
 		
 		String domainId();
 		
+		String domainIdn();
+		
 		String publicId();
 		
 		String from();
@@ -73,6 +75,7 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::messageType, newMessage.messageType())
 			.value(message::accountId, newMessage.accountId())
 			.value(message::domainId, newMessage.domainId())
+			.value(message::domainIdn, newMessage.domainIdn())
 			.value(message::publicId, newMessage.publicId())
 			.value(message::fromRecipients, newMessage.from())
 			.value(message::toRecipients, newMessage.to())

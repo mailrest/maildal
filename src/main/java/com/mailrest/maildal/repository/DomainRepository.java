@@ -21,13 +21,14 @@ public interface DomainRepository extends AbstractRepository {
 
 	static final Domain domain = Casser.dsl(Domain.class);
 	
-	default Future<Fun.Tuple2<ResultSet, String>> addDomain(String domainId, String accountId) {
+	default Future<Fun.Tuple2<ResultSet, String>> addDomain(String domainId, String domainIdn, String accountId) {
 		
 		String apiKey = Generators.API_KEY.next();
 		
 		return session()
 				.upsert()
 				.value(domain::domainId, domainId)
+				.value(domain::domainIdn, domainIdn)
 				.value(domain::createdAt, new Date())
 				.value(domain::accountId, accountId)
 				.value(domain::apiKey, apiKey)
