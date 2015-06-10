@@ -4,6 +4,9 @@
  */
 package com.mailrest.maildal.model;
 
+import com.mailrest.maildal.model.constraint.AccountId;
+import com.mailrest.maildal.model.constraint.DomainId;
+import com.mailrest.maildal.model.constraint.TemplateId;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
@@ -14,19 +17,16 @@ public interface TestingTemplate {
 
 	static final String DEFAULT_ENV = "test";
 	
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
 	@PartitionKey(ordinal=0)
+	@DomainId
 	String domainId();
 
-	@Constraints.Number
-	@Constraints.NotEmpty
 	@PartitionKey(ordinal=1)
+	@AccountId
 	String accountId();
 	
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
 	@ClusteringColumn(ordinal=0)
+	@TemplateId
 	String templateId();
 
 	@Constraints.NotEmpty

@@ -4,6 +4,7 @@
  */
 package com.mailrest.maildal.model;
 
+import com.mailrest.maildal.model.constraint.AccountId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -23,7 +24,7 @@ public interface Cookie {
 	@PartitionKey
 	String cookieId();
 	
-	@Constraints.NotEmpty
+	@AccountId
 	String accountId();
 
 }

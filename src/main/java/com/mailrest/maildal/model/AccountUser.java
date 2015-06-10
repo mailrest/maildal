@@ -4,14 +4,14 @@
  */
 package com.mailrest.maildal.model;
 
+import com.mailrest.maildal.model.constraint.UserId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.UDT;
 
 @UDT
 public interface AccountUser {
 	
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
+	@UserId
 	String userId();
 
 	@Constraints.NotEmpty

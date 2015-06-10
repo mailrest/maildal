@@ -6,6 +6,8 @@ package com.mailrest.maildal.model;
 
 import java.util.Date;
 
+import com.mailrest.maildal.model.constraint.AccountId;
+import com.mailrest.maildal.model.constraint.DomainId;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
@@ -15,14 +17,12 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface Domain {
 
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
 	@PartitionKey
+	@DomainId
 	String domainId();
 	
-	@Constraints.Number
-	@Constraints.NotEmpty
 	@ClusteringColumn
+	@AccountId
 	String accountId();
 
 	@StaticColumn

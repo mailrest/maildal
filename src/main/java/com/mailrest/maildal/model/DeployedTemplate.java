@@ -6,6 +6,9 @@ package com.mailrest.maildal.model;
 
 import java.util.Date;
 
+import com.mailrest.maildal.model.constraint.AccountId;
+import com.mailrest.maildal.model.constraint.DomainId;
+import com.mailrest.maildal.model.constraint.TemplateId;
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
@@ -17,23 +20,16 @@ public interface DeployedTemplate {
 
 	static final String DEFAULT_ENV = "prod";
 	
-	/*
-	 * lower-case domain name
-	 */
-	
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
 	@PartitionKey(ordinal=0)
+	@DomainId
 	String domainId();
 
-	@Constraints.Number
-	@Constraints.NotEmpty
 	@PartitionKey(ordinal=1)
+	@AccountId
 	String accountId();
 	
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
 	@ClusteringColumn(ordinal=0)
+	@TemplateId
 	String templateId();
 
 	@Constraints.NotNull

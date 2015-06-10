@@ -4,6 +4,8 @@
  */
 package com.mailrest.maildal.model;
 
+import com.mailrest.maildal.model.constraint.AccountId;
+import com.mailrest.maildal.model.constraint.UserId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -22,12 +24,10 @@ public interface UserLink {
 	@Constraints.NotNull
 	CallbackAction action();
 	
-	@Constraints.Number
-	@Constraints.NotEmpty
+	@AccountId
 	String accountId();
-	
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
+
+	@UserId
 	String userId();
 	
 }

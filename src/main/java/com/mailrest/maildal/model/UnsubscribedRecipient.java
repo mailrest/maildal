@@ -6,6 +6,9 @@ package com.mailrest.maildal.model;
 
 import java.util.Date;
 
+import com.mailrest.maildal.model.constraint.AccountId;
+import com.mailrest.maildal.model.constraint.DomainId;
+import com.mailrest.maildal.model.constraint.EmailId;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
@@ -14,20 +17,16 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface UnsubscribedRecipient {
 
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
 	@PartitionKey(ordinal=0)
+	@DomainId
 	String domainId();
 
-	@Constraints.Number
-	@Constraints.NotEmpty
 	@PartitionKey(ordinal=1)
+	@AccountId
 	String accountId();
 
-	@Constraints.NotEmpty
-	@Constraints.Email
-	@Constraints.LowerCase
 	@ClusteringColumn
+	@EmailId
 	String email();
 	
 	@Constraints.NotNull

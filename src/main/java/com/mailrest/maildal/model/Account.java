@@ -7,6 +7,7 @@ package com.mailrest.maildal.model;
 import java.util.Date;
 import java.util.Map;
 
+import com.mailrest.maildal.model.constraint.AccountId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -18,9 +19,8 @@ public interface Account {
 	 * Randomly generated AccountId, like this 1234567890
 	 */
 	
-	@Constraints.Number
-	@Constraints.NotEmpty
 	@PartitionKey
+	@AccountId
 	String accountId();
 	
 	@Constraints.NotNull

@@ -4,17 +4,19 @@
  */
 package com.mailrest.maildal.model;
 
-import com.mailrest.maildal.model.constraint.EmailId;
+import com.mailrest.maildal.model.constraint.UserId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.UDT;
 
 @UDT
-public interface MessageRecipient {
-
-	@Constraints.NotEmpty
-	String recipient();
+public interface UserInfo {
 	
-	@EmailId
-	String recipientEmail();
-
+	@UserId
+	String userId();
+	
+	@Constraints.NotEmpty
+	String ip();
+	
+	String userAgent();
+	
 }

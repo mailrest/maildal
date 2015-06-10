@@ -6,6 +6,9 @@ package com.mailrest.maildal.model;
 
 import java.util.Date;
 
+import com.mailrest.maildal.model.constraint.AccountId;
+import com.mailrest.maildal.model.constraint.DomainId;
+import com.mailrest.maildal.model.constraint.TemplateId;
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
@@ -15,9 +18,8 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface AccountLog {
 
-	@Constraints.Number
-	@Constraints.NotEmpty
 	@PartitionKey
+	@AccountId
 	String accountId();
 
 	@Constraints.NotNull
@@ -25,19 +27,15 @@ public interface AccountLog {
 	Date eventAt();
 	
 	@Constraints.NotEmpty
-	@Constraints.LowerCase
-	String userId();
+	UserInfo userInfo();
 	
 	@Constraints.NotNull
 	AccountAction action();
-	
-	@Constraints.NotEmpty
-	String ip();
-	
-	String userAgent();
 
-	String template();
+	@TemplateId
+	String templateId();
 	
+	@DomainId
 	String domainId();
 	
 }

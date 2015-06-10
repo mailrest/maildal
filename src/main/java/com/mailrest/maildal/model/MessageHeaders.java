@@ -20,7 +20,6 @@ public interface MessageHeaders {
 	
 	String bccRecipients();
 	
-	@Constraints.NotEmpty
 	String subject();
 	
 }

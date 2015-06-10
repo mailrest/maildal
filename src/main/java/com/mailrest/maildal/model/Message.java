@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.mailrest.maildal.model.constraint.AccountId;
+import com.mailrest.maildal.model.constraint.DomainId;
+import com.mailrest.maildal.model.constraint.MessageId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -23,8 +26,8 @@ public interface Message {
 	 * Message id formated, example here: 20150516120002.16302.52977@lt.su
 	 */
 
-	@Constraints.NotEmpty
 	@PartitionKey
+	@MessageId
 	String messageId();
 
 	@Constraints.NotNull
@@ -33,12 +36,10 @@ public interface Message {
 	@Constraints.NotNull
 	MessageType messageType();
 	
-	@Constraints.Number
-	@Constraints.NotEmpty
+	@AccountId
 	String accountId();
 	
-	@Constraints.NotEmpty
-	@Constraints.LowerCase
+	@DomainId
 	String domainId();
 	
 	String publicId();
