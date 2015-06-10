@@ -23,7 +23,7 @@ public interface MessageQueueRepository extends AbstractRepository {
 
 	static final MessageQueue messageQueue = Casser.dsl(MessageQueue.class);
 	
-	default Future<Optional<MessageQueue>> peekMessage(int bucketId, String messageId) {
+	default Future<Optional<MessageQueue>> peekMessage(int bucketId) {
 		
 		return session()
 				.select(MessageQueue.class)
@@ -58,7 +58,7 @@ public interface MessageQueueRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> enqueueMessage(int bucket, String messageId, Date deliveryAt) {
+	default Future<ResultSet> enqueueMessage(int bucket, String messageId, Date deliveryAt, int attempt) {
 		
 		UUID deliveryTime = TimeUUIDUtil.createTimeUUID(deliveryAt);
 		
@@ -67,6 +67,7 @@ public interface MessageQueueRepository extends AbstractRepository {
 				.value(messageQueue::bucket, bucket)
 				.value(messageQueue::messageId, messageId)
 				.value(messageQueue::deliveryAt, deliveryTime)
+				.value(messageQueue::attempt, attempt)
 				.value(messageQueue::peeked, false)
 				.future();
 	}

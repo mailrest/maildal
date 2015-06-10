@@ -16,7 +16,7 @@ import com.noorq.casser.mapping.annotation.Types;
 @Table
 public interface MessageQueue {
 
-	static final int DEFAULT_BUCKETS = 255;
+	static final int DEFAULT_BUCKETS = 1;
 	
 	@PartitionKey
 	int bucket();

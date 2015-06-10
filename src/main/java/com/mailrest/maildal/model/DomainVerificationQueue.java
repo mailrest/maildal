@@ -12,7 +12,7 @@ import com.noorq.casser.mapping.annotation.Types;
 @Table
 public interface DomainVerificationQueue {
 
-	static final int DEFAULT_BUCKETS = 11;
+	static final int DEFAULT_BUCKETS = 1;
 	
 	@PartitionKey
 	int bucket();
