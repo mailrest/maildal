@@ -36,7 +36,7 @@ public interface UserRepository extends AbstractRepository {
 			String accountId,
 			UserPermission permission) {
 		
-		String passwordHash = PasswordHash.calculate(password);
+		String passwordHash = PasswordHash.INSTANCE.calculate(password);
 		
 		return session()
 			.upsert()

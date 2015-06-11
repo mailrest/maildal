@@ -11,8 +11,10 @@ import org.apache.commons.codec.binary.Base64;
 
 import com.mailrest.maildal.gen.Generators;
 
-public final class PasswordHash {
+public enum PasswordHash {
 
+	INSTANCE;
+	
 	public static final String DELIMITER = ":";
 	
 	private final static MessageDigest sha;
@@ -25,7 +27,7 @@ public final class PasswordHash {
 		}
 	}
 	
-	public static String calculate(String password) {
+	public String calculate(String password) {
 		
 		String salt = Generators.PASSWORD_SALT.next();
 		
@@ -35,7 +37,7 @@ public final class PasswordHash {
 		
 	}
 	
-	public static boolean isEquals(String passwordHash, String password) {
+	public boolean isEquals(String passwordHash, String password) {
 		
 		int index = passwordHash.indexOf(DELIMITER);
 		

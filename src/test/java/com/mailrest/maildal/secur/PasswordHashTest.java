@@ -12,13 +12,13 @@ public class PasswordHashTest {
 	@Test
 	public void test() {
 		
-		String hash = PasswordHash.calculate("123");
+		String hash = PasswordHash.INSTANCE.calculate("123");
 		
 		System.out.println("hash = " + hash);
 		
-		Assert.assertTrue(PasswordHash.isEquals(hash, "123"));
+		Assert.assertTrue(PasswordHash.INSTANCE.isEquals(hash, "123"));
 		
-		Assert.assertFalse(PasswordHash.isEquals(hash, "1234"));
+		Assert.assertFalse(PasswordHash.INSTANCE.isEquals(hash, "1234"));
 	}
 	
 }
