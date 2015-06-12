@@ -5,10 +5,9 @@
 package com.mailrest.maildal.util;
 
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.util.Arrays;
 
-public interface AbstractBase {
+public interface AlphabetBase extends BaseXX {
 
 	public char[] alphabet();
 	
@@ -121,14 +120,6 @@ public interface AbstractBase {
 		}
 
 		return Arrays.copyOfRange(temp, j - zeros, temp.length);
-	}
-
-	default BigInteger decodeToBigInteger(String input) {
-		return new BigInteger(1, decode(input));
-	}
-
-	default String encode(BigInteger bi) {
-		return encode(bi.toByteArray());
 	}
 	
 	/**

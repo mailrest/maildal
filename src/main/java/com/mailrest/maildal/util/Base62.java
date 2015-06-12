@@ -5,7 +5,7 @@
 package com.mailrest.maildal.util;
 
 
-public enum Base62 implements AbstractBase {
+public enum Base62 implements AlphabetBase {
 	
 	INSTANCE;
 	
