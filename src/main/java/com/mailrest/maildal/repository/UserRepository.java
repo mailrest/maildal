@@ -30,7 +30,7 @@ public interface UserRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> saveUser(
+	default Future<ResultSet> saveNewUser(
 			String userId,
 			String password, 
 			String accountId,
@@ -39,7 +39,7 @@ public interface UserRepository extends AbstractRepository {
 		String passwordHash = PasswordHash.INSTANCE.calculate(password);
 		
 		return session()
-			.upsert()
+			.insert()
 			.value(user::userId, userId)
 			.value(user::passwordHash, passwordHash)
 			.value(user::accountId, accountId)
