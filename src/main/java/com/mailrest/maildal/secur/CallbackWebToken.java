@@ -17,6 +17,15 @@ public final class CallbackWebToken implements JsonSerializable<CallbackWebToken
 	private String userId;
 	private CallbackAction action;
 	
+	public CallbackWebToken() {
+	}
+
+	public CallbackWebToken(String accountId, String userId, CallbackAction action) {
+		this.accountId = accountId;
+		this.userId = userId;
+		this.action = action;
+	}
+	
 	@Override
 	public CallbackWebToken newInstance() {
 		return new CallbackWebToken();
@@ -38,11 +47,11 @@ public final class CallbackWebToken implements JsonSerializable<CallbackWebToken
 		this.userId = userId;
 	}
 
-	public CallbackAction getPermission() {
+	public CallbackAction getAction() {
 		return action;
 	}
 
-	public void setPermission(CallbackAction action) {
+	public void setAction(CallbackAction action) {
 		this.action = action;
 	}
 	

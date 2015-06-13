@@ -17,6 +17,15 @@ public final class UnsubscribeWebToken implements JsonSerializable<UnsubscribeWe
 	private String domainId;
 	private String emailId;
 	
+	public UnsubscribeWebToken() {
+	}
+
+	public UnsubscribeWebToken(String accountId, String domainId, String emailId) {
+		this.accountId = accountId;
+		this.domainId = domainId;
+		this.emailId = emailId; 
+	}
+	
 	@Override
 	public UnsubscribeWebToken newInstance() {
 		return new UnsubscribeWebToken();

@@ -17,6 +17,15 @@ public final class AccountWebToken implements JsonSerializable<AccountWebToken> 
 	private String userId;
 	private UserPermission permission;
 	
+	public AccountWebToken() {
+	}
+
+	public AccountWebToken(String accountId, String userId, UserPermission permission) {
+		this.accountId = accountId;
+		this.userId = userId;
+		this.permission = permission;
+	}
+	
 	@Override
 	public AccountWebToken newInstance() {
 		return new AccountWebToken();
