@@ -7,9 +7,9 @@ package com.mailrest.maildal.model;
 
 public enum CallbackAction {
 
-	CONFIRM_EMAIL("C"),
+	CONFIRM_EMAIL("M"),
 	
-	RESTORE_PASSWORD("R"); 
+	UPDATE_PASSWORD("P"); 
 	
 	private final String code;
 
