@@ -48,6 +48,17 @@ public interface UserRepository extends AbstractRepository {
 		
 	}
 	
+	default Future<ResultSet> updatePassword(String userId, String password) {
+
+		String passwordHash = PasswordHash.INSTANCE.calculate(password);
+		
+		return session()
+			.update()
+			.set(user::passwordHash, passwordHash)
+			.where(user::userId, eq(userId))
+			.future();
+	}
+	
 	default Future<ResultSet> dropUser(
 			String userId) {
 		
