@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
+import com.google.common.collect.ImmutableList;
 import com.mailrest.maildal.model.AccountDomain;
 import com.mailrest.maildal.model.DomainVerificationEvent;
 import com.mailrest.maildal.model.DomainVerificationStatus;
@@ -50,14 +51,43 @@ public interface AccountDomainRepository extends AbstractRepository {
 		return session()
 				.update()
 				.append(accountDomain::events, event)
-				.set(accountDomain::lastStatus, event.status())
 				.where(accountDomain::accountId, eq(accountId))
 				.and(accountDomain::domainId, eq(domainId))
 				.future();
 		
 	}
 	
+	default Future<Optional<AccountDomain>> findAccountDomain(String accountId, String domainId) {
+		
+		return session()
+				.select(AccountDomain.class)
+				.where(accountDomain::accountId, eq(accountId))
+				.and(accountDomain::domainId, eq(domainId))
+				.single()
+				.future();
+		
+	}
+	
 	default Future<ResultSet> addAccountDomain(String accountId, String domainId, String domainIdn) {
+		
+		final DomainVerificationEvent event = new DomainVerificationEvent() {
+
+			@Override
+			public Date eventAt() {
+				return new Date();
+			}
+
+			@Override
+			public DomainVerificationStatus status() {
+				return DomainVerificationStatus.ACCEPTED;
+			}
+
+			@Override
+			public String message() {
+				return "accepted";
+			}
+			
+		};
 		
 		return session()
 				.upsert()
@@ -65,7 +95,7 @@ public interface AccountDomainRepository extends AbstractRepository {
 				.value(accountDomain::domainId, domainId)
 				.value(accountDomain::domainIdn, domainIdn)
 				.value(accountDomain::createdAt, new Date())
-				.value(accountDomain::lastStatus, DomainVerificationStatus.ACCEPTED)
+				.value(accountDomain::events, ImmutableList.of(event))
 				.future();
 		
 	}

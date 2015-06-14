@@ -13,7 +13,7 @@ public class DomainIdTest {
 	@Test
 	public void testLowerCase() {
 		
-		String actual = DomainId.INSTANCE.fromDomain("mailrest.com");
+		String actual = DomainId.INSTANCE.fromDomainIdn("mailrest.com");
 
 		Assert.assertEquals("mailrest.com", actual);
 		
@@ -22,7 +22,7 @@ public class DomainIdTest {
 	@Test
 	public void testUpperCase() {
 		
-		String actual = DomainId.INSTANCE.fromDomain("mailresT.com");
+		String actual = DomainId.INSTANCE.fromDomainIdn("mailresT.com");
 
 		Assert.assertEquals("mailrest.com", actual);
 		
@@ -31,7 +31,7 @@ public class DomainIdTest {
 	@Test
 	public void testIDN() {
 		
-		String actual = DomainId.INSTANCE.fromDomain("мейлрест.рф");
+		String actual = DomainId.INSTANCE.fromDomainIdn("мейлрест.рф");
 
 		Assert.assertEquals("xn--e1aalic1aii.xn--p1ai", actual);
 		

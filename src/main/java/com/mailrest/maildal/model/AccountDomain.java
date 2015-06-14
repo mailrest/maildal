@@ -7,7 +7,6 @@ import com.mailrest.maildal.model.constraint.AccountId;
 import com.mailrest.maildal.model.constraint.DomainId;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
-import com.noorq.casser.mapping.annotation.Index;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
@@ -24,12 +23,9 @@ public interface AccountDomain {
 
 	@Constraints.NotNull
 	Date createdAt();
-
+	
 	@Constraints.NotEmpty
 	String domainIdn();
-	
-	@Index
-	DomainVerificationStatus lastStatus();
 	
 	List<DomainVerificationEvent> events();
 }

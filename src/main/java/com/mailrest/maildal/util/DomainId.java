@@ -10,8 +10,8 @@ public enum DomainId {
 
 	INSTANCE;
 	
-	public String fromDomain(String domain) {
-		return IDN.toASCII(domain.toLowerCase());
+	public String fromDomainIdn(String domainIdn) {
+		return IDN.toASCII(domainIdn.toLowerCase());
 	}
 	
 }

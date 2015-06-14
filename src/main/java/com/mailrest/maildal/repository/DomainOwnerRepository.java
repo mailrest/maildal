@@ -4,10 +4,12 @@
  */
 package com.mailrest.maildal.repository;
 
-import static com.noorq.casser.core.Query.eq;
 import static com.noorq.casser.core.Query.desc;
+import static com.noorq.casser.core.Query.eq;
+import static com.noorq.casser.core.Query.in;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import scala.concurrent.Future;
@@ -43,5 +45,15 @@ public interface DomainOwnerRepository extends AbstractRepository {
 		
 	}
 	
+	default Future<ResultSet> dropDomainVerifications(String accountId, String domainId, List<Date> verifiedAt) {
+		
+		return session()
+				.delete()
+				.where(domainOwner::domainId, eq(domainId))
+				.and(domainOwner::verifiedAt, in(verifiedAt.toArray(new Date[0])))
+				.onlyIf(domainOwner::accountId, eq(accountId))
+				.future();
+		
+	}
 	
 }
