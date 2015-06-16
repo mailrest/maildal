@@ -15,8 +15,6 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface TestingTemplate {
 
-	static final String DEFAULT_ENV = "test";
-	
 	@PartitionKey(ordinal=0)
 	@DomainId
 	String domainId();

@@ -50,46 +50,55 @@ public interface TemplateRepository extends AbstractRepository {
 	}
 	
 	
-	default Future<ResultSet> updateTestingTemplate(String domainId, String accountId, String templateId, Template template) {
+	default Future<ResultSet> updateTestingTemplate(String domainId, String accountId, String templateId, String env, Template template) {
 		
 		return session()
 				.upsert()
 				.value(testingTemplate::domainId, domainId)
 				.value(testingTemplate::accountId, accountId)
 				.value(testingTemplate::templateId, templateId)
-				.value(testingTemplate::environment, TestingTemplate.DEFAULT_ENV)
+				.value(testingTemplate::environment, env)
 				.value(testingTemplate::template, template)
 				.future();
 		
 	}
 	
-	default Future<Optional<Fun.Tuple1<Template>>> findTemplate(String domainId, String accountId, String templateId, String env) {
+	default Future<ResultSet> deleteTestingTemplate(String domainId, String accountId, String templateId, String env) {
 		
-		if (DeployedTemplate.DEFAULT_ENV.equals(env)) {
+		return session()
+				.delete()
+				.where(testingTemplate::domainId, eq(domainId))
+				.and(testingTemplate::accountId, eq(accountId))
+				.and(testingTemplate::templateId, eq(templateId))
+				.and(testingTemplate::environment, eq(env))
+				.future();
 		
-			return session()
-					.select(deployedTemplate::template)
-					.where(deployedTemplate::domainId, eq(domainId))
-					.and(deployedTemplate::accountId, eq(accountId))
-					.and(deployedTemplate::templateId, eq(templateId))
-					.orderBy(desc(deployedTemplate::deployedAt))
-					.single()
-					.future();
+	}
+	
+	default Future<Optional<Fun.Tuple2<Template, Date>>> findDeployedTemplate(String domainId, String accountId, String templateId) {
 
-		}
-		else {
-			
-			return session()
-					.select(testingTemplate::template)
-					.where(testingTemplate::domainId, eq(domainId))
-					.and(testingTemplate::accountId, eq(accountId))
-					.and(testingTemplate::templateId, eq(templateId))
-					.and(testingTemplate::environment, eq(env))
-					.single()
-					.future();
-			
-		}
+		return session()
+				.select(deployedTemplate::template, deployedTemplate::deployedAt)
+				.where(deployedTemplate::domainId, eq(domainId))
+				.and(deployedTemplate::accountId, eq(accountId))
+				.and(deployedTemplate::templateId, eq(templateId))
+				.orderBy(desc(deployedTemplate::deployedAt))
+				.single()
+				.future();
+
+	}
+	
+	default Future<Optional<Fun.Tuple1<Template>>> findTestingTemplate(String domainId, String accountId, String templateId, String env) {
 		
+		return session()
+				.select(testingTemplate::template)
+				.where(testingTemplate::domainId, eq(domainId))
+				.and(testingTemplate::accountId, eq(accountId))
+				.and(testingTemplate::templateId, eq(templateId))
+				.and(testingTemplate::environment, eq(env))
+				.single()
+				.future();
+			
 	}
 	
 

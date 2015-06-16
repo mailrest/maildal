@@ -17,8 +17,6 @@ import com.noorq.casser.mapping.annotation.Table;
 
 @Table
 public interface DeployedTemplate {
-
-	static final String DEFAULT_ENV = "prod";
 	
 	@PartitionKey(ordinal=0)
 	@DomainId
