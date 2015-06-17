@@ -64,8 +64,10 @@ public interface MessageRepository extends AbstractRepository {
 	    
 		String subject();
 		
-		String body();
-		
+		String textBody();
+
+		String htmlBody();
+
 	}
 	
 	default Future<Fun.Tuple2<ResultSet, String>> createMessage(NewMessage newMessage) {
@@ -88,7 +90,8 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::templateId, newMessage.templateId())
 			.value(message::userVariables, newMessage.userVariables())
 			.value(message::subject, newMessage.subject())
-			.value(message::textBody, newMessage.body())
+			.value(message::textBody, newMessage.textBody())
+			.value(message::htmlBody, newMessage.htmlBody())
 			.usingTtl(TWO_MONTHS_IN_SECONDS)
 			.future(messageId);
 		
