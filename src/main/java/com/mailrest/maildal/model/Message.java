@@ -34,6 +34,9 @@ public interface Message {
 	Date createdAt();
 	
 	@Constraints.NotNull
+	Date deliveryAt();
+	
+	@Constraints.NotNull
 	MessageType messageType();
 	
 	@AccountId
@@ -41,8 +44,6 @@ public interface Message {
 	
 	@DomainId
 	String domainId();
-	
-	String domainIdn();
 	
 	String publicId();
 	

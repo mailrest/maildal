@@ -22,13 +22,17 @@ import com.noorq.casser.support.Fun;
 
 public interface MessageRepository extends AbstractRepository {
 
+	static final int TWO_MONTHS_IN_SECONDS = 60 * 24 * 60;
+	
 	static final Message message = Casser.dsl(Message.class);
 	
-	default Future<Optional<Message>> findMessage(String messageId) {
+	default Future<Optional<Message>> findMessage(String messageId, String domainId, String accountId) {
 		
 		return session()
 				.select(Message.class)
 				.where(message::messageId, eq(messageId))
+				.onlyIf(message::domainId, eq(domainId))
+				.onlyIf(message::accountId, eq(accountId))
 				.single()
 				.future();
 		
@@ -38,11 +42,11 @@ public interface MessageRepository extends AbstractRepository {
 		
 		MessageType messageType();
 		
+		Date deliveryAt();
+		
 		String accountId();
 		
 		String domainId();
-		
-		String domainIdn();
 		
 		String publicId();
 		
@@ -72,10 +76,10 @@ public interface MessageRepository extends AbstractRepository {
 			.insert()
 			.value(message::messageId, messageId)
 			.value(message::createdAt, new Date())
+			.value(message::deliveryAt, newMessage.deliveryAt())
 			.value(message::messageType, newMessage.messageType())
 			.value(message::accountId, newMessage.accountId())
 			.value(message::domainId, newMessage.domainId())
-			.value(message::domainIdn, newMessage.domainIdn())
 			.value(message::publicId, newMessage.publicId())
 			.value(message::fromRecipients, newMessage.from())
 			.value(message::toRecipients, newMessage.to())
@@ -85,9 +89,21 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::userVariables, newMessage.userVariables())
 			.value(message::subject, newMessage.subject())
 			.value(message::textBody, newMessage.body())
+			.usingTtl(TWO_MONTHS_IN_SECONDS)
 			.future(messageId);
 		
 	}
+	
+	default Future<ResultSet> deleteMessage(String messageId, String domainId, String accountId) {
+		
+		return session()
+				.delete()
+				.where(message::messageId, eq(messageId))
+				.onlyIf(message::domainId, eq(domainId))
+				.onlyIf(message::accountId, eq(accountId))				
+				.future();
+		
+	}	
 	
 	default Future<ResultSet> addMessageEvent(String messageId, MessageEvent event) {
 		
