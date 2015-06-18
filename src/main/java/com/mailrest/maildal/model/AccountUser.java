@@ -18,6 +18,8 @@ public interface AccountUser {
 	@Constraints.Email
 	String email();
 
+	String team();
+	
 	String firstName();
 
 	String lastName();

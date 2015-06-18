@@ -27,9 +27,7 @@ public interface Account {
 	Date createdAt();
 	
 	@Constraints.NotEmpty
-	String organization();
-	
-	String team();
+	String businessName();
 	
 	String timezone();
 

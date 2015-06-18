@@ -37,8 +37,7 @@ public interface AccountRepository extends AbstractRepository {
 	
 	default Future<Fun.Tuple2<ResultSet, String>> createAccount(
 			AccountUser user,
-			String organization,
-			String team,
+			String businessName,
 			String timezone) {
 		
 		String accountId = Generators.ACCOUNT_ID.next();
@@ -51,8 +50,7 @@ public interface AccountRepository extends AbstractRepository {
 			.insert()
 			.value(account::accountId, accountId)
 			.value(account::createdAt, new Date())
-			.value(account::organization, organization)
-			.value(account::team, team)
+			.value(account::businessName, businessName)
 			.value(account::timezone, timezone)
 			.value(account::users, ImmutableMap.of(user.userId(), user))
 			.future(accountId);
