@@ -15,25 +15,60 @@ import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
+/**
+ *   Special table to store deployed templates
+ *   
+ *   It has different structure rather then table of testing templates, thereby having
+ *   additional field 'deployedAt' that is clustering column in order to retrieve the sequence
+ *   of the deployed templates
+ *
+ */
+
 @Table
 public interface DeployedTemplate {
+	
+	/**
+	 *  Corresponds to the specific Domain, not a specific Account
+	 *  
+	 *  This is done by the reason, that Account can manage different types
+	 *  of web-sites for the client, so in this case client can group his
+	 *  activities by domain names and use single Account for billing
+	 *  
+	 */
 	
 	@PartitionKey(ordinal=0)
 	@DomainId
 	String domainId();
 
+	/**
+	 *  Corresponds to the specific Account 
+	 */
+	
 	@PartitionKey(ordinal=1)
 	@AccountId
 	String accountId();
+	
+	/**
+	 *  Template id is the unique name of the template, 
+	 *  usually it is the lower case display name of the template 
+	 */
 	
 	@ClusteringColumn(ordinal=0)
 	@TemplateId
 	String templateId();
 
+	/**
+	 *  Time when template was deployed 
+	 */
+	
 	@Constraints.NotNull
 	@ClusteringColumn(ordinal=1, ordering=OrderingDirection.DESC)
 	Date deployedAt();
 
+	/**
+	 *  Template itself 
+	 */
+	
 	@Constraints.NotNull
 	Template template();
 	

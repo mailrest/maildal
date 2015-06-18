@@ -11,26 +11,59 @@ import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 import com.noorq.casser.mapping.annotation.Types;
 
+/**
+ *  DomainVerificationQueue is using to schedule domains for verification
+ *  
+ *  Special daemon verifier will peek up domains from this queue, verify them and
+ *  then update AccountDomain.events and DomainOwner tables
+ *
+ */
+
 @Table
 public interface DomainVerificationQueue {
 
 	static final int DEFAULT_BUCKETS = 1;
 	
+	/**
+	 *  Random bucket number is using to distribute date in cluster 
+	 *  Each verifier will peek up specific buckets for execution
+	 */
+	
 	@PartitionKey
 	int bucket();
+	
+	/**
+	 *  Scheduled time of the verification
+	 */
 	
 	@Constraints.NotNull
 	@Types.Timeuuid
 	@ClusteringColumn(ordering = OrderingDirection.ASC)
 	UUID verifyAt();
 	
+	/**
+	 *  Flag that using to organize optimistic locking for peek up process 
+	 */
+	
 	boolean peeked();
 	
+	/**
+	 *  Attempt number, track this number to avoid infinity checks 
+	 */
+	
 	int attempt();
+	
+	/**
+	 *  Account that added domain 
+	 */
 	
 	@AccountId
 	String accountId();
 
+	/**
+	 *  Domain that have to be verified 
+	 */
+	
 	@DomainId
 	String domainId();
 

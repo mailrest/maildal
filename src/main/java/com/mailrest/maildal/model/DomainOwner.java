@@ -14,17 +14,41 @@ import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
+/**
+ *  In case of successful verification domain name will be linked to some accountId
+ *  
+ *  This table is using to link domainId to accountId
+ *  
+ *  If we remove domain from the Account, then we are deleting all the links in this table as well
+ *
+ *  This table is using every time of the domain specific REST operation in API to detect AccountId
+ *  after that all operations are having AccountId and all permissions are validated around this fact
+ *
+ */
+
 @Table
 public interface DomainOwner {
 
+	/**
+	 *  Specific domainId that successfully verified 
+	 */
+	
 	@PartitionKey
 	@DomainId
 	String domainId();
+	
+	/**
+	 *  Time of the successful verification
+	 */
 	
 	@Constraints.NotNull
 	@ClusteringColumn(ordering=OrderingDirection.DESC)
 	Date verifiedAt();
 
+	/**
+	 *  Corresponding Account that added this domain name
+	 */
+	
 	@AccountId
 	String accountId();
 	

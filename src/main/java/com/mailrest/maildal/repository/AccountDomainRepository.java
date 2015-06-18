@@ -15,15 +15,19 @@ import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
 import com.google.common.collect.ImmutableList;
+import com.mailrest.maildal.gen.Generators;
 import com.mailrest.maildal.model.AccountDomain;
+import com.mailrest.maildal.model.DomainSettings;
 import com.mailrest.maildal.model.DomainVerificationEvent;
 import com.mailrest.maildal.model.DomainVerificationStatus;
+import com.mailrest.maildal.model.TrackingOptions;
+import com.mailrest.maildal.model.UnsubscribeOptions;
 import com.noorq.casser.core.Casser;
+import com.noorq.casser.support.Fun;
 
 public interface AccountDomainRepository extends AbstractRepository {
 
 	static final AccountDomain accountDomain = Casser.dsl(AccountDomain.class);
-	
 	
 	default Future<Stream<AccountDomain>> findDomains(String accountId) {
 		
@@ -68,7 +72,32 @@ public interface AccountDomainRepository extends AbstractRepository {
 		
 	}
 	
+	default Future<Optional<Fun.Tuple1<String>>> findApiKey(String accountId, String domainId) {
+		
+		return session()
+				.select(accountDomain::apiKey)
+				.where(accountDomain::accountId, eq(accountId))
+				.and(accountDomain::domainId, eq(domainId))
+				.single()
+				.future();
+	}
+	
+	default Future<Fun.Tuple2<ResultSet, String>> updateApiKey(String accountId, String domainId) {
+		
+		String apiKey = Generators.API_KEY.next();
+		
+		return session()
+				.update()
+				.set(accountDomain::apiKey, apiKey)
+				.where(accountDomain::accountId, eq(accountId))
+				.and(accountDomain::domainId, eq(domainId))
+				.future(apiKey);
+		
+	}
+	
 	default Future<ResultSet> addAccountDomain(String accountId, String domainId, String domainIdn) {
+		
+		String apiKey = Generators.API_KEY.next();
 		
 		final DomainVerificationEvent event = new DomainVerificationEvent() {
 
@@ -96,6 +125,8 @@ public interface AccountDomainRepository extends AbstractRepository {
 				.value(accountDomain::domainIdn, domainIdn)
 				.value(accountDomain::createdAt, new Date())
 				.value(accountDomain::events, ImmutableList.of(event))
+				.value(accountDomain::apiKey, apiKey)
+				.value(accountDomain::settings, defaultSettings)
 				.future();
 		
 	}
@@ -109,5 +140,49 @@ public interface AccountDomainRepository extends AbstractRepository {
 				.future();
 		
 	}
+	
+	static final DomainSettings defaultSettings = new DomainSettings() {
+
+		@Override
+		public String testToRecipients() {
+			return "";
+		}
+
+		@Override
+		public String testBccRecipients() {
+			return "";
+		}
+
+		@Override
+		public String prodBccRecipients() {
+			return "";
+		}
+
+		@Override
+		public UnsubscribeOptions unsubscribeLink() {
+			return UnsubscribeOptions.NO;
+		}
+
+		@Override
+		public String unsubscribeText() {
+			return "";
+		}
+
+		@Override
+		public String unsubscribeHtml() {
+			return "";
+		}
+
+		@Override
+		public TrackingOptions trackClicks() {
+			return TrackingOptions.NO;
+		}
+
+		@Override
+		public TrackingOptions trackOpens() {
+			return TrackingOptions.NO;
+		}
+		
+	};
 	
 }

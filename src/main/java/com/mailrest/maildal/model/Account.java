@@ -12,6 +12,17 @@ import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
+/**
+ *  This is the root element in the Model
+ *  
+ *  Most of other entities are related to particular Account
+ *  
+ *  Account is using for billing purposes, finally all transactions
+ *  will be calculated per account
+ *  
+ *  Customer of the MailRest service always has account
+ */
+
 @Table
 public interface Account {
 
@@ -26,13 +37,24 @@ public interface Account {
 	@Constraints.NotNull
 	Date createdAt();
 	
+	/**
+	 *  Customer business name, can be organization, startup, group of people 
+	 */
+	
 	@Constraints.NotEmpty
 	String businessName();
 	
+	/**
+	 *  Timezone of the account, needs for additional information about customer
+	 */
+	
 	String timezone();
 
-    /*
-     * Key is the userId
+    /**
+     *  Users of the account that can login and operate of the account.
+     *  Usually users are managers or owners of the organization
+     * 
+     *  Key is the userId
      */
 	
 	Map<String, AccountUser> users();

@@ -4,6 +4,17 @@
  */
 package com.mailrest.maildal.model;
 
+/**
+ *  For the log purposes we need to known what particular operation means
+ *  
+ *  This is the type of the operation that made by some user in the account
+ *  
+ *  Needs to track changes and helps for customer to understand how account maintains
+ *  
+ *  Later some billing operations will be added
+ *
+ */
+
 public enum AccountAction {
 
 	/* 

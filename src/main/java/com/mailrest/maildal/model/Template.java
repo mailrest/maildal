@@ -10,7 +10,7 @@ import com.noorq.casser.mapping.annotation.UDT;
 @UDT
 public interface Template {
 
-	String name();
+	String displayName();
 	
 	String description();
 	
