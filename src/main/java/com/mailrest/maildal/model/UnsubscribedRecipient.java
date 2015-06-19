@@ -25,22 +25,22 @@ import com.noorq.casser.mapping.annotation.Table;
 
 @Table
 public interface UnsubscribedRecipient {
-
-    /**
-     *  Corresponds to a specific domain 	
-     */
 	
-	@PartitionKey(ordinal=0)
-	@DomainId
-	String domainId();
-
     /**
      *  Corresponds to a specific Account 	
      */
 
-	@PartitionKey(ordinal=1)
+	@PartitionKey(ordinal=0)
 	@AccountId
 	String accountId();
+	
+    /**
+     *  Corresponds to a specific domain 	
+     */
+	
+	@PartitionKey(ordinal=1)
+	@DomainId
+	String domainId();
 
 	/**
 	 *  Unsubscribed recipient email 
