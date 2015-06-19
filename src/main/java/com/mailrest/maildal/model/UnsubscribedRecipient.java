@@ -14,20 +14,45 @@ import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
+/**
+ *   UnsubscribedRecipient is the table to store all recipients that are clicked to
+ *   unsubscribe link
+ *   
+ *   In case of Message delivery for the specific Account and domain we need to
+ *   check recipient in this list to avoid delivery and complaint with sender's policy
+ *
+ */
+
 @Table
 public interface UnsubscribedRecipient {
 
+    /**
+     *  Corresponds to a specific domain 	
+     */
+	
 	@PartitionKey(ordinal=0)
 	@DomainId
 	String domainId();
+
+    /**
+     *  Corresponds to a specific Account 	
+     */
 
 	@PartitionKey(ordinal=1)
 	@AccountId
 	String accountId();
 
+	/**
+	 *  Unsubscribed recipient email 
+	 */
+	
 	@ClusteringColumn
 	@EmailId
 	String email();
+	
+	/**
+	 *  Timestamp of unsubscription 
+	 */
 	
 	@Constraints.NotNull
 	Date unsubscribedAt();

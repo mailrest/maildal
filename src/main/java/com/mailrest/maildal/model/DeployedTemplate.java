@@ -22,13 +22,14 @@ import com.noorq.casser.mapping.annotation.Table;
  *   additional field 'deployedAt' that is clustering column in order to retrieve the sequence
  *   of the deployed templates
  *
+ *   All templates in DeployedTemplate are immutable, but in TestingTemplate are mutable
  */
 
 @Table
 public interface DeployedTemplate {
 	
 	/**
-	 *  Corresponds to the specific Domain, not a specific Account
+	 *  Corresponds to a specific domain
 	 *  
 	 *  This is done by the reason, that Account can manage different types
 	 *  of web-sites for the client, so in this case client can group his
@@ -41,7 +42,7 @@ public interface DeployedTemplate {
 	String domainId();
 
 	/**
-	 *  Corresponds to the specific Account 
+	 *  Corresponds to a specific Account 
 	 */
 	
 	@PartitionKey(ordinal=1)
@@ -49,7 +50,7 @@ public interface DeployedTemplate {
 	String accountId();
 	
 	/**
-	 *  Template id is the unique name of the template, 
+	 *  Template id is a unique name of the template, 
 	 *  usually it is the lower case display name of the template 
 	 */
 	
