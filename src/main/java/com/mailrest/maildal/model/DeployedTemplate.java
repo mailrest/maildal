@@ -29,6 +29,14 @@ import com.noorq.casser.mapping.annotation.Table;
 public interface DeployedTemplate {
 	
 	/**
+	 *  Corresponds to a specific Account 
+	 */
+	
+	@PartitionKey(ordinal=0)
+	@AccountId
+	String accountId();
+	
+	/**
 	 *  Corresponds to a specific domain
 	 *  
 	 *  This is done by the reason, that Account can manage different types
@@ -37,17 +45,9 @@ public interface DeployedTemplate {
 	 *  
 	 */
 	
-	@PartitionKey(ordinal=0)
+	@PartitionKey(ordinal=1)
 	@DomainId
 	String domainId();
-
-	/**
-	 *  Corresponds to a specific Account 
-	 */
-	
-	@PartitionKey(ordinal=1)
-	@AccountId
-	String accountId();
 	
 	/**
 	 *  Template id is a unique name of the template, 

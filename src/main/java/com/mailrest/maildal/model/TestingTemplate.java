@@ -27,7 +27,15 @@ import com.noorq.casser.mapping.annotation.Table;
 
 @Table
 public interface TestingTemplate {
-
+	
+	/**
+	 *  Corresponds to a specific Account 
+	 */	
+	
+	@PartitionKey(ordinal=0)
+	@AccountId
+	String accountId();
+	
 	/**
 	 *  Corresponds to a specific domain
 	 *  
@@ -37,17 +45,9 @@ public interface TestingTemplate {
 	 *  
 	 */	
 	
-	@PartitionKey(ordinal=0)
+	@PartitionKey(ordinal=1)
 	@DomainId
 	String domainId();
-
-	/**
-	 *  Corresponds to a specific Account 
-	 */	
-	
-	@PartitionKey(ordinal=1)
-	@AccountId
-	String accountId();
 	
 	/**
 	 *  Template id is a unique name of the template, 
