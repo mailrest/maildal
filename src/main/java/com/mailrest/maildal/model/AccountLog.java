@@ -28,6 +28,8 @@ public interface AccountLog {
 
 	/**
 	 *  Corresponds to a specific @Account 
+	 *  
+	 *  @return account id
 	 */
 	
 	@PartitionKey
@@ -37,6 +39,8 @@ public interface AccountLog {
 	/**
 	 *  Time of the event in the log, by default sorted in decrement to retrieve 
 	 *  and show last N events in the page
+	 *  
+	 *  @return immutable event timestamp
 	 */
 	
 	@Constraints.NotNull
@@ -45,6 +49,8 @@ public interface AccountLog {
 	
 	/**
 	 *  Corresponds to a specific @User that made a change
+	 *  
+	 *  @return user info
 	 */
 	
 	@Constraints.NotEmpty
@@ -53,6 +59,8 @@ public interface AccountLog {
 	/**
 	 *  Hard coded action types. We have limited actions and will have limited 
 	 *  them forever, it is not a social network
+	 *  
+	 *  @return type of the logged action
 	 */
 	
 	@Constraints.NotNull
@@ -60,13 +68,17 @@ public interface AccountLog {
 
 	/**
 	 *  Some actions are made on specific @Template, so we are storing templateId to show in UI 
+	 *  
+	 *  @return template id
 	 */
 	
 	@TemplateId
 	String templateId();
 	
 	/**
-	 *  Some actions are made on specific @Domain, so we are storing domainId to show in UI 
+	 *  Some actions are made on specific @Domain, so we are storing domainId to show in UI
+	 *  
+	 *   @return domain id
 	 */
 	
 	@DomainId

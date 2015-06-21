@@ -28,6 +28,8 @@ public interface Domain {
 
 	/**
 	 *  Corresponds to a specific Account 
+	 *  
+	 *  @return account id
 	 */
 	
 	@PartitionKey
@@ -40,6 +42,8 @@ public interface Domain {
 	 *  
 	 *  DomainId is calculated as lower case of IDN.toASCII from domain IDN name
 	 *  
+	 *  @return domain id
+	 *  
 	 */
 	
 	@ClusteringColumn
@@ -48,6 +52,8 @@ public interface Domain {
 
 	/**
 	 *  Time when domain name was added in Account 
+	 *  
+	 *  @return immutable timestamp when the domain was added
 	 */
 	
 	@Constraints.NotNull
@@ -55,6 +61,8 @@ public interface Domain {
 	
 	/**
 	 *  Actual domain name, that will be shown for the user in UI 
+	 *  
+	 *  @return IDN name of the domain
 	 */
 	
 	@Constraints.NotEmpty
@@ -65,6 +73,8 @@ public interface Domain {
 	 *  
 	 *  Verifier peeks domain from @DomainVerificationQueue and after verification it
 	 *  adds event and in case of successful verification it updates @DomainOwner table
+	 *  
+	 *  @return event happened with domain
 	 */
 	
 	List<DomainVerificationEvent> events();
@@ -75,6 +85,8 @@ public interface Domain {
 	 *   For now we are using randomly generated string in Base62 format
 	 * 
 	 *   Example: 5602aaa3eeb50233071dae4db2c3eb99
+	 *   
+	 *   @return apiKey for the domain
 	 */
 	
 	@Constraints.NotEmpty
@@ -82,6 +94,8 @@ public interface Domain {
 
 	/**
 	 *   Domain settings are using to store information about some features that are enables for the domain
+	 *   
+	 *   @return domain settings
 	 */
 	
 	@Constraints.NotNull

@@ -21,6 +21,8 @@ public interface DomainVerificationEvent {
 
 	/**
 	 *  Attempt time 
+	 *  
+	 *  @return immutable timestamp of verification attempt
 	 */
 	
 	@Constraints.NotNull
@@ -28,6 +30,8 @@ public interface DomainVerificationEvent {
 	
 	/**
 	 *  Status of the attempt 
+	 *  
+	 *  @return status of verification
 	 */
 	
 	@Constraints.NotNull
@@ -35,6 +39,8 @@ public interface DomainVerificationEvent {
 	
 	/**
 	 *  Additional message from the verifier (usually error or response message) 
+	 *  
+	 *  @return message of the verification daemon
 	 */
 	
 	String message();

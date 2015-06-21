@@ -31,6 +31,8 @@ public interface DomainOwner {
 
 	/**
 	 *  Specific domainId that successfully verified 
+	 *  
+	 *  @return domain id
 	 */
 	
 	@PartitionKey
@@ -39,6 +41,8 @@ public interface DomainOwner {
 	
 	/**
 	 *  Time of the successful verification
+	 *  
+	 *  @return immutable timestamp when domain was verified
 	 */
 	
 	@Constraints.NotNull
@@ -47,6 +51,8 @@ public interface DomainOwner {
 
 	/**
 	 *  Corresponding Account that added this domain name
+	 *  
+	 *  @return account id
 	 */
 	
 	@AccountId

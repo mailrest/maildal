@@ -26,6 +26,7 @@ public interface AccountUser {
 	 *  
 	 *  By default is can be lower case of IDN.toASCII email of the @User 
 	 *   
+	 *  @return user id 
 	 */
 	
 	@UserId
@@ -35,6 +36,8 @@ public interface AccountUser {
 	 *  Actual email of the user as it is
 	 *  
 	 *  Used to retrieve password and to confirm user, for specific notification
+	 *  
+	 *  @return email that entered by user as it is
 	 */
 	
 	@Constraints.NotEmpty
@@ -45,18 +48,24 @@ public interface AccountUser {
 	 *  Optional field that specify team of the user
 	 *  
 	 *  Can be used for additional grouping in UI
+	 *  
+	 *  @return user's team name is exists
 	 */
 	
 	String team();
 	
 	/**
 	 *  First name of the user name 
+	 *  
+	 *  @return first name of the user if exists
 	 */
 	
 	String firstName();
 
 	/**
 	 *  Last name of the user name 
+	 *  
+	 *  @return last name of the user if exists
 	 */
 
 	String lastName();
@@ -69,6 +78,8 @@ public interface AccountUser {
 	 *  ADMIN - user can add/remove other users, can see all content of the organization, no limits
 	 *  WRITE - user can change settings, pay bills, add/remove boxes, add/remove templates
 	 *  READ_ONLY - user can only read account and user information that have to be public in organization
+	 *  
+	 *  @return user permission type
 	 *   
 	 */
 	
@@ -79,6 +90,8 @@ public interface AccountUser {
 	 *  In the time of user creation this flag is false
 	 *  
 	 *  After confirming email this flag became true and record in @User tables creates after that
+	 *  
+	 *  @return true is user email address was confirmed
 	 */
 	
 	boolean confirmed();

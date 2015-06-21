@@ -27,6 +27,8 @@ public interface DomainVerificationQueue {
 	/**
 	 *  Random bucket number is using to distribute date in cluster 
 	 *  Each verifier will peek up specific buckets for execution
+	 *  
+	 *  @return bucket number
 	 */
 	
 	@PartitionKey
@@ -34,6 +36,8 @@ public interface DomainVerificationQueue {
 	
 	/**
 	 *  Scheduled time of the verification
+	 *  
+	 *  @return immutable timestamp of schedule in time queue
 	 */
 	
 	@Constraints.NotNull
@@ -43,18 +47,24 @@ public interface DomainVerificationQueue {
 	
 	/**
 	 *  Flag that using to organize optimistic locking for peek up process 
+	 *  
+	 *  @return true if record was peeked
 	 */
 	
 	boolean peeked();
 	
 	/**
 	 *  Attempt number, track this number to avoid infinity checks 
+	 *  
+	 *  @return number attempts passed before
 	 */
 	
 	int attempt();
 	
 	/**
 	 *  Account that added domain 
+	 *  
+	 *  @return account id
 	 */
 	
 	@AccountId
@@ -62,6 +72,8 @@ public interface DomainVerificationQueue {
 
 	/**
 	 *  Domain that have to be verified 
+	 *  
+	 *  @return domain id
 	 */
 	
 	@DomainId

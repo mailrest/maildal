@@ -22,6 +22,8 @@ public interface FolderMessage {
 
 	/**
 	 *  Corresponds to a specific Account 
+	 *  
+	 *  @return account id
 	 */
 	
 	@PartitionKey(ordinal=0)
@@ -30,6 +32,8 @@ public interface FolderMessage {
 
 	/**
 	 *  Corresponds to a specific domain 
+	 *  
+	 *  @return domain id
 	 */
 	
 	@PartitionKey(ordinal=1)
@@ -38,6 +42,8 @@ public interface FolderMessage {
 
 	/**
 	 *  Corresponds to a specific box 
+	 *  
+	 *  @return box id
 	 */
 	
 	@PartitionKey(ordinal=2)
@@ -46,6 +52,8 @@ public interface FolderMessage {
 
 	/**
 	 *  Corresponds to a specific folder 
+	 *  
+	 *  @return folder id
 	 */		
 	
 	@PartitionKey(ordinal=2)
@@ -55,6 +63,8 @@ public interface FolderMessage {
 	/**
 	 * 	By using clustering column we are able to retrieve messages ordered by date
 	 *  to show in the UI 
+	 *  
+	 *  @return immutable time when message was added to the folder
 	 */
 	
 	@ClusteringColumn(ordering=OrderingDirection.DESC)
@@ -64,6 +74,8 @@ public interface FolderMessage {
 	
 	/**
 	 *  Corresponds to a specific message
+	 *  
+	 *  @return message id
 	 */
 	
 	@MessageId
@@ -72,7 +84,7 @@ public interface FolderMessage {
 	/**
 	 * Flag to select unread messages
 	 * 
-	 * @return true is message readed
+	 * @return true if message was readed
 	 */
 	
 	boolean readed();

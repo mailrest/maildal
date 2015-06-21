@@ -14,6 +14,8 @@ public interface BoxSettings {
 	 *  IMAP enable or disable option 
 	 *  
 	 *  Default value is NO
+	 *  
+	 *  @return IMAP options
 	 */
 	
 	ImapOptions imap();

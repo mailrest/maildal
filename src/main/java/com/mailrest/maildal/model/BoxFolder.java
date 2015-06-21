@@ -19,6 +19,10 @@ public interface BoxFolder {
 
 	/**
 	 *  FolderId is calculated as a lower case of folder's display name
+	 *  
+	 *  This folder id name is using in REST API interface
+	 *  
+	 *  @return folder id
 	 */		
 	
 	@FolderId
@@ -26,6 +30,12 @@ public interface BoxFolder {
 	
 	/**
 	 *  Actual display name of the folder
+	 *  
+	 *  For predefined folders it is the folderId with capitalized first letter
+	 *  
+	 *  This name is using in UI interface
+	 *  
+	 *  @return folder display name
 	 */
 	
 	String folderName();

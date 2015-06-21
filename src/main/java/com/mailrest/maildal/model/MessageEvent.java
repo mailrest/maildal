@@ -22,6 +22,8 @@ public interface MessageEvent {
 
 	/**
 	 *  Delivery attempt time 
+	 *  
+	 *  @return immutable message delivery timestamp
 	 */
 	
 	@Types.Timeuuid
@@ -30,6 +32,8 @@ public interface MessageEvent {
 	
 	/**
 	 *  Action that was made 
+	 *  
+	 *  @return message action result
 	 */
 	
 	@Constraints.NotNull
@@ -37,6 +41,8 @@ public interface MessageEvent {
 	
 	/**
 	 *  Actual recipient of the Message 
+	 *  
+	 *  @return recipient of the message
 	 */
 	
 	@Constraints.NotNull

@@ -17,7 +17,7 @@ package com.mailrest.maildal.model;
 
 public enum AccountAction {
 
-	/* 
+	/** 
 	 * Store ip and userAgent
 	 */
 	
@@ -27,8 +27,8 @@ public enum AccountAction {
 	REMOVE_USER,
 	CONFIRM_USER_EMAIL,
 	
-	/*
-	 * Store domain
+	/**
+	 * Store domainId
 	 */
 	
 	ADD_DOMAIN,
@@ -36,8 +36,8 @@ public enum AccountAction {
 	CHANGE_DOMAIN_APIKEY,
 	CHANGE_DOMAIN_SETTINGS,
 	
-	/*
-	 * Store template
+	/**
+	 * Store templateId
 	 */
 	
 	CREATE_TEMPLATE,

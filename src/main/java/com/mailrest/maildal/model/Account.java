@@ -26,28 +26,41 @@ import com.noorq.casser.mapping.annotation.Table;
 @Table
 public interface Account {
 
-	/*
+	/**
 	 * Randomly generated AccountId, like this 1234567890
+	 * 
+	 * @return account id 
 	 */
 	
 	@PartitionKey
 	@AccountId
 	String accountId();
 	
+	/**
+	 * Immutable creation time
+	 * 
+	 * @return timestamp when account created
+	 */
+	
 	@Constraints.NotNull
 	Date createdAt();
 	
 	/**
-	 *  Customer business name, can be organization, startup, group of people 
+	 *  Customer's business name, organization, startup, group of people 
+	 *  
+	 *  @return business name
 	 */
 	
 	@Constraints.NotEmpty
 	String businessName();
 	
 	/**
-	 *  Timezone of the account, needs for additional information about customer
+	 *  Timezone of the account, using for daily stats and logs
+	 *  
+	 *  @return  timezone name in java
 	 */
 	
+	@Constraints.NotEmpty
 	String timezone();
 
     /**
@@ -55,6 +68,8 @@ public interface Account {
      *  Usually users are managers or owners of the organization
      * 
      *  Key is the userId
+     *  
+     *  @return internal map of the users serialized in single field
      */
 	
 	Map<String, AccountUser> users();

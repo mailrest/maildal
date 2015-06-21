@@ -24,13 +24,17 @@ public interface MessageHeaders {
 
 	/**
 	 *  from: field in the message 
+	 *  
+	 *  @return from field
 	 */
 	
 	@Constraints.NotEmpty
 	String fromRecipients();
 
 	/**
-	 *  to: field in the message 
+	 *  to: field in the message
+	 *  
+	 *   @return to field
 	 */
 
 	@Constraints.NotEmpty
@@ -39,18 +43,24 @@ public interface MessageHeaders {
 	
 	/**
 	 *  cc: field in the message 
+	 *  
+	 *  @return cc field
 	 */
 	
 	String ccRecipients();
 	
 	/**
 	 *  bcc: field in the message 
+	 *  
+	 *  @return bcc field
 	 */
 	
 	String bccRecipients();
 	
 	/**
 	 *  subject: field in the message 
+	 *  
+	 *  @return subject field
 	 */
 		
 	String subject();
