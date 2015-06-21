@@ -11,7 +11,7 @@ import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
 /**
- *   User table is using to create secondary index around UserId -> AccountId
+ *   User table is using to create secondary index around UserId -&gt; AccountId
  *  
  *   that is using for authentication purpose
  *   

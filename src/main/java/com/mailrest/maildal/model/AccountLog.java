@@ -16,7 +16,7 @@ import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
 
 /**
- *   @AccountLog is using to track changes in @Account that are made by particular @User
+ *   AccountLog is using to track changes in @Account that are made by particular @User
  *
  *   All those changes will be shown in UI dashboard as a news feed for the @User who manages @Account
  *   

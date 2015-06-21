@@ -30,7 +30,7 @@ public interface MessageQueue {
 	/**
 	 *  Bucket number is using for distribution purpose, it can be increased as more sender we will have
 	 *  
-	 *  Finally, we will have Map<Bucket, Sender> distributed to all senders and 
+	 *  Finally, we will have Map&lt;Bucket, Sender%gt; distributed to all senders and 
 	 *  some balancing algorithm between senders at runtime
 	 *  
 	 */
