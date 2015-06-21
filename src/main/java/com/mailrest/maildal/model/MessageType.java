@@ -9,11 +9,12 @@ package com.mailrest.maildal.model;
  *
  *  Incoming message comes from the external service by SMTP
  *  Outgoing message creates by REST API and sends by MailRest
+ *  Draft message creates by REAST API, can be updated and changed before send
  *
  */
 
 public enum MessageType {
 	
-	INCOMING, OUTGOING;
+	INCOMING, OUTGOING, DRAFT;
 	
 }
