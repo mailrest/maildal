@@ -16,7 +16,7 @@ import scala.concurrent.Future;
 import com.datastax.driver.core.ResultSet;
 import com.google.common.collect.ImmutableList;
 import com.mailrest.maildal.gen.Generators;
-import com.mailrest.maildal.model.AccountDomain;
+import com.mailrest.maildal.model.Domain;
 import com.mailrest.maildal.model.DomainSettings;
 import com.mailrest.maildal.model.DomainVerificationEvent;
 import com.mailrest.maildal.model.DomainVerificationStatus;
@@ -25,15 +25,15 @@ import com.mailrest.maildal.model.UnsubscribeOptions;
 import com.noorq.casser.core.Casser;
 import com.noorq.casser.support.Fun;
 
-public interface AccountDomainRepository extends AbstractRepository {
+public interface DomainRepository extends AbstractRepository {
 
-	static final AccountDomain accountDomain = Casser.dsl(AccountDomain.class);
+	static final Domain domain = Casser.dsl(Domain.class);
 	
-	default Future<Stream<AccountDomain>> findDomains(String accountId) {
+	default Future<Stream<Domain>> findDomains(String accountId) {
 		
 		return session()
-				.select(AccountDomain.class)
-				.where(accountDomain::accountId, eq(accountId))
+				.select(Domain.class)
+				.where(domain::accountId, eq(accountId))
 				.future();
 		
 	}
@@ -41,9 +41,9 @@ public interface AccountDomainRepository extends AbstractRepository {
 	default Future<Optional<List<DomainVerificationEvent>>> getVerificationEvents(String accountId, String domainId) {
 		
 		return session()
-				.select(accountDomain::events)
-				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domainId))
+				.select(domain::events)
+				.where(domain::accountId, eq(accountId))
+				.and(domain::domainId, eq(domainId))
 				.single()
 				.map(t -> t._1)
 				.future();
@@ -54,19 +54,19 @@ public interface AccountDomainRepository extends AbstractRepository {
 		
 		return session()
 				.update()
-				.append(accountDomain::events, event)
-				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domainId))
+				.append(domain::events, event)
+				.where(domain::accountId, eq(accountId))
+				.and(domain::domainId, eq(domainId))
 				.future();
 		
 	}
 	
-	default Future<Optional<AccountDomain>> findAccountDomain(String accountId, String domainId) {
+	default Future<Optional<Domain>> findDomain(String accountId, String domainId) {
 		
 		return session()
-				.select(AccountDomain.class)
-				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domainId))
+				.select(Domain.class)
+				.where(domain::accountId, eq(accountId))
+				.and(domain::domainId, eq(domainId))
 				.single()
 				.future();
 		
@@ -75,9 +75,9 @@ public interface AccountDomainRepository extends AbstractRepository {
 	default Future<Optional<Fun.Tuple1<String>>> findApiKey(String accountId, String domainId) {
 		
 		return session()
-				.select(accountDomain::apiKey)
-				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domainId))
+				.select(domain::apiKey)
+				.where(domain::accountId, eq(accountId))
+				.and(domain::domainId, eq(domainId))
 				.single()
 				.future();
 	}
@@ -88,14 +88,14 @@ public interface AccountDomainRepository extends AbstractRepository {
 		
 		return session()
 				.update()
-				.set(accountDomain::apiKey, apiKey)
-				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domainId))
+				.set(domain::apiKey, apiKey)
+				.where(domain::accountId, eq(accountId))
+				.and(domain::domainId, eq(domainId))
 				.future(apiKey);
 		
 	}
 	
-	default Future<ResultSet> addAccountDomain(String accountId, String domainId, String domainIdn) {
+	default Future<ResultSet> addDomain(String accountId, String domainId, String domainIdn) {
 		
 		String apiKey = Generators.API_KEY.next();
 		
@@ -120,23 +120,23 @@ public interface AccountDomainRepository extends AbstractRepository {
 		
 		return session()
 				.upsert()
-				.value(accountDomain::accountId, accountId)
-				.value(accountDomain::domainId, domainId)
-				.value(accountDomain::domainIdn, domainIdn)
-				.value(accountDomain::createdAt, new Date())
-				.value(accountDomain::events, ImmutableList.of(event))
-				.value(accountDomain::apiKey, apiKey)
-				.value(accountDomain::settings, defaultSettings)
+				.value(domain::accountId, accountId)
+				.value(domain::domainId, domainId)
+				.value(domain::domainIdn, domainIdn)
+				.value(domain::createdAt, new Date())
+				.value(domain::events, ImmutableList.of(event))
+				.value(domain::apiKey, apiKey)
+				.value(domain::settings, defaultSettings)
 				.future();
 		
 	}
 	
-	default Future<ResultSet> dropAccountDomain(String accountId, String domainId) {
+	default Future<ResultSet> dropDomain(String accountId, String domainId) {
 		
 		return session()
 				.delete()
-				.where(accountDomain::accountId, eq(accountId))
-				.and(accountDomain::domainId, eq(domainId))
+				.where(domain::accountId, eq(accountId))
+				.and(domain::domainId, eq(domainId))
 				.future();
 		
 	}

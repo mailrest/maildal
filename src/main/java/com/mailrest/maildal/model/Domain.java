@@ -24,7 +24,7 @@ import com.noorq.casser.mapping.annotation.Table;
  */
 
 @Table
-public interface AccountDomain {
+public interface Domain {
 
 	/**
 	 *  Corresponds to a specific Account 
