@@ -17,6 +17,8 @@ public interface MessageRecipient {
 
 	/**
 	 *  Full text of the recipient extracted from toRecipients, ccRecipients and bccRecipients fields in the Messages
+	 *  
+	 *  @return recipient name and email as it is in email fiedls
 	 */
 	
 	@Constraints.NotEmpty
@@ -24,6 +26,8 @@ public interface MessageRecipient {
 	
 	/**
 	 *  Email that was extracted from recipient field and normalized by IDN and lower cased
+	 *  
+	 *  @return parsed and extracted email from recipient, in order to check correctness
 	 */
 	
 	@EmailId

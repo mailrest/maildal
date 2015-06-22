@@ -28,6 +28,8 @@ public interface UnsubscribedRecipient {
 	
     /**
      *  Corresponds to a specific Account 	
+     *  
+     *  @return account id
      */
 
 	@PartitionKey(ordinal=0)
@@ -35,7 +37,9 @@ public interface UnsubscribedRecipient {
 	String accountId();
 	
     /**
-     *  Corresponds to a specific domain 	
+     *  Corresponds to a specific domain
+     *  
+     *   @return domain id	
      */
 	
 	@PartitionKey(ordinal=1)
@@ -44,6 +48,8 @@ public interface UnsubscribedRecipient {
 
 	/**
 	 *  Unsubscribed recipient email 
+	 *  
+	 *  @return normalized email
 	 */
 	
 	@ClusteringColumn
@@ -52,6 +58,8 @@ public interface UnsubscribedRecipient {
 	
 	/**
 	 *  Timestamp of unsubscription 
+	 *  
+	 *  @return timestamp of unsubscribe event
 	 */
 	
 	@Constraints.NotNull

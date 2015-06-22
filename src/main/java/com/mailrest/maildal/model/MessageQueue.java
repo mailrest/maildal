@@ -33,6 +33,7 @@ public interface MessageQueue {
 	 *  Finally, we will have Map&lt;Bucket, Sender%gt; distributed to all senders and 
 	 *  some balancing algorithm between senders at runtime
 	 *  
+	 *  @return bucket number
 	 */
 	
 	@PartitionKey
@@ -45,6 +46,8 @@ public interface MessageQueue {
 	 *  
 	 *  So, in fact, of the client wants to make some marketing campaign, it can create and submit
 	 *  messages before they will go
+	 *  
+	 *  @return scheduled delivery timestamp in TimeUUID
 	 */
 	
 	@Constraints.NotNull
@@ -54,18 +57,24 @@ public interface MessageQueue {
 	
 	/**
 	 *  Flag is using to optimistic locking by Sender, can be ignored, depends on Sender algorithm 
+	 *  
+	 *  @return true is object was peeked
 	 */
 	
 	boolean peeked();
 	
 	/**
 	 *  Tracks how many attempts that was made before, initially 0
+	 *  
+	 *  @return number of passed attempts
 	 */
 	
 	int attempt();
 	
 	/**
 	 *  Reference to the Message  for delivery
+	 *  
+	 *  @return message id
 	 */
 	
 	@MessageId
@@ -76,6 +85,8 @@ public interface MessageQueue {
 	 *  
 	 *  So, if the have multiple recipients of the message, we need to enqueue multiple
 	 *  times the same Message for each recipient
+	 *  
+	 *  @return recipient of the delivery
 	 *   
 	 */
 	

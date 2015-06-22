@@ -31,6 +31,8 @@ public interface MessageLog {
 
 	/**
 	 *  Corresponds to a specific Account 
+	 *  
+	 *  @return account id
 	 */
 	
 	@PartitionKey(ordinal=0)
@@ -39,6 +41,8 @@ public interface MessageLog {
 
 	/**
 	 *  Corresponds to a specific domain 
+	 *  
+	 *  @return domain id
 	 */
 
 	@PartitionKey(ordinal=1)
@@ -53,6 +57,8 @@ public interface MessageLog {
  	 *  
  	 *  For example: 20150101
  	 *  
+ 	 *  @return day in the integer format
+ 	 *  
 	 */
 	
 	@Constraints.NotNull
@@ -64,6 +70,8 @@ public interface MessageLog {
 	 *  
 	 *  We need UUID, because some messages can be delivered in the same millisecond,
 	 *  of course it is not so often but can happen
+	 *  
+	 *  @return timestamp of the event in TimeUUID
 	 */
 	
 	@Constraints.NotNull
@@ -73,6 +81,8 @@ public interface MessageLog {
 	
 	/**
 	 *  Reference to the Message  
+	 *  
+	 *  @return message id
 	 */
 	
 	@MessageId
@@ -80,12 +90,16 @@ public interface MessageLog {
 
 	/**
 	 *  Reference to the our client's customer id  
+	 *  
+	 *  @return public id
 	 */
 
 	String publicId();
 	
 	/**
 	 *  Result of the action
+	 *  
+	 *  @return message delivery action type
 	 */
 	
 	@Constraints.NotNull
@@ -93,24 +107,32 @@ public interface MessageLog {
 
 	/**
 	 *  Delivery information if has 
+	 *  
+	 *  @return message delivery if exists
 	 */
 	
 	MessageDelivery delivery();
 
 	/**
 	 *  Sender information if has 
+	 *  
+	 *  @return sender information if exists
 	 */
 	
 	MessageSender sender();
 	
 	/**
 	 *  Recipient for whom delivery was made 
+	 *  
+	 *  @return recipient information
 	 */
 	
 	MessageRecipient recipient();
 	
 	/**
 	 *  Message headers to show in UI 
+	 *  
+	 *  @return headers information
 	 */
 	
 	MessageHeaders headers();

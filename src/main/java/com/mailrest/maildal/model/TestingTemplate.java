@@ -30,6 +30,8 @@ public interface TestingTemplate {
 	
 	/**
 	 *  Corresponds to a specific Account 
+	 *  
+	 *  @return account id
 	 */	
 	
 	@PartitionKey(ordinal=0)
@@ -43,6 +45,8 @@ public interface TestingTemplate {
 	 *  of web-sites for the client, so in this case client can group his
 	 *  activities by domain names and use single Account for billing
 	 *  
+	 *  @return domain id
+	 *  
 	 */	
 	
 	@PartitionKey(ordinal=1)
@@ -52,6 +56,8 @@ public interface TestingTemplate {
 	/**
 	 *  Template id is a unique name of the template, 
 	 *  usually it is the lower case display name of the template 
+	 *  
+	 *  @return template id
 	 */
 		
 	@ClusteringColumn(ordinal=0)
@@ -60,6 +66,8 @@ public interface TestingTemplate {
 
 	/**
 	 *  Environment name, by default is 'test' 
+	 *  
+	 *  @return environment
 	 */
 	
 	@Constraints.NotEmpty
@@ -68,6 +76,8 @@ public interface TestingTemplate {
 	
 	/**
 	 *  Template itself 
+	 *  
+	 *  @return template itself
 	 */
 	
 	@Constraints.NotNull

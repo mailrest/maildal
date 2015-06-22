@@ -31,6 +31,8 @@ public interface MessageStatsDaily {
 
 	/**
 	 *   Corresponds to a specific Account
+	 *   
+	 *   @return account id
 	 */
 	
 	@PartitionKey(ordinal=0)
@@ -39,6 +41,8 @@ public interface MessageStatsDaily {
 	
 	/**
 	 *   Corresponds to a specific domain
+	 *   
+	 *   @return domain id
 	 */
 	
 	@PartitionKey(ordinal=1)
@@ -53,6 +57,8 @@ public interface MessageStatsDaily {
  	 *  
  	 *  For example: 20150101
  	 *  
+ 	 *  @return day formatted to integer
+ 	 *  
 	 */	
 	
 	@Constraints.NotNull
@@ -61,6 +67,10 @@ public interface MessageStatsDaily {
 	
 	/**
 	 * How many incoming messages were received
+	 * 
+	 * Used in billing
+	 * 
+	 * @return number of received messages in account
 	 */
 	
 	@Types.Counter
@@ -68,6 +78,10 @@ public interface MessageStatsDaily {
 	
 	/**
 	 * How many outgoing messages were delivered
+	 * 
+	 * Used in billing
+	 * 
+	 * @return number of delivered messages in account
 	 */
 	
 	@Types.Counter
@@ -75,6 +89,10 @@ public interface MessageStatsDaily {
 
 	/**
 	 * How many outgoing messages were dropped
+	 * 
+	 * Used in billing
+	 * 
+	 * @return number of dropped and not delivered messages
 	 */
 
 	@Types.Counter
@@ -98,6 +116,10 @@ public interface MessageStatsDaily {
 
 	/**
 	 *  How many recipients unsubscribed 
+	 *  
+	 *  Used in billing
+	 *  
+	 *  @return number of unsubscribed users
 	 */
 	
 	@Types.Counter

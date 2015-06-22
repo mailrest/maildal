@@ -44,7 +44,7 @@ public interface Message {
 	/**
 	 *  Message id formated, unique, example here: 20150516120002.16302.52977@lt.su
 	 *  
-	 *  @retrun message id
+	 *  @return message id
 	 */
 
 	@PartitionKey

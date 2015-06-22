@@ -25,6 +25,8 @@ public interface MessageSender {
 
 	/**
 	 *   Sender's name, usually pid@hostname 
+	 *   
+	 *   @return sender name
 	 */
 	
 	@Constraints.NotEmpty
@@ -32,6 +34,8 @@ public interface MessageSender {
 	
 	/**
 	 *   Sender's public IP
+	 *   
+	 *   @return sender's public IP address
 	 */
 	
 	@Constraints.NotEmpty

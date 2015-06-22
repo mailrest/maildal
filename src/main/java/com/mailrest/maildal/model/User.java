@@ -25,6 +25,8 @@ public interface User {
 
 	/**
 	 *  UserId is the login and primary key of this table
+	 *  
+	 *  @return user id
 	 */
 	
 	@PartitionKey
@@ -33,6 +35,8 @@ public interface User {
 
 	/**
 	 *  We are not storing password itself, we are storing only hash of the password 
+	 *  
+	 *  @return password hash
 	 */
 	
 	@Constraints.NotEmpty
@@ -41,6 +45,8 @@ public interface User {
 	/**
 	 *  Account under which user as created,
 	 *  all permissions based per account 
+	 *  
+	 *  @return account id
 	 */
 	
 	@AccountId
@@ -50,6 +56,8 @@ public interface User {
 	 *  Permission of the user, used for authorization purpose
 	 *  
 	 *  User can have ADMIN, WRITE and READ_ONLY permissions that vary on access type in REST API and UI 
+	 *  
+	 *  @return user permission type
 	 *   
 	 */
 	

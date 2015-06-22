@@ -20,6 +20,8 @@ public interface UserInfo {
 	
 	/**
 	 *  Corresponds to a particular User 
+	 *  
+	 *  @return user id
 	 */
 	
 	@UserId
@@ -27,6 +29,8 @@ public interface UserInfo {
 	
 	/**
 	 *  IP address of the request 
+	 *  
+	 *  @return IP address
 	 */
 	
 	@Constraints.NotEmpty
@@ -34,6 +38,8 @@ public interface UserInfo {
 
 	/**
 	 *  UserAgent of the request if has
+	 *  
+	 *  @return UserAgent header
 	 */
 
 	String userAgent();
