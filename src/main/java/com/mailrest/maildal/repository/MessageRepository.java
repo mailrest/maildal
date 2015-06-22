@@ -26,13 +26,13 @@ public interface MessageRepository extends AbstractRepository {
 	
 	static final Message message = Casser.dsl(Message.class);
 	
-	default Future<Optional<Message>> findMessage(String messageId, String accountId, String domainId) {
+	default Future<Optional<Message>> findMessage(String messageId, DomainRef domainRef) {
 		
 		return session()
 				.select(Message.class)
 				.where(message::messageId, eq(messageId))
-				.onlyIf(message::accountId, eq(accountId))
-				.onlyIf(message::domainId, eq(domainId))
+				.onlyIf(message::accountId, eq(domainRef.accountId()))
+				.onlyIf(message::domainId, eq(domainRef.domainId()))
 				.single()
 				.future();
 		
@@ -97,13 +97,13 @@ public interface MessageRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> deleteMessage(String messageId, String accountId, String domainId) {
+	default Future<ResultSet> deleteMessage(String messageId, DomainRef domainRef) {
 		
 		return session()
 				.delete()
 				.where(message::messageId, eq(messageId))
-				.onlyIf(message::accountId, eq(accountId))				
-				.onlyIf(message::domainId, eq(domainId))
+				.onlyIf(message::accountId, eq(domainRef.accountId()))				
+				.onlyIf(message::domainId, eq(domainRef.domainId()))
 				.future();
 		
 	}	

@@ -38,64 +38,64 @@ public interface DomainRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<List<DomainVerificationEvent>>> getVerificationEvents(String accountId, String domainId) {
+	default Future<Optional<List<DomainVerificationEvent>>> getVerificationEvents(DomainRef domainRef) {
 		
 		return session()
 				.select(domain::events)
-				.where(domain::accountId, eq(accountId))
-				.and(domain::domainId, eq(domainId))
+				.where(domain::accountId, eq(domainRef.accountId()))
+				.and(domain::domainId, eq(domainRef.domainId()))
 				.single()
 				.map(t -> t._1)
 				.future();
 		
 	}
 	
-	default Future<ResultSet> addVerificationEvent(String accountId, String domainId, DomainVerificationEvent event) {
+	default Future<ResultSet> addVerificationEvent(DomainRef domainRef, DomainVerificationEvent event) {
 		
 		return session()
 				.update()
 				.append(domain::events, event)
-				.where(domain::accountId, eq(accountId))
-				.and(domain::domainId, eq(domainId))
+				.where(domain::accountId, eq(domainRef.accountId()))
+				.and(domain::domainId, eq(domainRef.domainId()))
 				.future();
 		
 	}
 	
-	default Future<Optional<Domain>> findDomain(String accountId, String domainId) {
+	default Future<Optional<Domain>> findDomain(DomainRef domainRef) {
 		
 		return session()
 				.select(Domain.class)
-				.where(domain::accountId, eq(accountId))
-				.and(domain::domainId, eq(domainId))
+				.where(domain::accountId, eq(domainRef.accountId()))
+				.and(domain::domainId, eq(domainRef.domainId()))
 				.single()
 				.future();
 		
 	}
 	
-	default Future<Optional<Fun.Tuple1<String>>> findApiKey(String accountId, String domainId) {
+	default Future<Optional<Fun.Tuple1<String>>> findApiKey(DomainRef domainRef) {
 		
 		return session()
 				.select(domain::apiKey)
-				.where(domain::accountId, eq(accountId))
-				.and(domain::domainId, eq(domainId))
+				.where(domain::accountId, eq(domainRef.accountId()))
+				.and(domain::domainId, eq(domainRef.domainId()))
 				.single()
 				.future();
 	}
 	
-	default Future<Fun.Tuple2<ResultSet, String>> updateApiKey(String accountId, String domainId) {
+	default Future<Fun.Tuple2<ResultSet, String>> updateApiKey(DomainRef domainRef) {
 		
 		String apiKey = Generators.API_KEY.next();
 		
 		return session()
 				.update()
 				.set(domain::apiKey, apiKey)
-				.where(domain::accountId, eq(accountId))
-				.and(domain::domainId, eq(domainId))
+				.where(domain::accountId, eq(domainRef.accountId()))
+				.and(domain::domainId, eq(domainRef.domainId()))
 				.future(apiKey);
 		
 	}
 	
-	default Future<ResultSet> addDomain(String accountId, String domainId, String domainIdn) {
+	default Future<ResultSet> addDomain(DomainRef domainRef, String domainIdn) {
 		
 		String apiKey = Generators.API_KEY.next();
 		
@@ -120,8 +120,8 @@ public interface DomainRepository extends AbstractRepository {
 		
 		return session()
 				.upsert()
-				.value(domain::accountId, accountId)
-				.value(domain::domainId, domainId)
+				.value(domain::accountId, domainRef.accountId())
+				.value(domain::domainId, domainRef.domainId())
 				.value(domain::domainIdn, domainIdn)
 				.value(domain::createdAt, new Date())
 				.value(domain::events, ImmutableList.of(event))
@@ -131,12 +131,12 @@ public interface DomainRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> dropDomain(String accountId, String domainId) {
+	default Future<ResultSet> dropDomain(DomainRef domainRef) {
 		
 		return session()
 				.delete()
-				.where(domain::accountId, eq(accountId))
-				.and(domain::domainId, eq(domainId))
+				.where(domain::accountId, eq(domainRef.accountId()))
+				.and(domain::domainId, eq(domainRef.domainId()))
 				.future();
 		
 	}

@@ -58,15 +58,15 @@ public interface DomainVerificationQueueRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> enqueueDomain(int bucket, String domainId, String accountId, Date verifyAt, int attempt) {
+	default Future<ResultSet> enqueueDomain(int bucket, DomainRef domainRef, Date verifyAt, int attempt) {
 		
 		UUID verifyTime = TimeUUIDUtil.createTimeUUID(verifyAt);
 		
 		return session()
 				.insert()
 				.value(domainVerificationQueue::bucket, bucket)
-				.value(domainVerificationQueue::domainId, domainId)
-				.value(domainVerificationQueue::accountId, accountId)
+				.value(domainVerificationQueue::accountId, domainRef.accountId())
+				.value(domainVerificationQueue::domainId, domainRef.domainId())
 				.value(domainVerificationQueue::verifyAt, verifyTime)
 				.value(domainVerificationQueue::attempt, attempt)
 				.value(domainVerificationQueue::peeked, false)

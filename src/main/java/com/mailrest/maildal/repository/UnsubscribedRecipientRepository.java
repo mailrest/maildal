@@ -20,24 +20,24 @@ public interface UnsubscribedRecipientRepository extends AbstractRepository {
 
 	static final UnsubscribedRecipient unsubscribedRecipient = Casser.dsl(UnsubscribedRecipient.class);
 	
-	default Future<Optional<Fun.Tuple1<Date>>> isUnsubscribedRecipient(String accountId, String domainId, String email) {
+	default Future<Optional<Fun.Tuple1<Date>>> isUnsubscribedRecipient(DomainRef domainRef, String email) {
 		
 		return session()
 				.select(unsubscribedRecipient::unsubscribedAt)
-				.where(unsubscribedRecipient::accountId, eq(accountId))
-				.and(unsubscribedRecipient::domainId, eq(domainId))
+				.where(unsubscribedRecipient::accountId, eq(domainRef.accountId()))
+				.and(unsubscribedRecipient::domainId, eq(domainRef.domainId()))
 				.and(unsubscribedRecipient::email, eq(email.toLowerCase()))
 				.single()
 				.future();
 		
 	}
 	
-	default Future<ResultSet> unsubscribeRecipient(String accountId, String domainId, String email) {
+	default Future<ResultSet> unsubscribeRecipient(DomainRef domainRef, String email) {
 		
 		return session()
 				.upsert()
-				.value(unsubscribedRecipient::accountId, accountId)
-				.value(unsubscribedRecipient::domainId, domainId)
+				.value(unsubscribedRecipient::accountId, domainRef.accountId())
+				.value(unsubscribedRecipient::domainId, domainRef.domainId())
 				.value(unsubscribedRecipient::email, email.toLowerCase())
 				.value(unsubscribedRecipient::unsubscribedAt, new Date())
 				.future();

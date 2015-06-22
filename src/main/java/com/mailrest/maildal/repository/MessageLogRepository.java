@@ -4,9 +4,9 @@
  */
 package com.mailrest.maildal.repository;
 
+import static com.noorq.casser.core.Query.desc;
 import static com.noorq.casser.core.Query.eq;
 import static com.noorq.casser.core.Query.lt;
-import static com.noorq.casser.core.Query.desc;
 
 import java.util.Date;
 import java.util.UUID;
@@ -23,24 +23,34 @@ import com.mailrest.maildal.model.MessageLog;
 import com.mailrest.maildal.model.MessageRecipient;
 import com.mailrest.maildal.model.MessageSender;
 import com.noorq.casser.core.Casser;
-import com.noorq.casser.mapping.convert.TimeUUIDUtil;
 
 public interface MessageLogRepository extends AbstractRepository {
 
 	static final MessageLog messageLog = Casser.dsl(MessageLog.class);
 
 	static final long ONE_DAY_MILLISECONDS = 24L * 3600L * 1000L;
-	
-	default Future<Stream<MessageLog>> getMessageLog(String accountId, String domainId, Date endAt, int max) {
-		
-		Date dayAt = daily(endAt);
+
+	default Future<Stream<MessageLog>> findMessageLogs(DayRef dayRef, int max) {
 		
 		return session()
 				.select(MessageLog.class)
-				.where(messageLog::accountId, eq(accountId))
-				.and(messageLog::domainId, eq(domainId))
-				.and(messageLog::dayAt, eq(dayAt))
-				.and(messageLog::eventAt, lt(endAt))
+				.where(messageLog::accountId, eq(dayRef.accountId()))
+				.and(messageLog::domainId, eq(dayRef.domainId()))
+				.and(messageLog::dayAt, eq(dayRef.dayAt()))
+				.orderBy(desc(messageLog::eventAt))
+				.limit(max)
+				.future();
+		
+	}
+	
+	default Future<Stream<MessageLog>> findMessageLogs(DayRef dayRef, Date before, int max) {
+		
+		return session()
+				.select(MessageLog.class)
+				.where(messageLog::accountId, eq(dayRef.accountId()))
+				.and(messageLog::domainId, eq(dayRef.domainId()))
+				.and(messageLog::dayAt, eq(dayRef.dayAt()))
+				.and(messageLog::eventAt, lt(before))
 				.orderBy(desc(messageLog::eventAt))
 				.limit(max)
 				.future();
@@ -49,20 +59,19 @@ public interface MessageLogRepository extends AbstractRepository {
 	
 	default Future<ResultSet> logMessageDeliveryAttempt(
 			Message message, 
-			Date eventAt,
+			int dayAt,
+			UUID eventAt,
 			MessageAction action, 
 			MessageDelivery delivery,
 			MessageSender sender,
 			MessageRecipient recipient) {
 	
-		UUID eventTime = TimeUUIDUtil.createTimeUUID(eventAt);
-		
 		return session()
 				.insert()
 				.value(messageLog::accountId, message.accountId())
 				.value(messageLog::domainId, message.domainId())
-				.value(messageLog::dayAt, daily(eventAt))
-				.value(messageLog::eventAt, eventTime)
+				.value(messageLog::dayAt, dayAt)
+				.value(messageLog::eventAt, eventAt)
 				.value(messageLog::messageId, message.messageId())
 				.value(messageLog::publicId, message.publicId())
 				.value(messageLog::action, action)
@@ -74,15 +83,6 @@ public interface MessageLogRepository extends AbstractRepository {
 		
 	}
 
-	default Date daily(Date eventAt) {
-		
-		long timestamp = eventAt.getTime();
-		
-		long diff = timestamp % ONE_DAY_MILLISECONDS;
-		
-		return new Date(timestamp - diff);
-		
-	}
 
 	class HeadersDelegate implements MessageHeaders {
 

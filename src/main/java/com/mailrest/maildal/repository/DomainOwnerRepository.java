@@ -34,24 +34,24 @@ public interface DomainOwnerRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> addVerifiedDomain(String accountId, String domainId, Date verifiedAt) {
+	default Future<ResultSet> addVerifiedDomain(DomainRef domainRef, Date verifiedAt) {
 		
 		return session()
 				.upsert()
-				.value(domainOwner::domainId, domainId)
+				.value(domainOwner::domainId, domainRef.domainId())
 				.value(domainOwner::verifiedAt, verifiedAt)
-				.value(domainOwner::accountId, accountId)
+				.value(domainOwner::accountId, domainRef.accountId())
 				.future();
 		
 	}
 	
-	default Future<ResultSet> dropDomainVerifications(String accountId, String domainId, List<Date> verifiedAt) {
+	default Future<ResultSet> dropDomainVerifications(DomainRef domainRef, List<Date> verifiedAt) {
 		
 		return session()
 				.delete()
-				.where(domainOwner::domainId, eq(domainId))
+				.where(domainOwner::domainId, eq(domainRef.domainId()))
 				.and(domainOwner::verifiedAt, in(verifiedAt.toArray(new Date[0])))
-				.onlyIf(domainOwner::accountId, eq(accountId))
+				.onlyIf(domainOwner::accountId, eq(domainRef.accountId()))
 				.future();
 		
 	}
