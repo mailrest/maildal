@@ -9,8 +9,8 @@ import static com.noorq.casser.core.Query.eq;
 import static com.noorq.casser.core.Query.lt;
 
 import java.util.Date;
-import java.util.stream.Stream;
 
+import scala.collection.immutable.Stream;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;

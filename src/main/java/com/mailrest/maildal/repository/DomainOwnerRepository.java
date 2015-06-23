@@ -10,8 +10,8 @@ import static com.noorq.casser.core.Query.in;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -23,7 +23,7 @@ public interface DomainOwnerRepository extends AbstractRepository {
 
 	static final DomainOwner domainOwner = Casser.dsl(DomainOwner.class);
 	
-	default Future<Optional<Fun.Tuple1<String>>> findOwner(String domainId) {
+	default Future<Option<Fun.Tuple1<String>>> findOwner(String domainId) {
 		
 		return session()
 				.select(domainOwner::accountId)

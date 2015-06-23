@@ -8,9 +8,9 @@ import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
+import scala.Option;
+import scala.collection.immutable.Stream;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -38,7 +38,7 @@ public interface DomainRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<List<DomainVerificationEvent>>> getVerificationEvents(DomainRef domainRef) {
+	default Future<Option<List<DomainVerificationEvent>>> getVerificationEvents(DomainRef domainRef) {
 		
 		return session()
 				.select(domain::events)
@@ -61,7 +61,7 @@ public interface DomainRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<Domain>> findDomain(DomainRef domainRef) {
+	default Future<Option<Domain>> findDomain(DomainRef domainRef) {
 		
 		return session()
 				.select(Domain.class)
@@ -72,7 +72,7 @@ public interface DomainRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<Fun.Tuple1<String>>> findApiKey(DomainRef domainRef) {
+	default Future<Option<Fun.Tuple1<String>>> findApiKey(DomainRef domainRef) {
 		
 		return session()
 				.select(domain::apiKey)

@@ -7,8 +7,8 @@ package com.mailrest.maildal.repository;
 import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
-import java.util.Optional;
 
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -25,7 +25,7 @@ public interface AccountRepository extends AbstractRepository {
 	
 	static final String DEFAULT_TIMEZONE = "America/Los_Angeles";
 	
-	default Future<Optional<Account>> findAccount(String accountId) {
+	default Future<Option<Account>> findAccount(String accountId) {
 		
 		return session()
 				.select(Account.class)
@@ -57,7 +57,7 @@ public interface AccountRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<AccountUser>> findAccountUser(UserRef userRef) {
+	default Future<Option<AccountUser>> findAccountUser(UserRef userRef) {
 		
 		return session()
 				.select(account::users)

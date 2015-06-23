@@ -8,8 +8,8 @@ import static com.noorq.casser.core.Query.desc;
 import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
-import java.util.Optional;
 
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -75,7 +75,7 @@ public interface TemplateRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<Fun.Tuple2<Template, Date>>> findDeployedTemplate(TemplateRef templateRef) {
+	default Future<Option<Fun.Tuple2<Template, Date>>> findDeployedTemplate(TemplateRef templateRef) {
 
 		return session()
 				.select(deployedTemplate::template, deployedTemplate::deployedAt)
@@ -88,7 +88,7 @@ public interface TemplateRepository extends AbstractRepository {
 
 	}
 	
-	default Future<Optional<Fun.Tuple1<Template>>> findTestingTemplate(TemplateRef templateRef, String env) {
+	default Future<Option<Fun.Tuple1<Template>>> findTestingTemplate(TemplateRef templateRef, String env) {
 		
 		return session()
 				.select(testingTemplate::template)

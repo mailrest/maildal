@@ -5,9 +5,7 @@
 package com.mailrest.maildal.repository;
 
 import static com.noorq.casser.core.Query.eq;
-
-import java.util.Optional;
-
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -20,7 +18,7 @@ public interface UserRepository extends AbstractRepository {
 	
 	static final User user = Casser.dsl(User.class);
 
-	default Future<Optional<User>> findUser(String userId) {
+	default Future<Option<User>> findUser(String userId) {
 
 		return session()
 			.select(User.class)

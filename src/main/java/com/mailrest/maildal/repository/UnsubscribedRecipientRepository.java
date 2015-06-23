@@ -7,8 +7,8 @@ package com.mailrest.maildal.repository;
 import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
-import java.util.Optional;
 
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -20,7 +20,7 @@ public interface UnsubscribedRecipientRepository extends AbstractRepository {
 
 	static final UnsubscribedRecipient unsubscribedRecipient = Casser.dsl(UnsubscribedRecipient.class);
 	
-	default Future<Optional<Fun.Tuple1<Date>>> isUnsubscribedRecipient(DomainRef domainRef, String email) {
+	default Future<Option<Fun.Tuple1<Date>>> isUnsubscribedRecipient(DomainRef domainRef, String email) {
 		
 		return session()
 				.select(unsubscribedRecipient::unsubscribedAt)

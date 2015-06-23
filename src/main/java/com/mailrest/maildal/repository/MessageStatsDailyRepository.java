@@ -8,7 +8,7 @@ import static com.noorq.casser.core.Query.eq;
 import static com.noorq.casser.core.Query.gte;
 import static com.noorq.casser.core.Query.lt;
 
-import java.util.stream.Stream;
+import scala.collection.immutable.Stream;
 
 import scala.concurrent.Future;
 

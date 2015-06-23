@@ -9,9 +9,9 @@ import static com.noorq.casser.core.Query.eq;
 import static com.noorq.casser.core.Query.lte;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -23,7 +23,7 @@ public interface MessageQueueRepository extends AbstractRepository {
 
 	static final MessageQueue messageQueue = Casser.dsl(MessageQueue.class);
 	
-	default Future<Optional<MessageQueue>> peekMessage(int bucketId) {
+	default Future<Option<MessageQueue>> peekMessage(int bucketId) {
 		
 		return session()
 				.select(MessageQueue.class)

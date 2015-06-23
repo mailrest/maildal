@@ -8,8 +8,8 @@ import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -26,7 +26,7 @@ public interface MessageRepository extends AbstractRepository {
 	
 	static final Message message = Casser.dsl(Message.class);
 	
-	default Future<Optional<Message>> findMessage(String messageId, DomainRef domainRef) {
+	default Future<Option<Message>> findMessage(String messageId, DomainRef domainRef) {
 		
 		return session()
 				.select(Message.class)

@@ -5,9 +5,7 @@
 package com.mailrest.maildal.repository;
 
 import static com.noorq.casser.core.Query.eq;
-
-import java.util.Optional;
-
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -19,7 +17,7 @@ public interface BoxRepository extends AbstractRepository {
 
 	static final Box box = Casser.dsl(Box.class);
 	
-	default Future<Optional<Box>> findBox(BoxRef boxRef) {
+	default Future<Option<Box>> findBox(BoxRef boxRef) {
 		
 		return session()
 				.select(Box.class)
@@ -40,7 +38,7 @@ public interface BoxRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<Optional<BoxFolder>> findBoxFolder(FolderRef folderRef) {
+	default Future<Option<BoxFolder>> findBoxFolder(FolderRef folderRef) {
 		
 		return session()
 				.select(box::folders)

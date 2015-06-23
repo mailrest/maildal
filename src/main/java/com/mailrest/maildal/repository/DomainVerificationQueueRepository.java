@@ -9,9 +9,9 @@ import static com.noorq.casser.core.Query.eq;
 import static com.noorq.casser.core.Query.lte;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
+import scala.Option;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
@@ -23,7 +23,7 @@ public interface DomainVerificationQueueRepository extends AbstractRepository {
 
 	static final DomainVerificationQueue domainVerificationQueue = Casser.dsl(DomainVerificationQueue.class);
 	
-	default Future<Optional<DomainVerificationQueue>> peekDomain(int bucketId) {
+	default Future<Option<DomainVerificationQueue>> peekDomain(int bucketId) {
 		
 		return session()
 				.select(DomainVerificationQueue.class)
