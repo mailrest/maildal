@@ -4,7 +4,7 @@
  */
 package com.mailrest.maildal.gen;
 
-public interface ParameterGenerator {
+public interface ParametarizedGenerator {
 
 	String next(String parameter);
 	

@@ -4,16 +4,23 @@
  */
 package com.mailrest.maildal.util;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public enum RandomInstance {
 
 	INSTANCE;
 	
+	public static final String ALGORITHM = "SHA1PRNG";
+	
 	private final SecureRandom r;
 	
 	private RandomInstance() {
-		r = new SecureRandom();
+		try {
+			r = SecureRandom.getInstance(ALGORITHM);
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalStateException("default PRG algorithm not found in system " + ALGORITHM);
+		}
 	}
 	
 	public SecureRandom random() {

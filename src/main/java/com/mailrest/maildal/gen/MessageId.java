@@ -9,7 +9,7 @@ import java.util.Date;
 
 import com.mailrest.maildal.util.RandomInstance;
 
-public final class MessageId implements ParameterGenerator {
+public final class MessageId implements ParametarizedGenerator {
 
 	private static final int DIGITS_MOD = 100000;
 	private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

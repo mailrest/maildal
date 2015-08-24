@@ -25,8 +25,8 @@ public enum Generators {
 		if (gen instanceof SimpleGenerator) {
 			return ((SimpleGenerator)gen).next();
 		}
-		if (gen instanceof ParameterGenerator) {
-			return ((ParameterGenerator)gen).next("");
+		if (gen instanceof ParametarizedGenerator) {
+			return ((ParametarizedGenerator)gen).next("");
 		}
 		throw new IllegalStateException("unknown generator type " + gen.getClass());
 	}
@@ -35,8 +35,8 @@ public enum Generators {
 		if (gen instanceof SimpleGenerator) {
 			return ((SimpleGenerator)gen).next();
 		}
-		if (gen instanceof ParameterGenerator) {
-			return ((ParameterGenerator)gen).next(parameter);
+		if (gen instanceof ParametarizedGenerator) {
+			return ((ParametarizedGenerator)gen).next(parameter);
 		}
 		throw new IllegalStateException("unknown generator type " + gen.getClass());
 	}
