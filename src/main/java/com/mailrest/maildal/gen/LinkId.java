@@ -19,9 +19,7 @@ public final class LinkId implements SimpleGenerator {
 	}
 	
 	private static byte[] rnd(int length) {
-		byte[] bytes = new byte[length];
-		RandomInstance.INSTANCE.random().nextBytes(bytes);
-		return bytes;
+		return RandomInstance.INSTANCE.nextBytes(length);
 	}
 	
 }

@@ -26,8 +26,7 @@ public enum PasswordHash {
 	
 	public String calculate(String password) {
 		
-		byte[] salt = new byte[16];
-		RandomInstance.INSTANCE.random().nextBytes(salt);
+		byte[] salt = RandomInstance.INSTANCE.nextBytes(16);
 		
 		byte[] hash = doCalculate(salt, password);
 		

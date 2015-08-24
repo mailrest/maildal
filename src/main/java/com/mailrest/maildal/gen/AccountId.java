@@ -20,7 +20,7 @@ public final class AccountId implements SimpleGenerator {
 	}
 	
 	private static int nextInt() {
-		return Math.abs(RandomInstance.INSTANCE.random().nextInt() % ACCOUNT_MOD);
+		return RandomInstance.INSTANCE.nextNaturalInt(ACCOUNT_MOD);
 	}
 	
 }

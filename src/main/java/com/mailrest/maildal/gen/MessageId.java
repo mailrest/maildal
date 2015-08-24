@@ -32,7 +32,7 @@ public final class MessageId implements ParametarizedGenerator {
 		
 		long nanoTime = System.nanoTime() % DIGITS_MOD;
 		
-		int randomValue = Math.abs(RandomInstance.INSTANCE.random().nextInt()) % DIGITS_MOD;
+		int randomValue = RandomInstance.INSTANCE.nextNaturalInt(DIGITS_MOD);
 		
 		return prefix + "." + nanoTime + "." + randomValue + "@" + domain.toLowerCase();
 		

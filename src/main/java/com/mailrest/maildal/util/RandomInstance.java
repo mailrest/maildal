@@ -23,8 +23,17 @@ public enum RandomInstance {
 		}
 	}
 	
-	public SecureRandom random() {
-		return r;
+	public int nextNaturalInt(int mod) {
+		if (mod <= 0) {
+			throw new IllegalArgumentException("invalid mod " + mod);
+		}
+		return Math.abs(r.nextInt() % mod);
+	}
+	
+	public byte[] nextBytes(int size) {
+		byte[] arr = new byte[size];
+		r.nextBytes(arr);
+		return arr;
 	}
 	
 }
