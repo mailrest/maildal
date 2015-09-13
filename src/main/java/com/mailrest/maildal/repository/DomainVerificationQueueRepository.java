@@ -17,7 +17,7 @@ import scala.concurrent.Future;
 import com.datastax.driver.core.ResultSet;
 import com.mailrest.maildal.model.DomainVerificationQueue;
 import com.noorq.casser.core.Casser;
-import com.noorq.casser.mapping.convert.TimeUUIDUtil;
+import com.noorq.casser.support.Timeuuid;
 
 public interface DomainVerificationQueueRepository extends AbstractRepository {
 
@@ -28,9 +28,8 @@ public interface DomainVerificationQueueRepository extends AbstractRepository {
 		return session()
 				.select(DomainVerificationQueue.class)
 				.where(domainVerificationQueue::bucket, eq(bucketId))
-				.and(domainVerificationQueue::verifyAt, lte(new Date()))
+				.and(domainVerificationQueue::verifyAt, lte(Timeuuid.maxOf(new Date())))
 				.orderBy(asc(domainVerificationQueue::verifyAt))
-				.onlyIf(domainVerificationQueue::peeked, eq(false))
 				.single()
 				.future();
 		
@@ -60,7 +59,7 @@ public interface DomainVerificationQueueRepository extends AbstractRepository {
 	
 	default Future<ResultSet> enqueueDomain(int bucket, DomainRef domainRef, Date verifyAt, int attempt) {
 		
-		UUID verifyTime = TimeUUIDUtil.createTimeUUID(verifyAt);
+		UUID verifyTime = Timeuuid.of(verifyAt);
 		
 		return session()
 				.insert()

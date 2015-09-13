@@ -11,13 +11,15 @@ import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
+import com.noorq.casser.mapping.annotation.Table;
 import com.noorq.casser.mapping.annotation.Types;
 
 /**
- *  FolderMessage is using to store Message references inside the folders and orginize access to them by date 
+ *  FolderMessage is using to store Message references inside the folders and organize access to them by date 
  *
  */
 
+@Table
 public interface FolderMessage {
 
 	/**
@@ -56,7 +58,7 @@ public interface FolderMessage {
 	 *  @return folder id
 	 */		
 	
-	@PartitionKey(ordinal=2)
+	@PartitionKey(ordinal=3)
 	@FolderId
 	String folderId();
 	

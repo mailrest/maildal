@@ -56,7 +56,7 @@ public interface MessageQueue {
 	UUID deliveryAt();
 	
 	/**
-	 *  Flag is using to optimistic locking by Sender, can be ignored, depends on Sender algorithm 
+	 *  Flag is using for optimistic locking by Sender, can be ignored, depends on Sender algorithm 
 	 *  
 	 *  @return true is object was peeked
 	 */
