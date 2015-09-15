@@ -5,7 +5,6 @@
 package com.mailrest.maildal.model;
 
 import com.mailrest.maildal.model.constraint.EmailId;
-import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.UDT;
 
 /**
@@ -16,13 +15,12 @@ import com.noorq.casser.mapping.annotation.UDT;
 public interface MessageRecipient {
 
 	/**
-	 *  Full text of the recipient extracted from toRecipients, ccRecipients and bccRecipients fields in the Messages
+	 *  Full text of the recipient name extracted from toRecipients, ccRecipients and bccRecipients fields in the Message
 	 *  
-	 *  @return recipient name and email as it is in email fiedls
+	 *  @return recipient name or null
 	 */
 	
-	@Constraints.NotEmpty
-	String recipient();
+	String recipientName();
 	
 	/**
 	 *  Email that was extracted from recipient field and normalized by IDN and lower cased

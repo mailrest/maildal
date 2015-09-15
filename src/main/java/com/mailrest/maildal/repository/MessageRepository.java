@@ -8,6 +8,7 @@ import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 import scala.Option;
 import scala.concurrent.Future;
@@ -25,6 +26,16 @@ public interface MessageRepository extends AbstractRepository {
 	static final int TWO_MONTHS_IN_SECONDS = 60 * 24 * 60;
 	
 	static final Message message = Casser.dsl(Message.class);
+	
+	default Optional<Message> getMessage(String messageId) {
+		
+		return session()
+				.select(Message.class)
+				.where(message::messageId, eq(messageId))
+				.single()
+				.sync();
+		
+	}
 	
 	default Future<Option<Message>> findMessage(String messageId, DomainRef domainRef) {
 		
@@ -83,7 +94,7 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::accountId, newMessage.accountId())
 			.value(message::domainId, newMessage.domainId())
 			.value(message::publicId, newMessage.publicId())
-			.value(message::fromRecipients, newMessage.from())
+			.value(message::fromRecipient, newMessage.from())
 			.value(message::toRecipients, newMessage.to())
 			.value(message::ccRecipients, newMessage.cc())
 			.value(message::bccRecipients, newMessage.bcc())

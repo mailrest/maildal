@@ -110,7 +110,7 @@ public interface Message {
 	 */
 	
 	@Constraints.NotEmpty
-	String fromRecipients();
+	String fromRecipient();
 
 	/**
 	 *  to: field  

@@ -94,7 +94,7 @@ public interface MessageLogRepository extends AbstractRepository {
 		
 		@Override
 		public String fromRecipients() {
-			return message.fromRecipients();
+			return message.fromRecipient();
 		}
 
 		@Override
