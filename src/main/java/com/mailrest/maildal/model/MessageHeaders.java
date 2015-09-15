@@ -29,7 +29,7 @@ public interface MessageHeaders {
 	 */
 	
 	@Constraints.NotEmpty
-	String fromRecipients();
+	String fromRecipient();
 
 	/**
 	 *  to: field in the message

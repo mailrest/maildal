@@ -9,20 +9,20 @@ import static com.noorq.casser.core.Query.eq;
 import static com.noorq.casser.core.Query.lt;
 
 import java.util.Date;
-import java.util.UUID;
-import scala.collection.immutable.Stream;
 
+import scala.collection.immutable.Stream;
 import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
 import com.mailrest.maildal.model.Message;
 import com.mailrest.maildal.model.MessageAction;
 import com.mailrest.maildal.model.MessageDelivery;
-import com.mailrest.maildal.model.MessageHeaders;
 import com.mailrest.maildal.model.MessageLog;
 import com.mailrest.maildal.model.MessageRecipient;
 import com.mailrest.maildal.model.MessageSender;
+import com.mailrest.maildal.support.MessageToHeadersAdapter;
 import com.noorq.casser.core.Casser;
+import com.noorq.casser.support.Timeuuid;
 
 public interface MessageLogRepository extends AbstractRepository {
 
@@ -57,65 +57,29 @@ public interface MessageLogRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> logMessageDeliveryAttempt(
+	default ResultSet logMessageDeliveryAttempt(
 			Message message, 
+			MessageRecipient recipient,
 			int dayAt,
-			UUID eventAt,
+			long timestamp,
 			MessageAction action, 
-			MessageDelivery delivery,
 			MessageSender sender,
-			MessageRecipient recipient) {
+			MessageDelivery delivery) {
 	
 		return session()
 				.insert()
 				.value(messageLog::accountId, message.accountId())
 				.value(messageLog::domainId, message.domainId())
 				.value(messageLog::dayAt, dayAt)
-				.value(messageLog::eventAt, eventAt)
+				.value(messageLog::eventAt, Timeuuid.of(timestamp))
 				.value(messageLog::messageId, message.messageId())
 				.value(messageLog::collisionId, message.collisionId())
 				.value(messageLog::action, action)
 				.value(messageLog::delivery, delivery)
 				.value(messageLog::sender, sender)
 				.value(messageLog::recipient, recipient)
-				.value(messageLog::headers, new HeadersDelegate(message))
-				.future();
-		
-	}
-
-
-	class HeadersDelegate implements MessageHeaders {
-
-		final Message message;
-		
-		HeadersDelegate(Message message) {
-			this.message = message;
-		}
-		
-		@Override
-		public String fromRecipients() {
-			return message.fromRecipient();
-		}
-
-		@Override
-		public String toRecipients() {
-			return message.toRecipients();
-		}
-
-		@Override
-		public String ccRecipients() {
-			return message.ccRecipients();
-		}
-
-		@Override
-		public String bccRecipients() {
-			return message.bccRecipients();
-		}
-
-		@Override
-		public String subject() {
-			return message.subject();
-		}
+				.value(messageLog::headers, new MessageToHeadersAdapter(message))
+				.sync();
 		
 	}
 	

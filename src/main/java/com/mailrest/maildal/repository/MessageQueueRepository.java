@@ -68,5 +68,16 @@ public interface MessageQueueRepository extends AbstractRepository {
 				.future();
 	}
 	
+	default ResultSet enqueueMessage(MessageQueue msg, Date deliveryAt) {
+		
+		return session()
+				.insert()
+				.value(messageQueue::bucket, msg.bucket())
+				.value(messageQueue::messageId, msg.messageId())
+				.value(messageQueue::deliveryAt, Timeuuid.of(deliveryAt))
+				.value(messageQueue::attempt, msg.attempt() + 1)
+				.value(messageQueue::peeked, false)
+				.sync();
+	}
 
 }
