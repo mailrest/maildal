@@ -96,12 +96,12 @@ public interface Message {
 	String domainId();
 	
 	/**
-	 *  User defined id to track massages, usually it is the out client's customer id 
+	 *  User defined id to track massages, usually it is the out client's collision id 
 	 *  
-	 *  @return public id
+	 *  @return collision id
 	 */
 	
-	String publicId();
+	String collisionId();
 	
 	/**
 	 *  from: field  

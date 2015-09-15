@@ -73,7 +73,7 @@ public interface MessageLogRepository extends AbstractRepository {
 				.value(messageLog::dayAt, dayAt)
 				.value(messageLog::eventAt, eventAt)
 				.value(messageLog::messageId, message.messageId())
-				.value(messageLog::publicId, message.publicId())
+				.value(messageLog::collisionId, message.collisionId())
 				.value(messageLog::action, action)
 				.value(messageLog::delivery, delivery)
 				.value(messageLog::sender, sender)

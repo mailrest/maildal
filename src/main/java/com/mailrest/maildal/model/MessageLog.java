@@ -89,12 +89,12 @@ public interface MessageLog {
 	String messageId();
 
 	/**
-	 *  Reference to the our client's customer id  
+	 *  Reference to the our client's collision id  
 	 *  
-	 *  @return public id
+	 *  @return collision id
 	 */
 
-	String publicId();
+	String collisionId();
 	
 	/**
 	 *  Result of the action

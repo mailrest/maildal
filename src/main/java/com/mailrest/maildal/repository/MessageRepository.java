@@ -59,7 +59,7 @@ public interface MessageRepository extends AbstractRepository {
 		
 		String domainId();
 		
-		String publicId();
+		String collisionId();
 		
 		String from();
 		
@@ -93,7 +93,7 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::messageType, newMessage.messageType())
 			.value(message::accountId, newMessage.accountId())
 			.value(message::domainId, newMessage.domainId())
-			.value(message::publicId, newMessage.publicId())
+			.value(message::collisionId, newMessage.collisionId())
 			.value(message::fromRecipient, newMessage.from())
 			.value(message::toRecipients, newMessage.to())
 			.value(message::ccRecipients, newMessage.cc())

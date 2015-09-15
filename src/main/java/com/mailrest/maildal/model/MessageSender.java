@@ -30,7 +30,7 @@ public interface MessageSender {
 	 */
 	
 	@Constraints.NotEmpty
-	String sender();
+	String senderName();
 	
 	/**
 	 *   Sender's public IP
@@ -39,6 +39,6 @@ public interface MessageSender {
 	 */
 	
 	@Constraints.NotEmpty
-	String sendingIp();
+	String senderIp();
 
 }

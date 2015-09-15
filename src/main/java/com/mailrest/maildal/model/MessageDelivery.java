@@ -20,6 +20,14 @@ import com.noorq.casser.mapping.annotation.UDT;
 public interface MessageDelivery {
 
 	/**
+	 * Host was used to message delivery, usually retrieved from email address in IDN form
+	 * 
+	 * @return host from email address
+	 */
+	
+	String deliveryHost();
+	
+	/**
 	 * Does server use the TLS(former SSL) encryption protocol
 	 * 
 	 * @return true if TLS protocol was used by mail server
