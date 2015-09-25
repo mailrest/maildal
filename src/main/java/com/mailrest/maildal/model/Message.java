@@ -17,7 +17,6 @@ package com.mailrest.maildal.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.mailrest.maildal.model.constraint.AccountId;
 import com.mailrest.maildal.model.constraint.DomainId;
@@ -149,30 +148,6 @@ public interface Message {
     String bccRecipients();
 
     /**
-     * User to differ messages for 'test' and 'prod' environments
-     * 
-     * @return environment name
-     */
-    
-    String env();
-    
-	/**
-	 *  Template that was used to compose this message subject/body 
-	 *  
-	 *  @return template id
-	 */
-
-    String templateId();
-    
-    /**
-     *  User variables that was used in Template to compose the message subject/body 
-     *  
-     *  @return user variables used to build message base on template
-     */
-    
-    Map<String, String> userVariables();
-    
-    /**
      *  Subject of the message 
      *  
      *  @return subject field
@@ -195,15 +170,6 @@ public interface Message {
 	 */
 
 	String htmlBody();
-	
-	/**
-	 *  Created MIME format of the message, with subject, body, attachments 
-	 *  that will be actually send 
-	 *  
-	 *  @return formatted MIME message
-	 */
-	
-	String mime();
 	
 	/**
 	 *  Message events, attempts of the delivery 

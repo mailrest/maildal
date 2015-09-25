@@ -18,7 +18,6 @@ package com.mailrest.maildal.repository;
 import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.Optional;
 
 import scala.Option;
@@ -80,12 +79,6 @@ public interface MessageRepository extends AbstractRepository {
 
 	    String bcc();
 	    
-	    String env();
-
-	    String templateId();
-	    
-	    Map<String, String> userVariables();
-	    
 		String subject();
 		
 		String textBody();
@@ -111,9 +104,6 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::toRecipients, newMessage.to())
 			.value(message::ccRecipients, newMessage.cc())
 			.value(message::bccRecipients, newMessage.bcc())
-			.value(message::env, newMessage.env())
-			.value(message::templateId, newMessage.templateId())
-			.value(message::userVariables, newMessage.userVariables())
 			.value(message::subject, newMessage.subject())
 			.value(message::textBody, newMessage.textBody())
 			.value(message::htmlBody, newMessage.htmlBody())
