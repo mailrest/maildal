@@ -15,8 +15,11 @@
  */
 package com.mailrest.maildal.support;
 
+import java.util.List;
+
 import com.mailrest.maildal.model.Message;
 import com.mailrest.maildal.model.MessageHeaders;
+import com.mailrest.maildal.model.MessageRecipient;
 
 public final class MessageToHeadersAdapter implements MessageHeaders {
 
@@ -27,22 +30,22 @@ public final class MessageToHeadersAdapter implements MessageHeaders {
 	}
 
 	@Override
-	public String fromRecipient() {
+	public MessageRecipient fromRecipient() {
 		return message.fromRecipient();
 	}
 
 	@Override
-	public String toRecipients() {
+	public List<MessageRecipient> toRecipients() {
 		return message.toRecipients();
 	}
 
 	@Override
-	public String ccRecipients() {
+	public List<MessageRecipient> ccRecipients() {
 		return message.ccRecipients();
 	}
 
 	@Override
-	public String bccRecipients() {
+	public List<MessageRecipient> bccRecipients() {
 		return message.bccRecipients();
 	}
 

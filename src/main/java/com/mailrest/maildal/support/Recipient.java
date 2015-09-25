@@ -17,10 +17,11 @@ package com.mailrest.maildal.support;
 
 import java.util.Optional;
 
+import com.mailrest.maildal.model.MessageRecipient;
 import com.noorq.casser.mapping.validator.EmailValidator;
 
 
-public final class Recipient {
+public final class Recipient implements MessageRecipient {
 
 	private final static EmailValidator VALIDATOR = new EmailValidator();
 	
@@ -41,12 +42,22 @@ public final class Recipient {
 		
 		this.email = email;
 	}
-
+	
 	public Optional<String> getName() {
 		return name;
 	}
 
 	public String getEmail() {
+		return email;
+	}
+	
+	@Override
+	public String recipientName() {
+		return name.orElse(null);
+	}
+
+	@Override
+	public String recipientEmail() {
 		return email;
 	}
 

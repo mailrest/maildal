@@ -18,6 +18,7 @@ package com.mailrest.maildal.repository;
 import static com.noorq.casser.core.Query.eq;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import scala.Option;
@@ -27,6 +28,7 @@ import com.datastax.driver.core.ResultSet;
 import com.mailrest.maildal.gen.Generators;
 import com.mailrest.maildal.model.Message;
 import com.mailrest.maildal.model.MessageEvent;
+import com.mailrest.maildal.model.MessageRecipient;
 import com.mailrest.maildal.model.MessageType;
 import com.noorq.casser.core.Casser;
 import com.noorq.casser.support.Fun;
@@ -71,13 +73,13 @@ public interface MessageRepository extends AbstractRepository {
 		
 		String collisionId();
 		
-		String from();
+		MessageRecipient from();
 		
-	    String to();
+	    List<MessageRecipient> to();
 
-	    String cc();
+	    List<MessageRecipient> cc();
 
-	    String bcc();
+	    List<MessageRecipient> bcc();
 	    
 		String subject();
 		

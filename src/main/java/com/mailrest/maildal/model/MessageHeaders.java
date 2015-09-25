@@ -15,6 +15,8 @@
  */
 package com.mailrest.maildal.model;
 
+import java.util.List;
+
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.UDT;
 
@@ -40,7 +42,7 @@ public interface MessageHeaders {
 	 */
 	
 	@Constraints.NotEmpty
-	String fromRecipient();
+	MessageRecipient fromRecipient();
 
 	/**
 	 *  to: field in the message
@@ -49,7 +51,7 @@ public interface MessageHeaders {
 	 */
 
 	@Constraints.NotEmpty
-	String toRecipients();
+	List<MessageRecipient> toRecipients();
 	
 	
 	/**
@@ -58,7 +60,7 @@ public interface MessageHeaders {
 	 *  @return cc field
 	 */
 	
-	String ccRecipients();
+	List<MessageRecipient> ccRecipients();
 	
 	/**
 	 *  bcc: field in the message 
@@ -66,7 +68,7 @@ public interface MessageHeaders {
 	 *  @return bcc field
 	 */
 	
-	String bccRecipients();
+	List<MessageRecipient> bccRecipients();
 	
 	/**
 	 *  subject: field in the message 

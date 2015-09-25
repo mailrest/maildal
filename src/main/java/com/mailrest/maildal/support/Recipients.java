@@ -16,22 +16,27 @@
 package com.mailrest.maildal.support;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import com.mailrest.maildal.model.MessageRecipient;
 
 
-public final class Recipients {
+public enum Recipients {
 
-	private Recipients() {
+	INSTANCE;
+
+	public List<MessageRecipient> parseMulti(String recipients, boolean ignoreErrors) {
+		List<MessageRecipient> list = new ArrayList<MessageRecipient>();
+		parseMulti(recipients, ignoreErrors, list);
+		return list;
 	}
 	
-	public static List<Recipient> parseMulti(String recipients, boolean ignoreErrors) {
+	public void parseMulti(String recipients, boolean ignoreErrors, List<? super Recipient> out) {
 		
 		if (recipients == null) {
 			
 			if (ignoreErrors) {
-				return Collections.emptyList();
+				return;
 			}
 			else {
 				throw new IllegalArgumentException("empty recipients");
@@ -42,8 +47,6 @@ public final class Recipients {
 		String[] arr = recipients.split(",");
 		int len = arr.length;
 		
-		List<Recipient> list = new ArrayList<Recipient>(len);
-		
 		for (int i = 0; i != len; ++i) {
 			
 			String value = arr[i].trim();
@@ -53,7 +56,7 @@ public final class Recipients {
 				if (ignoreErrors) {
 					
 					try {
-						list.add(parseSingle(value));
+						out.add(parseSingle(value));
 					}
 					catch(IllegalArgumentException e) {
 						// ignore
@@ -61,18 +64,17 @@ public final class Recipients {
 					
 				}
 				else {
-					list.add(parseSingle(value));
+					out.add(parseSingle(value));
 				}
 				
 			}
 			
 		}
-		
-		return list;
+
 	}
 
 
-	public static Recipient parseSingle(String recipient) {
+	public Recipient parseSingle(String recipient) {
 		
 		if (recipient == null) {
 			throw new IllegalArgumentException("empty recipient");
@@ -102,7 +104,7 @@ public final class Recipients {
 		
 	}
 	
-	private static String removeQuotes(String src) {
+	private String removeQuotes(String src) {
 		
 		while(!src.isEmpty()) {
 			

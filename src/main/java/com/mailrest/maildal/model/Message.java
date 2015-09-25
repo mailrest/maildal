@@ -120,7 +120,7 @@ public interface Message {
 	 */
 	
 	@Constraints.NotEmpty
-	String fromRecipient();
+	MessageRecipient fromRecipient();
 
 	/**
 	 *  to: field  
@@ -129,7 +129,7 @@ public interface Message {
 	 */
 
 	@Constraints.NotEmpty
-    String toRecipients();
+    List<MessageRecipient> toRecipients();
 
 	/**
 	 *  cc: field  
@@ -137,7 +137,7 @@ public interface Message {
 	 *  @return cc field
 	 */
 
-    String ccRecipients();
+	List<MessageRecipient> ccRecipients();
 
 	/**
 	 *  bcc: field  
@@ -145,7 +145,7 @@ public interface Message {
 	 *  @return bcc field
 	 */
 
-    String bccRecipients();
+	List<MessageRecipient> bccRecipients();
 
     /**
      *  Subject of the message 

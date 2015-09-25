@@ -15,6 +15,7 @@
  */
 package com.mailrest.maildal.support;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -25,7 +26,7 @@ public class RecipientsTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testSingleNull() {
 		
-		Recipients.parseSingle(null);
+		Recipients.INSTANCE.parseSingle(null);
 		
 	}
 	
@@ -33,14 +34,14 @@ public class RecipientsTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testMultiNull() {
 		
-		Recipients.parseMulti(null, false);
+		Recipients.INSTANCE.parseMulti(null, false);
 		
 	}
 	
 	@Test(expected=InvalidEmailException.class)
 	public void testSingleEmpty() {
 		
-		Recipients.parseSingle("");
+		Recipients.INSTANCE.parseSingle("");
 		
 	}
 	
@@ -48,14 +49,14 @@ public class RecipientsTest {
 	@Test
 	public void testMultiEmpty() {
 		
-		Assert.assertEquals(0, Recipients.parseMulti(",,,", false).size());
+		Assert.assertEquals(0, Recipients.INSTANCE.parseMulti(",,,", false).size());
 		
 	}
 	
 	@Test
 	public void testSingleAddressValid() {
 		
-		Recipient rec = Recipients.parseSingle("a@albertshift.com");
+		Recipient rec = Recipients.INSTANCE.parseSingle("a@albertshift.com");
 		
 		Assert.assertFalse(rec.getName().isPresent());
 		Assert.assertEquals("a@albertshift.com", rec.getEmail());
@@ -66,7 +67,7 @@ public class RecipientsTest {
 	@Test
 	public void testSingleNameAddressValid() {
 		
-		Recipient rec = Recipients.parseSingle("Albert Shift <a@albertshift.com>");
+		Recipient rec = Recipients.INSTANCE.parseSingle("Albert Shift <a@albertshift.com>");
 		
 		Assert.assertEquals("Albert Shift", rec.getName().get());
 		Assert.assertEquals("a@albertshift.com", rec.getEmail());
@@ -76,7 +77,7 @@ public class RecipientsTest {
 	@Test
 	public void testSingleNameAddressWithSingleQuoteValid() {
 		
-		Recipient rec = Recipients.parseSingle("'Albert Shift' <a@albertshift.com>");
+		Recipient rec = Recipients.INSTANCE.parseSingle("'Albert Shift' <a@albertshift.com>");
 		
 		Assert.assertEquals("Albert Shift", rec.getName().get());
 		Assert.assertEquals("a@albertshift.com", rec.getEmail());
@@ -86,7 +87,7 @@ public class RecipientsTest {
 	@Test
 	public void testSingleNameAddressWithDoubleSingleQuoteValid() {
 		
-		Recipient rec = Recipients.parseSingle("\"Albert Shift\" <a@albertshift.com>");
+		Recipient rec = Recipients.INSTANCE.parseSingle("\"Albert Shift\" <a@albertshift.com>");
 		
 		Assert.assertEquals("Albert Shift", rec.getName().get());
 		Assert.assertEquals("a@albertshift.com", rec.getEmail());
@@ -97,7 +98,9 @@ public class RecipientsTest {
 	@Test
 	public void testMultiNameAddressWithDoubleSingleQuoteValid() {
 		
-		List<Recipient> list = Recipients.parseMulti("\"Albert Shift\" <a@albertshift.com>, 'Albert Shift' <a@albertshift.com>", false);
+		List<Recipient> list = new ArrayList<Recipient>();
+		
+		Recipients.INSTANCE.parseMulti("\"Albert Shift\" <a@albertshift.com>, 'Albert Shift' <a@albertshift.com>", false, list);
 		
 		for (Recipient rec : list) {
 			Assert.assertEquals("Albert Shift", rec.getName().get());
@@ -108,8 +111,10 @@ public class RecipientsTest {
 	
 	@Test
 	public void testMultiNameAddressWithDoubleSingleQuoteValidWithErrors() {
-		
-		List<Recipient> list = Recipients.parseMulti("\"Albert Shift\" <a@albertshift.com>, 'Albert Shift' <a@albertshift.com>, ffffff", true);
+
+		List<Recipient> list = new ArrayList<Recipient>();
+
+		Recipients.INSTANCE.parseMulti("\"Albert Shift\" <a@albertshift.com>, 'Albert Shift' <a@albertshift.com>, ffffff", true, list);
 		
 		for (Recipient rec : list) {
 			Assert.assertEquals("Albert Shift", rec.getName().get());

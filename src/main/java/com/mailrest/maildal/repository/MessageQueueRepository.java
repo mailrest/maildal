@@ -26,6 +26,7 @@ import scala.concurrent.Future;
 
 import com.datastax.driver.core.ResultSet;
 import com.mailrest.maildal.model.MessageQueue;
+import com.mailrest.maildal.model.MessageRecipient;
 import com.noorq.casser.core.Casser;
 import com.noorq.casser.support.Timeuuid;
 
@@ -67,7 +68,7 @@ public interface MessageQueueRepository extends AbstractRepository {
 		
 	}
 	
-	default Future<ResultSet> enqueueMessage(int bucket, String messageId, Date deliveryAt, int attempt) {
+	default Future<ResultSet> enqueueMessage(int bucket, String messageId, Date deliveryAt, int attempt, MessageRecipient recipient) {
 		
 		return session()
 				.insert()
@@ -75,6 +76,7 @@ public interface MessageQueueRepository extends AbstractRepository {
 				.value(messageQueue::messageId, messageId)
 				.value(messageQueue::deliveryAt, Timeuuid.of(deliveryAt))
 				.value(messageQueue::attempt, attempt)
+				.value(messageQueue::recipient, recipient)
 				.value(messageQueue::peeked, false)
 				.future();
 	}
@@ -87,6 +89,7 @@ public interface MessageQueueRepository extends AbstractRepository {
 				.value(messageQueue::messageId, msg.messageId())
 				.value(messageQueue::deliveryAt, Timeuuid.of(deliveryAt))
 				.value(messageQueue::attempt, msg.attempt() + 1)
+				.value(messageQueue::recipient, msg.recipient())
 				.value(messageQueue::peeked, false)
 				.sync();
 	}
