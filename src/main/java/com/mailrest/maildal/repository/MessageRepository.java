@@ -68,6 +68,8 @@ public interface MessageRepository extends AbstractRepository {
 	    String cc();
 
 	    String bcc();
+	    
+	    String env();
 
 	    String templateId();
 	    
@@ -98,6 +100,7 @@ public interface MessageRepository extends AbstractRepository {
 			.value(message::toRecipients, newMessage.to())
 			.value(message::ccRecipients, newMessage.cc())
 			.value(message::bccRecipients, newMessage.bcc())
+			.value(message::env, newMessage.env())
 			.value(message::templateId, newMessage.templateId())
 			.value(message::userVariables, newMessage.userVariables())
 			.value(message::subject, newMessage.subject())

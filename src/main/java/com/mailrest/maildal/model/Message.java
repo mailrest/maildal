@@ -137,6 +137,14 @@ public interface Message {
 
     String bccRecipients();
 
+    /**
+     * User to differ messages for 'test' and 'prod' environments
+     * 
+     * @return environment name
+     */
+    
+    String env();
+    
 	/**
 	 *  Template that was used to compose this message subject/body 
 	 *  
