@@ -53,7 +53,7 @@ public interface Template {
 	 */
 	
 	@Constraints.NotNull
-	TemplateEngine engine();
+	TemplateEngineType engine();
 	
 	/**
 	 *  Optional field that will be placed to the "from:" field in the Message 

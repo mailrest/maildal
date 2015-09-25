@@ -16,7 +16,7 @@
 package com.mailrest.maildal.model;
 
 /**
- *  TemplateEngine type 
+ *  TemplateEngineType 
  *
  *  User can have no template engine, so for this case we are using NO type
  *  
@@ -24,24 +24,46 @@ package com.mailrest.maildal.model;
  *
  */
 
-public enum TemplateEngine {
+public enum TemplateEngineType {
 
 	/**
 	 * Do not use template engine (in case of non-personalized messages)
 	 */
 	
-	NO,
+	NO(""),
 	
 	/**
-	 *  Well known legacy template engine
+	 *  Mustache template language for Java/Scala
 	 */
-	
-	VELOCITY,
 
+	MUSTACHE(".mustashe"),
+	
 	/**
-	 *  New template engine for Scala
-	 */
-
-	MUSTACHE;
+	*   The Jade style of Haml/Scaml template lanaguage
+	*/
 	
+	JADE(".jade"),
+	
+	/**
+	*   Provides Haml style template lanaguage
+	*/
+	
+	SCAML(".scaml"),
+	
+	/**
+	*  Provides a JSP, Erb and Velocity style template language
+	*/
+	
+	SSP(".ssp");
+
+	private String extension;
+	
+	private TemplateEngineType(String extension) {
+		this.extension = extension;
+	}
+
+	public String getExtension() {
+		return extension;
+	}
+
 }
