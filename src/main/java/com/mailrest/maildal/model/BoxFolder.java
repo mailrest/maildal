@@ -15,7 +15,6 @@
  */
 package com.mailrest.maildal.model;
 
-import com.mailrest.maildal.model.constraint.FolderId;
 import com.noorq.casser.mapping.annotation.UDT;
 
 /**
@@ -40,7 +39,7 @@ public interface BoxFolder {
 	 *  @return folder id
 	 */		
 	
-	@FolderId
+	@IdConstraints.FolderId
 	String folderId();
 	
 	/**

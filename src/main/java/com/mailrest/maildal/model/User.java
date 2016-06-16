@@ -15,8 +15,6 @@
  */
 package com.mailrest.maildal.model;
 
-import com.mailrest.maildal.model.constraint.AccountId;
-import com.mailrest.maildal.model.constraint.UserId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -41,7 +39,7 @@ public interface User {
 	 */
 	
 	@PartitionKey
-	@UserId
+	@IdConstraints.UserId
 	String userId();
 
 	/**
@@ -60,7 +58,7 @@ public interface User {
 	 *  @return account id
 	 */
 	
-	@AccountId
+	@IdConstraints.AccountId
 	String accountId();
 	
 	/**

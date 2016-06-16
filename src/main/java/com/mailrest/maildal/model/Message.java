@@ -18,9 +18,6 @@ package com.mailrest.maildal.model;
 import java.util.Date;
 import java.util.List;
 
-import com.mailrest.maildal.model.constraint.AccountId;
-import com.mailrest.maildal.model.constraint.DomainId;
-import com.mailrest.maildal.model.constraint.MessageId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
 import com.noorq.casser.mapping.annotation.Table;
@@ -58,7 +55,7 @@ public interface Message {
 	 */
 
 	@PartitionKey
-	@MessageId
+	@IdConstraints.MessageId
 	String messageId();
 
 	/**
@@ -93,7 +90,7 @@ public interface Message {
 	 *  @return account id
 	 */
 	
-	@AccountId
+	@IdConstraints.AccountId
 	String accountId();
 	
 	/**
@@ -102,7 +99,7 @@ public interface Message {
 	 *  @return domain id
 	 */
 	
-	@DomainId
+	@IdConstraints.DomainId
 	String domainId();
 	
 	/**

@@ -17,9 +17,6 @@ package com.mailrest.maildal.model;
 
 import java.util.UUID;
 
-import com.mailrest.maildal.model.constraint.AccountId;
-import com.mailrest.maildal.model.constraint.DomainId;
-import com.mailrest.maildal.model.constraint.MessageId;
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
@@ -47,7 +44,7 @@ public interface MessageLog {
 	 */
 	
 	@PartitionKey(ordinal=0)
-	@AccountId
+	@IdConstraints.AccountId
 	String accountId();
 
 	/**
@@ -57,7 +54,7 @@ public interface MessageLog {
 	 */
 
 	@PartitionKey(ordinal=1)
-	@DomainId
+	@IdConstraints.DomainId
 	String domainId();
 	
 	/**
@@ -96,7 +93,7 @@ public interface MessageLog {
 	 *  @return message id
 	 */
 	
-	@MessageId
+	@IdConstraints.MessageId
 	String messageId();
 
 	/**

@@ -17,8 +17,6 @@ package com.mailrest.maildal.model;
 
 import java.util.UUID;
 
-import com.mailrest.maildal.model.constraint.AccountId;
-import com.mailrest.maildal.model.constraint.DomainId;
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
@@ -82,7 +80,7 @@ public interface DomainVerificationQueue {
 	 *  @return account id
 	 */
 	
-	@AccountId
+	@IdConstraints.AccountId
 	String accountId();
 
 	/**
@@ -91,7 +89,7 @@ public interface DomainVerificationQueue {
 	 *  @return domain id
 	 */
 	
-	@DomainId
+	@IdConstraints.DomainId
 	String domainId();
 
 }

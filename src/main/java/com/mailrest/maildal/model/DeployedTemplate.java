@@ -17,9 +17,6 @@ package com.mailrest.maildal.model;
 
 import java.util.Date;
 
-import com.mailrest.maildal.model.constraint.AccountId;
-import com.mailrest.maildal.model.constraint.DomainId;
-import com.mailrest.maildal.model.constraint.TemplateId;
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
@@ -46,7 +43,7 @@ public interface DeployedTemplate {
 	 */
 	
 	@PartitionKey(ordinal=0)
-	@AccountId
+	@IdConstraints.AccountId
 	String accountId();
 	
 	/**
@@ -61,7 +58,7 @@ public interface DeployedTemplate {
 	 */
 	
 	@PartitionKey(ordinal=1)
-	@DomainId
+	@IdConstraints.DomainId
 	String domainId();
 	
 	/**
@@ -72,7 +69,7 @@ public interface DeployedTemplate {
 	 */
 	
 	@ClusteringColumn(ordinal=0)
-	@TemplateId
+	@IdConstraints.TemplateId
 	String templateId();
 
 	/**

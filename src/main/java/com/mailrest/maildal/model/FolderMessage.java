@@ -17,11 +17,6 @@ package com.mailrest.maildal.model;
 
 import java.util.UUID;
 
-import com.mailrest.maildal.model.constraint.AccountId;
-import com.mailrest.maildal.model.constraint.BoxId;
-import com.mailrest.maildal.model.constraint.DomainId;
-import com.mailrest.maildal.model.constraint.FolderId;
-import com.mailrest.maildal.model.constraint.MessageId;
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
@@ -44,7 +39,7 @@ public interface FolderMessage {
 	 */
 	
 	@PartitionKey(ordinal=0)
-	@AccountId
+	@IdConstraints.AccountId
 	String accountId();
 
 	/**
@@ -54,7 +49,7 @@ public interface FolderMessage {
 	 */
 	
 	@PartitionKey(ordinal=1)
-	@DomainId
+	@IdConstraints.DomainId
 	String domainId();
 
 	/**
@@ -64,7 +59,7 @@ public interface FolderMessage {
 	 */
 	
 	@PartitionKey(ordinal=2)
-	@BoxId
+	@IdConstraints.BoxId
 	String boxId();
 
 	/**
@@ -74,7 +69,7 @@ public interface FolderMessage {
 	 */		
 	
 	@PartitionKey(ordinal=3)
-	@FolderId
+	@IdConstraints.FolderId
 	String folderId();
 	
 	/**
@@ -95,7 +90,7 @@ public interface FolderMessage {
 	 *  @return message id
 	 */
 	
-	@MessageId
+	@IdConstraints.MessageId
 	String messageId();
 	
 	/**

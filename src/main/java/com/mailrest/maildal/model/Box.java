@@ -17,9 +17,6 @@ package com.mailrest.maildal.model;
 
 import java.util.Map;
 
-import com.mailrest.maildal.model.constraint.AccountId;
-import com.mailrest.maildal.model.constraint.BoxId;
-import com.mailrest.maildal.model.constraint.DomainId;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.PartitionKey;
@@ -42,7 +39,7 @@ public interface Box {
 	 */
 	
 	@PartitionKey(ordinal=0)
-	@AccountId
+	@IdConstraints.AccountId
 	String accountId();
 
 	/**
@@ -52,7 +49,7 @@ public interface Box {
 	 */
 	
 	@PartitionKey(ordinal=1)
-	@DomainId
+	@IdConstraints.DomainId
 	String domainId();
 	
 	/**
@@ -66,7 +63,7 @@ public interface Box {
 	 */	
 	
 	@ClusteringColumn
-	@BoxId
+	@IdConstraints.BoxId
 	String boxId();
 	
 	/**

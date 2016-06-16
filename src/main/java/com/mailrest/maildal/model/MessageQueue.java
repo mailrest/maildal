@@ -17,7 +17,6 @@ package com.mailrest.maildal.model;
 
 import java.util.UUID;
 
-import com.mailrest.maildal.model.constraint.MessageId;
 import com.noorq.casser.mapping.OrderingDirection;
 import com.noorq.casser.mapping.annotation.ClusteringColumn;
 import com.noorq.casser.mapping.annotation.Constraints;
@@ -88,7 +87,7 @@ public interface MessageQueue {
 	 *  @return message id
 	 */
 	
-	@MessageId
+	@IdConstraints.MessageId
 	String messageId();
 
 	/**

@@ -15,7 +15,6 @@
  */
 package com.mailrest.maildal.model;
 
-import com.mailrest.maildal.model.constraint.EmailId;
 import com.noorq.casser.mapping.annotation.UDT;
 
 /**
@@ -39,7 +38,7 @@ public interface MessageRecipient {
 	 *  @return parsed and extracted email from recipient, in order to check correctness
 	 */
 	
-	@EmailId
+	@IdConstraints.EmailId
 	String recipientEmail();
 
 }

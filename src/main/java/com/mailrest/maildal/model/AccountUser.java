@@ -15,7 +15,6 @@
  */
 package com.mailrest.maildal.model;
 
-import com.mailrest.maildal.model.constraint.UserId;
 import com.noorq.casser.mapping.annotation.Constraints;
 import com.noorq.casser.mapping.annotation.UDT;
 
@@ -40,7 +39,7 @@ public interface AccountUser {
 	 *  @return user id 
 	 */
 	
-	@UserId
+	@IdConstraints.UserId
 	String userId();
 
 	/**
